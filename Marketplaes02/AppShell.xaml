@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="Marketplaes02.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:Marketplaes02"
+     xmlns:view="clr-namespace:Marketplaes02.View"
+    Shell.FlyoutBehavior="Disabled"
+      Shell.TabBarTitleColor="DeepSkyBlue"  Shell.NavBarIsVisible="False"
+         Shell.TabBarBackgroundColor="LightCyan" Shell.BackgroundColor="DeepSkyBlue"
+   >
+    <TabBar  Shell.NavBarIsVisible="True">
+        <ShellContent Title="ViewUser_autorizasiya"
+               ContentTemplate="{DataTemplate view:ViewUser_autorizasiya}"
+                          Route="ViewUser_autorizasiya"
+               />
+       
+    </TabBar>
+
+    <TabBar >
+
+        <ShellContent Route="glavnaya" Title="Главная" Icon="Glavnaya.png"
+                   ContentTemplate="{DataTemplate view:ViewGoods}"
+          
+                />
+        <ShellContent Route="kategoriya" Title="Категория" Icon="pois_po_katalogu.png"
+           ContentTemplate="{DataTemplate view:ViewKategoriya}"
+  
+        />
+        <ShellContent Route="profil"  Title="Профиль" Icon="Profil.png" 
+                 
+            />
+    </TabBar>
+</Shell>

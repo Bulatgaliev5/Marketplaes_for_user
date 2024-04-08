@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Marketplaes02.View.ViewProfil"   Background="Azure"
+             Title="ViewProfil">
+    <StackLayout >
+
+
+        <Label x:Name="NameUser"  HorizontalOptions="StartAndExpand" Style="{DynamicResource LabProfil}" />
+
+
+
+
+        <Frame  x:Name="FrameZakaziKlienta" Margin="10" Padding="0" Style="{DynamicResource FrameGlavnaya}">
+            <StackLayout >
+                <Label HorizontalOptions="StartAndExpand" Text="Мои аказы" Style="{DynamicResource LabProfil}" />
+                <Frame  x:Name="FAktev_zakaz" Margin="0"  Padding="0" Style="{DynamicResource FrameGlavnaya}">
+                    <StackLayout Orientation="Horizontal" Margin="10" >
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer
+                          Tapped="Selet_Aktev_zakaz" />
+                        </StackLayout.GestureRecognizers>
+                        <Image HeightRequest="50" Source="Aktiv_zakaz.png"/>
+                        <Label Text="Мои заказы" Style="{DynamicResource LabProfil}"/>
+                    </StackLayout>
+                </Frame>
+
+                <!--<Frame x:Name="FArhiv_zakaz" Margin="0"   Padding="0" Style="{DynamicResource FrameGlavnaya}">
+                    <StackLayout Orientation="Horizontal" Margin="10"  >
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer
+                          Tapped="Selet_Arhiv_zakaz" />
+                        </StackLayout.GestureRecognizers>
+                        <Image HeightRequest="50" Source="Aktiv_zakaz.png"/>
+                        <Label Text="Архивные заказы" Style="{DynamicResource LabProfil}"/>
+                    </StackLayout>
+                </Frame>-->
+            </StackLayout>
+        </Frame>
+
+
+     
+
+
+        <Frame VerticalOptions="End"   x:Name="O_APP"  Margin="10"  Padding="0" Style="{DynamicResource FrameGlavnaya}">
+            <StackLayout Orientation="Horizontal" Margin="10" >
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer
+                               Tapped="FrameO_APP" />
+                </StackLayout.GestureRecognizers>
+                <Image HeightRequest="50" Source="O_APP.png"/>
+                <Label Text="О приложении" Style="{DynamicResource LabProfil}"/>
+            </StackLayout>
+        </Frame>
+
+        <Frame VerticalOptions="EndAndExpand"   x:Name="ExitIsProfile"  Margin="10"  Padding="0" Style="{DynamicResource FrameGlavnaya}">
+            <StackLayout Orientation="Horizontal" Margin="10" >
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer
+                               Tapped="FrameExitIsProfile" />
+                </StackLayout.GestureRecognizers>
+                <Image HeightRequest="50" Source="Exit.png"/>
+                <Label Text="Выйти" Style="{DynamicResource LabProfil}"/>
+            </StackLayout>
+        </Frame>
+    </StackLayout>
+</ContentPage>

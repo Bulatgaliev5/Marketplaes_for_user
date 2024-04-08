@@ -1,0 +1,109 @@
+﻿<?xml version = "1.0" encoding = "UTF-8" ?>
+<Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Marketplaes02"
+             x:Class="Marketplaes02.App">
+    <Application.Resources>
+        
+        <Style x:Key="IsbranImBt" TargetType="ImageButton">
+            <Setter Property="WidthRequest" Value="50"/>
+            <Setter Property="HeightRequest" Value="50"/>
+        </Style>
+        <Style TargetType="Image" x:Key="ImageGlavGoods">
+            <Setter Property="Aspect" Value="AspectFit"/>
+        </Style>
+        <Style TargetType="Frame" x:Key="FrameImageGood">
+            <Setter Property="WidthRequest" Value="150" />
+            <Setter Property="HeightRequest"  Value="140" />
+            <Setter Property="Padding"  Value="2" />
+            <Setter Property="CornerRadius"  Value="15" />
+            <Setter Property="Background"  Value="Snow" />
+        </Style>
+        <Style TargetType="Frame" BasedOn="{StaticResource FrameImageGood}" x:Key="Fram_My_zakazi">
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="HeightRequest" Value="100"/>
+            <Setter Property="WidthRequest" Value="100"/>
+        </Style>
+        <Style TargetType="Button" x:Key="VKorzinuBut">
+            <Setter Property="Background" Value="DeepSkyBlue"/>
+            <Setter Property="BackgroundColor" Value="White"/>
+            <Setter Property="FontSize" Value="Caption"/>
+            <Setter Property="TextColor" Value="White"/>
+            <Setter Property="CornerRadius" Value="15"/>
+            <Setter Property="VerticalOptions" Value="End"/>
+            <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
+        </Style>
+        <Style TargetType="Image" x:Key="ImgKartochkaGoods" BasedOn="{StaticResource ImageGlavGoods}">
+        </Style>
+        <Style TargetType="Button" x:Key="BtBuySichas">
+            <Setter Property="BackgroundColor" Value="Orange"/>
+            <Setter Property="CornerRadius" Value="15"/>
+            <Setter Property="TextColor" Value="White"/>
+            <Setter Property="WidthRequest" Value="170"/>
+            <Setter Property="TextTransform" Value="None"/>
+        </Style>
+        <Style TargetType="Button" x:Key="BtKorzina" BasedOn="{StaticResource BtBuySichas}">
+            <Setter Property="BackgroundColor" Value="Dodgerblue"/>
+        </Style>
+
+        <Style TargetType="Frame" x:Key="FrameGlavnaya">
+            <Setter Property="BorderColor" Value="PaleTurquoise"/>
+            <Setter Property="CornerRadius" Value="15"/>
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+        <Style TargetType="Entry" x:Key="EntryLogin">
+            <Setter Property="WidthRequest" Value="100"/>
+            <Setter Property="VerticalOptions" Value="Fill"/>
+            <Setter Property="BackgroundColor"  Value="Azure"/>
+            <Setter Property="Placeholder" Value="Логин"/>
+        </Style>
+
+        <Style TargetType="Entry" x:Key="EntryPass" BasedOn="{StaticResource EntryLogin}">
+            <Setter Property="Placeholder" Value="Пароль"/>
+        </Style>
+
+        <Style TargetType="Label" x:Key="LabDobr">
+            <Setter Property="FontSize" Value="Large"/>
+            <Setter Property="FontAttributes" Value="Bold" />
+            <Setter Property="HorizontalOptions" Value="Center"/>
+            <Setter Property="Margin" Value="20"/>
+        </Style>
+
+        <Style TargetType="Label" x:Key="LabZapol" BasedOn="{StaticResource LabDobr}">
+            <Setter Property="FontAttributes" Value="None"/>
+            <Setter Property="FontSize" Value="Default"/>
+            <Setter Property="Margin" Value="0,0,0,20"/>
+        </Style>
+        <Style TargetType="Button" x:Key="BtVoiti">
+            <Setter Property="Background" Value="DeepSkyBlue"/>
+            <Setter Property="BackgroundColor" Value="Dodgerblue"/>
+            <Setter Property="TextColor" Value="White"/>
+        </Style>
+
+        <Style TargetType="Label" x:Key="LabProfil">
+            <Setter Property="HorizontalOptions" Value="Center"/>
+            <Setter Property="VerticalOptions" Value="Center"/>
+            <Setter Property="Margin" Value="10,0,0,0"/>
+            <Setter Property="TextColor" Value="Black"/>
+            <Setter Property="FontSize" Value="Medium"/>
+        </Style>
+
+
+        <Style TargetType="Button" x:Key="BtZakazat" BasedOn="{StaticResource BtVoiti}">
+            <Setter Property="Margin" Value="15,15,15,0"/>
+            <Setter Property="CornerRadius" Value="15"/>
+        </Style>
+
+        <Style TargetType="Button" x:Key="BtEditAdressDostavki" BasedOn="{StaticResource BtZakazat}">
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="CornerRadius" Value="15"/>
+        </Style>
+        <Style TargetType="Frame" x:Key="FrameSearch">
+            <Setter Property="BorderColor" Value="PaleTurquoise"/>
+            <Setter Property="CornerRadius" Value="15"/>
+            <Setter Property="Margin" Value="1"/>
+            <Setter Property="Padding" Value="4"/>
+        </Style>
+    </Application.Resources>
+</Application>
