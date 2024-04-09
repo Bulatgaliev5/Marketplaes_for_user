@@ -13,9 +13,10 @@
             <Setter Property="Aspect" Value="AspectFit"/>
         </Style>
         <Style TargetType="Frame" x:Key="FrameImageGood">
-            <Setter Property="WidthRequest" Value="150" />
-            <Setter Property="HeightRequest"  Value="140" />
-            <Setter Property="Padding"  Value="2" />
+           
+            <Setter Property="HeightRequest"  Value="200" />
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="Padding" Value="0"/>
             <Setter Property="CornerRadius"  Value="15" />
             <Setter Property="Background"  Value="Snow" />
         </Style>
@@ -31,7 +32,9 @@
             <Setter Property="FontSize" Value="Caption"/>
             <Setter Property="TextColor" Value="White"/>
             <Setter Property="CornerRadius" Value="15"/>
+            <Setter Property="HeightRequest" Value="35"/>
             <Setter Property="VerticalOptions" Value="End"/>
+           
             <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
         </Style>
         <Style TargetType="Image" x:Key="ImgKartochkaGoods" BasedOn="{StaticResource ImageGlavGoods}">
@@ -42,6 +45,8 @@
             <Setter Property="TextColor" Value="White"/>
             <Setter Property="WidthRequest" Value="170"/>
             <Setter Property="TextTransform" Value="None"/>
+            <Setter Property="Margin" Value="5,5,5,35"/>
+            <Setter Property="HeightRequest" Value="50"/>
         </Style>
         <Style TargetType="Button" x:Key="BtKorzina" BasedOn="{StaticResource BtBuySichas}">
             <Setter Property="BackgroundColor" Value="Dodgerblue"/>
@@ -53,10 +58,11 @@
             <Setter Property="Margin" Value="5"/>
         </Style>
         <Style TargetType="Entry" x:Key="EntryLogin">
-            <Setter Property="WidthRequest" Value="100"/>
+            <Setter Property="WidthRequest" Value="300"/>
             <Setter Property="VerticalOptions" Value="Fill"/>
             <Setter Property="BackgroundColor"  Value="Azure"/>
             <Setter Property="Placeholder" Value="Логин"/>
+            <Setter Property="Margin" Value="5"/>
         </Style>
 
         <Style TargetType="Entry" x:Key="EntryPass" BasedOn="{StaticResource EntryLogin}">
@@ -86,6 +92,23 @@
             <Setter Property="VerticalOptions" Value="Center"/>
             <Setter Property="Margin" Value="10,0,0,0"/>
             <Setter Property="TextColor" Value="Black"/>
+            <Setter Property="FontSize" Value="Header"/>
+        </Style>
+
+        <Style TargetType="Label" x:Key="LabPrice">
+            <Setter Property="HorizontalOptions" Value="Start"/>
+            <Setter Property="VerticalOptions" Value="Center"/>
+            <Setter Property="Margin" Value="10,0,0,0"/>
+            <Setter Property="TextColor" Value="gray"/>
+            <Setter Property="FontSize" Value="Header"/>
+            <Setter Property="TextDecorations" Value="Strikethrough"/>
+        </Style>
+
+        <Style TargetType="Label" x:Key="LabSale">
+            <Setter Property="HorizontalOptions" Value="Start"/>
+            <Setter Property="VerticalOptions" Value="Center"/>
+            <Setter Property="Margin" Value="10,0,0,0"/>
+            <Setter Property="TextColor" Value="DeepSkyBlue"/>
             <Setter Property="FontSize" Value="Medium"/>
         </Style>
 
@@ -105,5 +128,27 @@
             <Setter Property="Margin" Value="1"/>
             <Setter Property="Padding" Value="4"/>
         </Style>
+        <Style TargetType="Frame" x:Key="FrameDiscount">
+            <Setter Property="WidthRequest" Value="50"/>
+            <Setter Property="HeightRequest" Value="10"/>
+            <Setter Property="HorizontalOptions" Value="Start"/>
+      
+            <Setter Property="VerticalOptions" Value="Start"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Padding" Value="0,10,0,0"/>
+            <Setter Property="CornerRadius" Value="15"/>
+            <Setter Property="Background" Value="#F6D7D7"/>
+
+        </Style>
+
+        <Style TargetType="Label" x:Key="LabelDiscount">
+            <Setter Property="HorizontalTextAlignment" Value="Center"/>
+            <Setter Property="VerticalTextAlignment" Value="End"/>
+            <Setter Property="HorizontalOptions" Value="Center"/>
+            <Setter Property="VerticalOptions" Value="End"/>
+            <Setter Property="TextColor" Value="Red"/>
+
+        </Style>
+
     </Application.Resources>
 </Application>

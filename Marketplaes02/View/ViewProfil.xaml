@@ -2,6 +2,8 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Marketplaes02.View.ViewProfil"   Background="Azure"
+            
+             xmlns:AlohaKit.Animations="clr-namespace:AlohaKit.Animations;assembly=AlohaKit.Animations"
              Title="ViewProfil">
     <StackLayout >
 
@@ -9,7 +11,7 @@
         <Label x:Name="NameUser"  HorizontalOptions="StartAndExpand" Style="{DynamicResource LabProfil}" />
 
 
-
+       
 
         <Frame  x:Name="FrameZakaziKlienta" Margin="10" Padding="0" Style="{DynamicResource FrameGlavnaya}">
             <StackLayout >
@@ -37,9 +39,8 @@
                 </Frame>-->
             </StackLayout>
         </Frame>
+        
 
-
-     
 
 
         <Frame VerticalOptions="End"   x:Name="O_APP"  Margin="10"  Padding="0" Style="{DynamicResource FrameGlavnaya}">

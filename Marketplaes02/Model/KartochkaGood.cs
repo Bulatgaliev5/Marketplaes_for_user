@@ -5,13 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-
 namespace Marketplaes02.Model
 {
-    public class Goods : INotifyPropertyChanged
+     public class KartochkaGood : INotifyPropertyChanged
     {
-        private int _Discount;
-        private float _Price_with_discount;
         /// <summary>
         /// Поле ID_goods
         /// </summary>
@@ -24,25 +21,44 @@ namespace Marketplaes02.Model
         /// Поле Цена
         /// </summary>
         private float _Price;
-        
+
+        /// <summary>
+        /// Поле Цена
+        /// </summary>
+        private float _Price_with_discount;
+
         /// <summary>
         /// Поле Изображение изделия
         /// </summary>
         private string _Image;
 
         /// <summary>
+        /// Поле Описание товара
+        /// </summary>
+        private string _Description;
+
+
+        /// <summary>
+        /// Свойство Описание товара
+        /// </summary>
+        public string Description
+        {
+            get => _Description;
+            set
+            {
+                _Description = value;
+                OnPropertyChanged("Description");
+
+            }
+        }
+
+        /// <summary>
         /// Свойсва ID_goods
         /// </summary>
         /// 
-        public int Discount
-        {
-            get => _Discount;
-            set
-            {
-                _Discount = value;
-                OnPropertyChanged("Discount");
-            }
-        }
+
+
+
         public int ID_goods
         {
             get => _ID_goods;
@@ -53,7 +69,7 @@ namespace Marketplaes02.Model
             }
         }
         /// <summary>
-        /// Свойсва Название
+        /// Свойсва Название изделия
         /// </summary>
         public string Name
         {
@@ -78,6 +94,7 @@ namespace Marketplaes02.Model
 
             }
         }
+
         public float Price_with_discount
         {
             get => _Price_with_discount;
@@ -89,7 +106,7 @@ namespace Marketplaes02.Model
             }
         }
         /// <summary>
-        /// Свойства Изображение товара
+        /// Свойства Изображение изделия
         /// </summary>
         public string Image
         {
@@ -111,6 +128,5 @@ namespace Marketplaes02.Model
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
 
         }
-
     }
 }

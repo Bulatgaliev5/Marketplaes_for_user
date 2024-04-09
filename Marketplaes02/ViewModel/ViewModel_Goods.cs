@@ -62,7 +62,7 @@ namespace Marketplaes02.ViewModel
         {
             // Строка запроса
             string
-                sql = "SELECT * FROM goods";
+                sql = "SELECT t1.*, t2.Image FROM goods t1 JOIN imagesgoods t2 ON t1.ImageID = t2.ImageID";
 
             // Объявление переменной на основе класс подключения:
             // >    Connector conn
@@ -108,9 +108,8 @@ namespace Marketplaes02.ViewModel
                     Name = reader["Name"].ToString(),
                     Price = Convert.ToSingle(reader["Price"]),
                     Image = reader["Image"].ToString(),
-                   
-
-
+                    Price_with_discount = Convert.ToSingle(reader["Price_with_discount"]),
+                    Discount = Convert.ToInt32(reader["Discount"]),
                 });
 
                 // await Task.Delay(1000);

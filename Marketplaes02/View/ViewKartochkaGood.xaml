@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Marketplaes02.View.ViewKartochkaGood"
+            
+             Title="ViewKartochkaGood">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="100"/>
+        </Grid.RowDefinitions>
+        <ScrollView Grid.Row="0">
+            <StackLayout >
+                
+                <VerticalStackLayout  Padding="0">
+                    <Frame Padding="0" Margin="5" HeightRequest="400" Style="{DynamicResource FrameGlavnaya}">
+                    <CarouselView ItemsSource="{Binding ImagesGoodsList}" IndicatorView="indicatorView">
+                        <CarouselView.ItemTemplate>
+                            <DataTemplate>
+                                <Frame>
+                                    <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center">
+
+                                        <Image HorizontalOptions="CenterAndExpand" Aspect="AspectFill" Source="{Binding ImageGoods}" />
+                                        
+                                    </VerticalStackLayout>
+                                </Frame>
+                            </DataTemplate>
+                        </CarouselView.ItemTemplate>
+                    </CarouselView>
+                    </Frame>
+                    <IndicatorView Margin="0, 0, 0, 0" x:Name="indicatorView"
+                   IndicatorColor="DeepSkyBlue"
+                   SelectedIndicatorColor="Dodgerblue" 
+                   HorizontalOptions="Center" />
+                   
+                </VerticalStackLayout>
+                
+
+                <Frame  Style="{DynamicResource FrameGlavnaya}">
+                    <StackLayout HorizontalOptions="Start"  Orientation="Horizontal">
+
+
+                        <Label Style="{DynamicResource LabSale}" Text="{Binding Price_with_discount,StringFormat='{0} ₽'}"/>
+                        <Label Style="{DynamicResource LabPrice}" Text="{Binding Price,StringFormat='{0} ₽'}"/>
+                    </StackLayout>
+                </Frame>
+
+
+            </StackLayout>
+        </ScrollView>
+        <StackLayout Grid.Row="1" HorizontalOptions="Center" VerticalOptions="EndAndExpand" Orientation="Horizontal">
+
+            <Button 
+               Style="{DynamicResource BtBuySichas}" Text="Купить сейчас" Clicked="btzakazat"/>
+            <Button VerticalOptions="End"  Style="{DynamicResource BtKorzina}"
+                Text="В корзину"/>
+        </StackLayout>
+
+    </Grid>
+</ContentPage>

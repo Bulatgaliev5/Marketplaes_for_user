@@ -7,6 +7,8 @@ namespace Marketplaes02.View;
 public partial class ViewUser_autorizasiya : ContentPage
 {
     ViewModelUser viewModelUser = new ViewModelUser();
+    public string
+           UserName;
     public ViewUser_autorizasiya()
 	{
 		InitializeComponent();
@@ -42,12 +44,13 @@ public partial class ViewUser_autorizasiya : ContentPage
         if (!readed.HasRows)
         {
             await con.GetCloseBD();
-            // await DisplayAlert("Ошибка", "Не правильный логин или пароль", "Ок");
+            await DisplayAlert("Ошибка", "Не правильный логин или пароль", "Ок");
             return false;
         }
         while (await readed.ReadAsync())
         {
-            /* UserName = Convert.ToString(readed["UserName"]);*/
+           UserName = Convert.ToString(readed["Name"]);
+            Preferences.Default.Set("UserName", UserName); // Строковое значение
             //  Role_name = Convert.ToString(readed["RoleName"]);
             // Role_id = Convert.ToInt32(readed["RoleID"]);
             // ID_User = Convert.ToInt32(readed["UserID"]);

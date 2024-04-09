@@ -6,7 +6,7 @@
     xmlns:local="clr-namespace:Marketplaes02"
      xmlns:view="clr-namespace:Marketplaes02.View"
     Shell.FlyoutBehavior="Disabled"
-      Shell.TabBarTitleColor="DeepSkyBlue"  Shell.NavBarIsVisible="False"
+      Shell.TabBarTitleColor="DeepSkyBlue"  
          Shell.TabBarBackgroundColor="LightCyan" Shell.BackgroundColor="DeepSkyBlue"
    >
     <TabBar  Shell.NavBarIsVisible="True">
@@ -23,12 +23,12 @@
                    ContentTemplate="{DataTemplate view:ViewGoods}"
           
                 />
-        <ShellContent Route="kategoriya" Title="Категория" Icon="pois_po_katalogu.png"
+        <ShellContent Route="kategoriya" Title="Каталог" Icon="pois_po_katalogu.png"
            ContentTemplate="{DataTemplate view:ViewKategoriya}"
   
         />
         <ShellContent Route="profil"  Title="Профиль" Icon="Profil.png" 
-                 
+                ContentTemplate="{DataTemplate view:ViewProfil}"  
             />
     </TabBar>
 </Shell>

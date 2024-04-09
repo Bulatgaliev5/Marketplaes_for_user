@@ -47,31 +47,47 @@
 
                     <DataTemplate>
 
-                        <Grid Padding="1"  x:FieldModifier="public" 
+                        <Grid Padding="5" 
                       >
 
-                            <Frame x:FieldModifier="public"   Style="{DynamicResource FrameGlavnaya}" >
-                                <StackLayout  >
+                            <Frame Margin="0" Padding="5"   Style="{DynamicResource FrameGlavnaya}" >
+                                <StackLayout>
                                     <StackLayout.GestureRecognizers >
                                         <TapGestureRecognizer Tapped="OpenKartochka"/>
                                     </StackLayout.GestureRecognizers>
-                                    <Frame  Style="{DynamicResource FrameImageGood}">
-                                        <Image 
-                                   Source="{Binding Image}" Style="{DynamicResource ImageGlavGoods}"/>
+                                    <Frame Margin="5" Style="{DynamicResource FrameImageGood}">
+                                        <Grid>
+                                            <Image Source="{Binding Image}">
+                                                <Image.GestureRecognizers>
+                                                    <TapGestureRecognizer Tapped="OpenKartochkaImage"/>
+                                                </Image.GestureRecognizers>
+                                            </Image>
+                                            <Frame Style="{DynamicResource FrameDiscount}">
+
+                                                <Label  Style="{DynamicResource LabelDiscount}" Text="{Binding Discount,StringFormat='- {0} %'}"  />
+                                                
+                                            </Frame>
+                                        </Grid>
                                     </Frame>
+
 
                                     <!-- <ImageButton Style="{DynamicResource IsbranImBt}" Source="isbrannoe.png"
                                          BackgroundColor="White"
                                          VerticalOptions="Start"
                                          HorizontalOptions="End"
                                          Margin="10"/> -->
-                                    <Label Text="{Binding Price,StringFormat='{0} ₽'}"  
-                               FontAttributes="Bold"/>
-                                    <Label LineBreakMode="TailTruncation"  Text="{Binding Name}"/>
+                                    <StackLayout Margin="0,5,0,5" HorizontalOptions="Start"  Orientation="Horizontal">
+
+
+                                        <Label Margin="0" Style="{DynamicResource LabSale}" Text="{Binding Price_with_discount,StringFormat='{0} ₽'}"/>
+                                        <Label Style="{DynamicResource LabPrice}" Text="{Binding Price,StringFormat='{0} ₽'}"/>
+                                    </StackLayout>
+                                    
+                                    <Label Margin="0,0,0,5" LineBreakMode="TailTruncation" TextColor="Black"  Text="{Binding Name}"/>
 
 
 
-                                    <Button    x:Name="BtZakazat" Text="Заказать" 
+                                    <Button Margin="10,15,10,15"   x:Name="BtZakazat" Text="Заказать" 
                                         Style="{DynamicResource VKorzinuBut}"
                                         VerticalOptions="End" />
                                 </StackLayout>
