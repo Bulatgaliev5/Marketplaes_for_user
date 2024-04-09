@@ -4,11 +4,29 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace Marketplaes02.Model
 {
     public class Korzina : INotifyPropertyChanged
     {
+        public Korzina() 
+        {
+
+            UpdatePlusCountCommand = new Command(UpdatePlusCount);
+            UpdateMinusCountCommand = new Command(UpdateMinusCount);
+        }
+
+        private void UpdatePlusCount()
+        {
+            Count++;
+        }
+        private void UpdateMinusCount()
+        {
+            Count--;
+        }
+        public ICommand UpdatePlusCountCommand { get; set; }
+        public ICommand UpdateMinusCountCommand { get; set; }
         private int _ID_korzina;
         private int _ID_goods;
         private int _ID_user;
@@ -80,6 +98,9 @@ namespace Marketplaes02.Model
             get => _Count;
             set
             {
+                if (value <=1)
+                    value = 1;
+
                 _Count = value;
                 OnPropertyChanged("Count");
             }

@@ -51,13 +51,19 @@
 
             </StackLayout>
         </ScrollView>
-       
-            
+        <Frame IsVisible="False" x:Name="FChetchik" Style="{DynamicResource FrameChetchikKartochka}">
+            <StackLayout HorizontalOptions="Center" VerticalOptions="Center" Orientation="Horizontal">
+                <Button Command="{Binding UpdateMinusCountCommand}"  Text="-"/>
+                <Label TextColor="White" Margin="20,0,20,0"  FontSize="Medium" VerticalTextAlignment="Center"  Text="1"/>
+                <Button Command="{Binding UpdatePlusCountCommand}" Text="+"/>
+            </StackLayout>
+        </Frame>
+
         <StackLayout   Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center" Orientation="Horizontal">
 
                 <Button  
                Style="{DynamicResource BtBuySichas}" Text="Купить сейчас" Clicked="btzakazat"/>
-            <Button VerticalOptions="End"  Style="{DynamicResource BtKorzina}"
+            <Button VerticalOptions="End"  Style="{DynamicResource BtKorzina}" Clicked="btkotzina"
                 Text="В корзину"/>
         </StackLayout>
             

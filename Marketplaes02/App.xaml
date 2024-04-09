@@ -149,6 +149,17 @@
             <Setter Property="TextColor" Value="Red"/>
 
         </Style>
-
+        <Style TargetType="Frame" x:Key="FrameChetchik">
+            <Setter Property="CornerRadius" Value="15"/>
+            <Setter Property="HorizontalOptions" Value="StartAndExpand"/>
+            <Setter Property="Padding" Value="5"/>
+        </Style>
+        <Style TargetType="Frame" x:Key="FrameChetchikKartochka" BasedOn="{StaticResource FrameChetchik}">
+            <Setter Property="HorizontalOptions" Value="Center"/>
+            <Setter Property="HeightRequest" Value="50"/>
+            <Setter Property="VerticalOptions" Value="End"/>
+            <Setter Property="Background" Value="DeepSkyBlue"/>
+            <Setter Property="WidthRequest" Value="200"/>
+        </Style>
     </Application.Resources>
 </Application>

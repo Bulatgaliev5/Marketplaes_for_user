@@ -22,4 +22,12 @@ public partial class ViewKorzina : ContentPage
         await Task.Delay(1000);
         RefreshView1.IsRefreshing = false;
     }
+
+    private void CountGoods(object sender, ValueChangedEventArgs e)
+    {
+
+       
+
+
+    }
 }

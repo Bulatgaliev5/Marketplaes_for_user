@@ -14,6 +14,19 @@ public partial class ViewKartochkaGood : ContentPage
 
     private void btzakazat(object sender, EventArgs e)
     {
+        //viewmodelkorzina viewmodel = new viewmodelkorzina();
+        //bindingcontext = viewmodel;
+        //viewmodel.load();
+    }
 
+    private async void btkotzina(object sender, EventArgs e)
+    {
+        FChetchik.IsVisible = true;
+
+        // Ждем 5 секунд
+        await Task.Delay(3000);
+
+        // Скрываем frame
+        FChetchik.IsVisible = false;
     }
 }
