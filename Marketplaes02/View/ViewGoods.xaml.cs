@@ -29,7 +29,7 @@ public partial class ViewGoods : ContentPage
 
             Preferences.Default.Set("Kartochka_ID_goods", g.ID_goods);
         };
-            await Navigation.PushAsync(new ViewKartochkaGood());
+            await Navigation.PushModalAsync(new ViewKartochkaGood());
     }
 
     private async void RefreshGoodsData(object sender, EventArgs e)
@@ -46,6 +46,6 @@ public partial class ViewGoods : ContentPage
 
             Preferences.Default.Set("Kartochka_ID_goods", g.ID_goods);
         };
-        await Navigation.PushAsync(new ViewKartochkaGood());
+        await Navigation.PushModalAsync(new ViewKartochkaGood());
     }
 }

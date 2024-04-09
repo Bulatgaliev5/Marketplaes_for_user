@@ -74,6 +74,9 @@
 	  <MauiXaml Update="View\ViewKategoriya.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="View\ViewKorzina.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="View\ViewProfil.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
