@@ -1,4 +1,5 @@
-﻿using Marketplaes02.BD;
+﻿using AndroidX.Lifecycle;
+using Marketplaes02.BD;
 using Marketplaes02.Model;
 using MySqlConnector;
 using System;
@@ -8,12 +9,13 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace Marketplaes02.ViewModel
 {
     public class ViewModelKartochkaGood: KartochkaGood,  INotifyPropertyChanged
     {
-        int Kartochka_ID_goods;
+        int Kartochka_ID_goods, UserID;
         public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
@@ -40,8 +42,47 @@ namespace Marketplaes02.ViewModel
         public ViewModelKartochkaGood()
         {
             Kartochka_ID_goods = Preferences.Default.Get("Kartochka_ID_goods",0);
-           
+             UserID = Preferences.Default.Get("UserID", 0);
             Load();
+            CheckAddKorzinaGood(Kartochka_ID_goods);
+            UpdatePlusCountCommand = new Command(UpdatePlusCount);
+            UpdateMinusCountCommand = new Command(UpdateMinusCount);
+        }
+        private int _Count;
+        public ICommand UpdatePlusCountCommand { get; set; }
+        public ICommand UpdateMinusCountCommand { get; set; }
+        public async void UpdatePlusCount()
+        {
+            bool result = await CheckAddKorzinaGood(Kartochka_ID_goods);
+            if (result)
+            {
+                Count++;
+                await AddKorzinaGood(Kartochka_ID_goods, UserID);
+            }
+            else
+            {
+                Count++;
+                await UpdateCountKorzinaGood(Kartochka_ID_goods, UserID);
+            }
+           
+          
+        }
+        public async void UpdateMinusCount()
+        {
+            Count--;
+            await UpdateCountKorzinaGood(Kartochka_ID_goods, UserID);
+        }
+        public int Count
+        {
+            get => _Count;
+            set 
+            {
+                if (value <= 1)
+                    value = 1;
+
+                _Count = value;
+                OnPropertyChanged("Count");
+            }
 
         }
 
@@ -53,6 +94,93 @@ namespace Marketplaes02.ViewModel
         {
             await GoodsSelectSQL(Kartochka_ID_goods);
             await ImagesGoodsSelectSQL(Kartochka_ID_goods);
+
+        }
+
+
+        public async Task<bool> AddKorzinaGood(int id_good, int UserID)
+        {
+            ConnectBD con = new ConnectBD();
+
+            string sql = "INSERT INTO korzina (ID_goods, ID_user, Count) VALUES (@ID_goods, @ID_user, @Count)";
+            MySqlCommand cmd = new MySqlCommand(sql, con.GetConnBD());
+            cmd.Parameters.Add(new MySqlParameter("@ID_goods", id_good));
+            cmd.Parameters.Add(new MySqlParameter("@ID_user", UserID));
+            cmd.Parameters.Add(new MySqlParameter("@Count", Count));
+            await con.GetConnectBD();
+            cmd.ExecuteNonQuery();
+            await con.GetCloseBD();
+            return true;
+
+        }
+
+        public async Task<bool> UpdateCountKorzinaGood(int id_good, int ID_user)
+        {
+            string
+             sql = "UPDATE korzina SET Count=@Count WHERE  ID_goods=@id and ID_user=@ID_user";
+            ConnectBD
+             conn = new ConnectBD();
+            MySqlCommand
+              cmd = new MySqlCommand(sql, conn.GetConnBD());
+            cmd.Parameters.Add(new MySqlParameter("@id", id_good));
+            cmd.Parameters.Add(new MySqlParameter("@Count", Count));
+            cmd.Parameters.Add(new MySqlParameter("@ID_user", ID_user));
+            await conn.GetConnectBD();
+            // Объявление и инициалзиация метода асинрхонного чтения данных из бд
+            MySqlDataReader
+                 reader = cmd.ExecuteReader();
+
+            // Проверка, что строк нет
+            if (!reader.HasRows)
+            {
+                // Синхронное отключение от БД
+                await conn.GetCloseBD();
+                // Возращение false
+                return false;
+            }
+
+            await conn.GetCloseBD();
+
+            return true;
+
+        }
+        public async Task<bool> CheckAddKorzinaGood(int id_good)
+        {
+            string
+             sql = "SELECT * FROM korzina WHERE  ID_goods=@id";
+            ConnectBD
+             conn = new ConnectBD();
+            MySqlCommand
+              cmd = new MySqlCommand(sql, conn.GetConnBD());
+            cmd.Parameters.Add(new MySqlParameter("@id", id_good));
+            await conn.GetConnectBD();
+            // Объявление и инициалзиация метода асинрхонного чтения данных из бд
+            MySqlDataReader
+                 reader = cmd.ExecuteReader();
+
+            // Проверка, что строк нет
+
+            int count = 0;
+            while (await reader.ReadAsync())
+            {
+                count++;
+                Count = Convert.ToInt32(reader["Count"]);
+               
+            }
+            OnPropertyChanged("Count");
+            if (count != 0)
+            {
+                
+                // Синхронное отключение от БД
+                await conn.GetCloseBD();
+                // Возращение false
+                return false;
+            }
+
+            
+            await conn.GetCloseBD();
+
+            return true;
 
         }
         /// <summary>
@@ -84,7 +212,7 @@ namespace Marketplaes02.ViewModel
             }
             ImagesGoodsList = new ObservableCollection<ImagesGoods>();
             // Цикл while выполняется, пока есть строки для чтения из БД
-            while (reader.Read())
+            while ((await reader.ReadAsync()))
             {
 
                 ImagesGoodsList.Add(new ImagesGoods()
@@ -149,6 +277,7 @@ namespace Marketplaes02.ViewModel
             //OnPropertyChanged("Image");
             OnPropertyChanged("Description");
             OnPropertyChanged("Price_with_discount");
+            
             await conn.GetCloseBD();
           
             return true;

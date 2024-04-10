@@ -9,16 +9,19 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace Marketplaes02.ViewModel
 {
-    public class ViewModelKorzina : INotifyPropertyChanged
+    public class ViewModelKorzina : Korzina, INotifyPropertyChanged
     {
+       
+
         public ViewModelKorzina()
         {
 
             Load();
-
+           
         }
 
         int UserID;
@@ -33,6 +36,7 @@ namespace Marketplaes02.ViewModel
             }
         }
 
+
       
        
 
@@ -42,13 +46,13 @@ namespace Marketplaes02.ViewModel
             await LoadKorzinalist(UserID);
         }
 
-        
+       
 
         private async Task<bool> LoadKorzinalist(int id)
         {
 
             string
-                  sql = "SELECT k.ID_korzina, g.Name AS Goods_Name, g.Price AS Goods_Price,g.Price_with_discount AS Goods_Price_with_discount, i.Image AS Goods_Image, u.ID AS User_ID, k.Count " +
+                  sql = "SELECT k.ID_korzina, g.Name AS Goods_Name, g.ID_goods AS Goods_ID, g.Price AS Goods_Price,g.Price_with_discount AS Goods_Price_with_discount, i.Image AS Goods_Image, u.ID AS User_ID, k.Count " +
                   "FROM korzina k " +
                   "JOIN goods g ON k.ID_goods = g.ID_goods " +
                   "JOIN users u ON k.ID_user = u.ID " +
@@ -81,7 +85,7 @@ namespace Marketplaes02.ViewModel
 
                 Korzinalist.Add(new Korzina()
                 {
-                    
+                    ID_goods = Convert.ToInt32(reader["Goods_ID"]),
                     ID_korzina = Convert.ToInt32(reader["ID_korzina"]),
                     ID_user = Convert.ToInt32(reader["User_ID"]),
                     Count = Convert.ToInt32(reader["Count"]),

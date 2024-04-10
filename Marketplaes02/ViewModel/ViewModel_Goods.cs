@@ -98,7 +98,7 @@ namespace Marketplaes02.ViewModel
             }
             Goods = new ObservableCollection<Goods>();
             // Цикл while выполняется, пока есть строки для чтения из БД
-            while (reader.Read())
+            while (await reader.ReadAsync())
             {
 
                 // Добавление элемента в коллекцию списка товаров на основе класса (Экземпляр класс создается - объект)
