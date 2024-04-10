@@ -52,7 +52,7 @@ public partial class ViewUser_autorizasiya : ContentPage
         {
            UserName = Convert.ToString(readed["Name"]);
             UserID = Convert.ToInt32(readed["ID"]);
-            Preferences.Default.Set("UserName", UserID);
+            Preferences.Default.Set("UserName", UserName);
             Preferences.Default.Set("UserID", UserID);// Строковое значение
             //  Role_name = Convert.ToString(readed["RoleName"]);
             // Role_id = Convert.ToInt32(readed["RoleID"]);

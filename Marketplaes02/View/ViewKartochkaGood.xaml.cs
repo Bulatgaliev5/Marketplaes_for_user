@@ -1,27 +1,36 @@
 using Marketplaes02.Model;
 using Marketplaes02.ViewModel;
+using System.Timers;
 
 namespace Marketplaes02.View;
 
 public partial class ViewKartochkaGood : ContentPage
 {
     ViewModelKartochkaGood viewmodel = new ViewModelKartochkaGood();
-    
+    private System.Timers.Timer _timer;
     public ViewKartochkaGood()
 	{
         BindingContext = new ViewModelKartochkaGood();
         //BindingContext = new ViewModelImagesGoods();
         InitializeComponent();
-        LoadCount();
+        _timer = new System.Timers.Timer();
+        _timer.Interval = 5000; // 5 seconds of inactivity
+        _timer.Elapsed += OnTimerElapsed;
     }
 
-    public async void LoadCount()
+    public void OnUserInteraction()
     {
-        if (BindingContext is KartochkaGood g)
+        // Reset the timer whenever the user interacts
+        _timer.Stop();
+        _timer.Start();
+    }
+
+    private void OnTimerElapsed(object sender, ElapsedEventArgs e)
+    {
+        Device.BeginInvokeOnMainThread(() =>
         {
-            bool result = await viewmodel.CheckAddKorzinaGood(g.ID_goods);
-           
-        };
+            FChetchik.IsVisible = false;
+        });
     }
 
     private void btzakazat(object sender, EventArgs e)
@@ -31,17 +40,22 @@ public partial class ViewKartochkaGood : ContentPage
         //viewmodel.load();
     }
 
-    public async void btkotzina(object sender, EventArgs e)
+    public void btkotzina(object sender, EventArgs e)
     {
 
-       
 
         FChetchik.IsVisible = true;
+        OnUserInteraction(); // Start or reset the timer
+    }
 
-        // Ждем 5 секунд
-        await Task.Delay(5000);
+    private void btnminus(object sender, EventArgs e)
+    {
+        OnUserInteraction();
+    }
 
-        // Скрываем frame
-        FChetchik.IsVisible = false;
+    private void btnplus(object sender, EventArgs e)
+    {
+        OnUserInteraction();
+
     }
 }

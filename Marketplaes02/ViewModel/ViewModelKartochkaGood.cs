@@ -1,4 +1,4 @@
-﻿using AndroidX.Lifecycle;
+﻿
 using Marketplaes02.BD;
 using Marketplaes02.Model;
 using MySqlConnector;
@@ -44,33 +44,33 @@ namespace Marketplaes02.ViewModel
             Kartochka_ID_goods = Preferences.Default.Get("Kartochka_ID_goods",0);
              UserID = Preferences.Default.Get("UserID", 0);
             Load();
-            CheckAddKorzinaGood(Kartochka_ID_goods);
-            UpdatePlusCountCommand = new Command(UpdatePlusCount);
-            UpdateMinusCountCommand = new Command(UpdateMinusCount);
+            CheckAddKorzinaGood(Kartochka_ID_goods, UserID);
+            UpdatePlusCountCommand = new Command<int>(UpdatePlusCount);
+            UpdateMinusCountCommand = new Command<int>(UpdateMinusCount);
         }
         private int _Count;
         public ICommand UpdatePlusCountCommand { get; set; }
         public ICommand UpdateMinusCountCommand { get; set; }
-        public async void UpdatePlusCount()
+        public async void UpdatePlusCount(int id_goods)
         {
-            bool result = await CheckAddKorzinaGood(Kartochka_ID_goods);
+            bool result = await CheckAddKorzinaGood(id_goods, UserID);
             if (result)
             {
                 Count++;
-                await AddKorzinaGood(Kartochka_ID_goods, UserID);
+                await AddKorzinaGood(id_goods, UserID);
             }
             else
             {
                 Count++;
-                await UpdateCountKorzinaGood(Kartochka_ID_goods, UserID);
+                await UpdateCountKorzinaGood(id_goods, UserID);
             }
            
           
         }
-        public async void UpdateMinusCount()
+        public async void UpdateMinusCount(int id_goods)
         {
             Count--;
-            await UpdateCountKorzinaGood(Kartochka_ID_goods, UserID);
+            await UpdateCountKorzinaGood(id_goods, UserID);
         }
         public int Count
         {
@@ -144,15 +144,16 @@ namespace Marketplaes02.ViewModel
             return true;
 
         }
-        public async Task<bool> CheckAddKorzinaGood(int id_good)
+        public async Task<bool> CheckAddKorzinaGood(int id_good, int UserID)
         {
             string
-             sql = "SELECT * FROM korzina WHERE  ID_goods=@id";
+             sql = "SELECT * FROM korzina WHERE  ID_goods=@id and ID_user=@UserID ";
             ConnectBD
              conn = new ConnectBD();
             MySqlCommand
               cmd = new MySqlCommand(sql, conn.GetConnBD());
             cmd.Parameters.Add(new MySqlParameter("@id", id_good));
+            cmd.Parameters.Add(new MySqlParameter("@UserID", UserID));
             await conn.GetConnectBD();
             // Объявление и инициалзиация метода асинрхонного чтения данных из бд
             MySqlDataReader
