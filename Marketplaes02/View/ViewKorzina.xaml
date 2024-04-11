@@ -4,7 +4,12 @@
              x:Class="Marketplaes02.View.ViewKorzina"
              Title="ViewKorzina">
 
-    <StackLayout>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="80"/>
+        </Grid.RowDefinitions>
+        <StackLayout Grid.Row="0">
        
         <RefreshView x:Name="RefreshView1"
                RefreshColor="DeepSkyBlue"
@@ -66,4 +71,13 @@
         </RefreshView>
 
     </StackLayout>
+
+        <StackLayout   Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center" Orientation="Horizontal">
+
+            <Button  Clicked="btnpay"
+               Style="{DynamicResource BtnOformleniu}"  Text="Перейти к оформлению" />
+
+        </StackLayout>
+
+    </Grid>
 </ContentPage>

@@ -1,3 +1,4 @@
+using Marketplaes02.Model;
 using Marketplaes02.ViewModel;
 
 namespace Marketplaes02.View;
@@ -15,6 +16,8 @@ public partial class ViewKorzina : ContentPage
 
         BindingContext = new ViewModelKorzina();
 
+    
+
     }
     private async void RefreshGoodsData(object sender, EventArgs e)
     {
@@ -29,5 +32,10 @@ public partial class ViewKorzina : ContentPage
        
 
 
+    }
+
+    private async void btnpay(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new ViewOformlenieZakaza());
     }
 }

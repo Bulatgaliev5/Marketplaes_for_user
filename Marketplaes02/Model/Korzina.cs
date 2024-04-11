@@ -17,6 +17,7 @@ namespace Marketplaes02.Model
         {
             Kartochka_ID_goods = Preferences.Default.Get("Kartochka_ID_goods", 0);
             UserID = Preferences.Default.Get("UserID", 0);
+            Price = Price * Count;
             UpdatePlusCountCommand =  new Command<int>(UpdatePlusCount);
             UpdateMinusCountCommand = new Command<int>(UpdateMinusCount);
            
@@ -24,13 +25,65 @@ namespace Marketplaes02.Model
         private async void UpdatePlusCount(int id_goods)
         {
             Count++;
+            await LoadKorzinaGoodPrice(id_goods, UserID);
             await UpdateCountKorzinaGood(id_goods, UserID);
+           
+            // Price = Price * Count;
+            // Price_with_discount = Price_with_discount * Count;
         }
         private async void UpdateMinusCount(int id_goods)
         {
             Count--;
+            await LoadKorzinaGoodPrice(id_goods, UserID);
             await UpdateCountKorzinaGood(id_goods, UserID);
+           
+            // Price = Price * Count;
+            //Price_with_discount = Price_with_discount * Count;
         }
+
+        public async Task<bool> LoadKorzinaGoodPrice(int id_good, int ID_user)
+        {
+            string
+             sql = "SELECT k.Total_price,k.ID_goods, k.Total_Price_with_discount, u.ID AS User_ID " +
+             "FROM korzina k " +
+             "JOIN users u ON k.ID_user = u.ID " +
+             "WHERE ID_user = @ID_user and k.ID_goods =@id_good";
+            ConnectBD
+             conn = new ConnectBD();
+            MySqlCommand
+              cmd = new MySqlCommand(sql, conn.GetConnBD());
+            cmd.Parameters.Add(new MySqlParameter("@id_good", id_good));
+
+            cmd.Parameters.Add(new MySqlParameter("@ID_user", ID_user));
+            await conn.GetConnectBD();
+            // Объявление и инициалзиация метода асинрхонного чтения данных из бд
+            MySqlDataReader
+                 reader = cmd.ExecuteReader();
+
+            // Проверка, что строк нет
+            if (!reader.HasRows)
+            {
+                // Синхронное отключение от БД
+                await conn.GetCloseBD();
+                // Возращение false
+                return false;
+            }
+            while (await reader.ReadAsync())
+            {
+
+
+                Price = Convert.ToSingle(reader["Total_price"]);
+                Price_with_discount = Convert.ToSingle(reader["Total_Price_with_discount"]);
+                // await Task.Delay(1000);
+            }
+            
+            await conn.GetCloseBD();
+            OnPropertyChanged("Price");
+            OnPropertyChanged("Price_with_discount");
+            return true;
+
+        }
+
         public async Task<bool> UpdateCountKorzinaGood(int id_good, int ID_user)
         {
             string
@@ -57,7 +110,8 @@ namespace Marketplaes02.Model
             }
 
             await conn.GetCloseBD();
-
+            OnPropertyChanged("Price");
+            OnPropertyChanged("Price_with_discount");
             return true;
 
         }

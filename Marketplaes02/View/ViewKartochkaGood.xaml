@@ -62,10 +62,10 @@
 
         <StackLayout   Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center" Orientation="Horizontal">
 
-                <Button  
-               Style="{DynamicResource BtBuySichas}"  Text="Купить сейчас" Clicked="btzakazat"/>
+                <Button  Clicked="btnpay"
+               Style="{DynamicResource BtBuySichas}"  Text="Купить сейчас" />
             <Button Command="{Binding UpdatePlusCountCommand}" CommandParameter="{Binding ID_goods}" VerticalOptions="End"  Style="{DynamicResource BtKorzina}" Clicked="btkotzina"
-                Text="В корзину"/>
+                Text="{Binding Count,StringFormat='В корзину {0} шт. корзине'}"/>
         </StackLayout>
             
        

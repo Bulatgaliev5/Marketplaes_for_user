@@ -8,6 +8,7 @@ public partial class ViewKartochkaGood : ContentPage
 {
     ViewModelKartochkaGood viewmodel = new ViewModelKartochkaGood();
     private System.Timers.Timer _timer;
+   
     public ViewKartochkaGood()
 	{
         BindingContext = new ViewModelKartochkaGood();
@@ -35,9 +36,8 @@ public partial class ViewKartochkaGood : ContentPage
 
     private void btzakazat(object sender, EventArgs e)
     {
-        //viewmodelkorzina viewmodel = new viewmodelkorzina();
-        //bindingcontext = viewmodel;
-        //viewmodel.load();
+      
+        
     }
 
     public void btkotzina(object sender, EventArgs e)
@@ -57,5 +57,10 @@ public partial class ViewKartochkaGood : ContentPage
     {
         OnUserInteraction();
 
+    }
+
+    private async void btnpay(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new ViewOformlenieZakaza());
     }
 }

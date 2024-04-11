@@ -52,6 +52,12 @@
             <Setter Property="BackgroundColor" Value="Dodgerblue"/>
         </Style>
 
+        <Style TargetType="Button" x:Key="BtnOformleniu" BasedOn="{StaticResource BtBuySichas}">
+            <Setter Property="BackgroundColor" Value="Dodgerblue"/>
+            <Setter Property="HeightRequest" Value="50"/>
+            <Setter Property="WidthRequest" Value="200"/>
+        </Style>
+
         <Style TargetType="Frame" x:Key="FrameGlavnaya">
             <Setter Property="BorderColor" Value="PaleTurquoise"/>
             <Setter Property="CornerRadius" Value="15"/>
@@ -90,7 +96,7 @@
         <Style TargetType="Label" x:Key="LabProfil">
             <Setter Property="HorizontalOptions" Value="Center"/>
             <Setter Property="VerticalOptions" Value="Center"/>
-            <Setter Property="Margin" Value="10,0,0,0"/>
+           
             <Setter Property="TextColor" Value="Black"/>
             <Setter Property="FontSize" Value="Header"/>
         </Style>
