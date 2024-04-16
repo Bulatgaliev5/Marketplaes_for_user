@@ -52,11 +52,10 @@ namespace Marketplaes02.ViewModel
         {
 
             string
-                  sql = "SELECT k.ID_korzina,k.Total_price,k.Total_Price_with_discount, g.Name AS Goods_Name, g.ID_goods AS Goods_ID, i.Image AS Goods_Image, u.ID AS User_ID, k.Count " +
+                  sql = "SELECT k.ID_korzina,k.Total_price,k.Total_Price_with_discount, g.Name AS Goods_Name, g.ID_goods AS Goods_ID, g.ImageGood AS Goods_Image, u.ID AS User_ID, k.Count " +
                   "FROM korzina k " +
                   "JOIN goods g ON k.ID_goods = g.ID_goods " +
                   "JOIN users u ON k.ID_user = u.ID " +
-                  "JOIN imagesgoods i ON g.ImageID = i.ImageID " +
                   "WHERE ID_user=@ID_User";
 
 

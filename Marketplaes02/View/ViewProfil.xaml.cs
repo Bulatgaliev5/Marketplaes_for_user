@@ -23,4 +23,9 @@ public partial class ViewProfil : ContentPage
     {
 
     }
+
+    private void OnButtonTapped(object sender, TappedEventArgs e)
+    {
+
+    }
 }

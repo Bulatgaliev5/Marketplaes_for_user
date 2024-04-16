@@ -24,9 +24,11 @@ namespace Marketplaes02.Model
         }
         private async void UpdatePlusCount(int id_goods)
         {
+
             Count++;
-            await LoadKorzinaGoodPrice(id_goods, UserID);
             await UpdateCountKorzinaGood(id_goods, UserID);
+            await LoadKorzinaGoodPrice(id_goods, UserID);
+           
            
             // Price = Price * Count;
             // Price_with_discount = Price_with_discount * Count;
@@ -34,8 +36,9 @@ namespace Marketplaes02.Model
         private async void UpdateMinusCount(int id_goods)
         {
             Count--;
-            await LoadKorzinaGoodPrice(id_goods, UserID);
+
             await UpdateCountKorzinaGood(id_goods, UserID);
+            await LoadKorzinaGoodPrice(id_goods, UserID);
            
             // Price = Price * Count;
             //Price_with_discount = Price_with_discount * Count;
