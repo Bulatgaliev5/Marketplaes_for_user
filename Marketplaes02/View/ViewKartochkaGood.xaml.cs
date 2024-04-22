@@ -1,4 +1,3 @@
-using Marketplaes02.Model;
 using Marketplaes02.ViewModel;
 using System.Timers;
 
@@ -8,9 +7,9 @@ public partial class ViewKartochkaGood : ContentPage
 {
     ViewModelKartochkaGood viewmodel = new ViewModelKartochkaGood();
     private System.Timers.Timer _timer;
-   
+
     public ViewKartochkaGood()
-	{
+    {
         BindingContext = new ViewModelKartochkaGood();
         //BindingContext = new ViewModelImagesGoods();
         InitializeComponent();
@@ -36,8 +35,8 @@ public partial class ViewKartochkaGood : ContentPage
 
     private void btzakazat(object sender, EventArgs e)
     {
-      
-        
+
+
     }
 
     public void btkotzina(object sender, EventArgs e)
@@ -62,5 +61,10 @@ public partial class ViewKartochkaGood : ContentPage
     private async void btnpay(object sender, EventArgs e)
     {
         await Navigation.PushAsync(new ViewOformlenieZakaza());
+    }
+
+    private void OpenKartochkaImage(object sender, TappedEventArgs e)
+    {
+
     }
 }

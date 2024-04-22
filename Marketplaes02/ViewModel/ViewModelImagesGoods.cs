@@ -1,16 +1,11 @@
 ﻿using Marketplaes02.BD;
 using Marketplaes02.Model;
 using MySqlConnector;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Marketplaes02.ViewModel
 {
-    public class ViewModelImagesGoods :  INotifyPropertyChanged
+    public class ViewModelImagesGoods : INotifyPropertyChanged
     {
         int Kartochka_ID_goods;
         public event PropertyChangedEventHandler PropertyChanged;
@@ -50,7 +45,7 @@ namespace Marketplaes02.ViewModel
         /// </summary>
         public async void Load()
         {
-          
+
             await ImagesGoodsSelectSQL(Kartochka_ID_goods);
 
         }
@@ -102,6 +97,6 @@ namespace Marketplaes02.ViewModel
         }
 
 
-       
+
     }
 }

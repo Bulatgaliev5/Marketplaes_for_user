@@ -1,19 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
+﻿using System.ComponentModel;
 
 namespace Marketplaes02.Model
 {
-     public class KartochkaGood : INotifyPropertyChanged
+    public class KartochkaGood : INotifyPropertyChanged
     {
         public KartochkaGood()
         {
-           
-           
+
+
         }
         /// <summary>
         /// Поле ID_goods
@@ -44,7 +38,7 @@ namespace Marketplaes02.Model
         private string _Description;
 
         private int _Count;
-       
+
         /// <summary>
         /// Свойство Описание товара
         /// </summary>
@@ -64,7 +58,7 @@ namespace Marketplaes02.Model
         /// </summary>
         /// 
 
-      
+
 
         public int ID_goods
         {
@@ -113,7 +107,7 @@ namespace Marketplaes02.Model
             }
         }
 
-        
+
         /// <summary>
         /// Свойства Изображение изделия
         /// </summary>

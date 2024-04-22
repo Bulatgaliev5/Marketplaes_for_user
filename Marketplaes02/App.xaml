@@ -167,5 +167,9 @@
             <Setter Property="Background" Value="DeepSkyBlue"/>
             <Setter Property="WidthRequest" Value="200"/>
         </Style>
+        <Style TargetType="Grid" x:Key="Gridkartochkagoods">
+          
+           
+        </Style>
     </Application.Resources>
 </Application>

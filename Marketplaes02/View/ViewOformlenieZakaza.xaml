@@ -2,7 +2,9 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Marketplaes02.View.ViewOformlenieZakaza"
-             Title="ViewOformlenieZakaza">
+             Title="ViewOformlenieZakaza"
+             Shell.TabBarIsVisible="False"
+             >
     <ScrollView>
 
 
@@ -22,29 +24,19 @@
 
                             <DataTemplate   >
 
-                                <Grid Padding="1"  
+                                <Grid Padding="5"  
                                            >
 
-                                    <Frame x:FieldModifier="public"   Style="{DynamicResource FrameGlavnaya}" >
+                                    <Frame   Margin="0" Padding="5">
                                         <StackLayout Orientation="Horizontal">
-                                            <Frame   Style="{DynamicResource Fram_My_zakazi}">
-                                                <Image 
-                                                      Style="{DynamicResource ImageGlavGoods}"/>
-                                            </Frame>
-                                            <StackLayout Padding="20,0,0,0">
+                                            <StackLayout Padding="5">
                                                 <Label Text="{Binding Name}"  
                                                    FontAttributes="Bold"/>
                                                 <StackLayout Margin="0,5,0,5" HorizontalOptions="Start"  Orientation="Horizontal">
                                                     <Label Margin="0" Style="{DynamicResource LabSale}" Text="{Binding Price_with_discount,StringFormat='{0} ₽'}"/>
                                                     <Label Style="{DynamicResource LabPrice}" Text="{Binding Price,StringFormat='{0} ₽'}"/>
                                                 </StackLayout>
-                                                <Frame Style="{DynamicResource FrameChetchik}">
-                                                    <StackLayout HorizontalOptions="Center" VerticalOptions="Center" Orientation="Horizontal">
-                                                        <Button Command="{Binding UpdateMinusCountCommand}" CommandParameter="{Binding ID_goods}"  Text="-"/>
-                                                        <Label Margin="20,0,20,0"  FontSize="Medium" VerticalTextAlignment="Center"  Text="{Binding Count}"/>
-                                                        <Button Command="{Binding UpdatePlusCountCommand}" CommandParameter="{Binding ID_goods}" Text="+"/>
-                                                    </StackLayout>
-                                                </Frame>
+                                              
                                             </StackLayout>
 
 
@@ -63,42 +55,44 @@
                 </StackLayout>
             </Frame>
 
+          
+
+
+            <Frame Style="{DynamicResource FrameGlavnaya}">
+                <StackLayout>
+                    <Label Text="Получатель"/>
+                    <Label  Margin="0,5,0,5"  TextColor="Black" Text="{Binding User_Data}" x:Name="User_Data"/>
+                 
+                </StackLayout>
+            </Frame>
+
             <Frame Style="{DynamicResource FrameGlavnaya}">
                 <StackLayout>
                     <Label Text="Адрес доставки"/>
-                    <Label   TextColor="Black" Text="{Binding Adres_Dostavki}"  x:FieldModifier="public" x:Name="Adres_dostavki"/>
+                    <Label   TextColor="Black" Text="{Binding Adres_Dostavki}"   x:Name="Adres_dostavki"/>
                     <Button Style="{DynamicResource BtEditAdressDostavki}" x:Name="BtdresDostavki"  Text="Добавить адрес" />
                 </StackLayout>
             </Frame>
 
-
-            <Frame Style="{DynamicResource FrameGlavnaya}">
-                <StackLayout>
-                    <Label Text="Номера телефона"/>
-                    <Label   TextColor="Black" Text="{Binding Number_Phone}"  x:FieldModifier="public" x:Name="number_Phone"/>
-                    <!-- <Button Style="{DynamicResource BtEditAdressDostavki}" x:Name="BtdresDostavki"  Text="Добавить адрес" Clicked="GetAdresDostavki"/>-->
-                </StackLayout>
-            </Frame>
-
-
-
-            <!--  <Frame Style="{DynamicResource FrameGlavnaya}">
+             <Frame Style="{DynamicResource FrameGlavnaya}">
                 <StackLayout>
                     <Label Text="Способ оплаты"/>
-                    <Button Text="Добавить способ оплаты"/>
-                </StackLayout>
-            </Frame>-->
-
-            <Frame Style="{DynamicResource FrameGlavnaya}">
-                <StackLayout>
-                    <Label TextColor="Black" FontSize="17" x:Name="ItogoSumm" />
-                    <!--<Label  Text="Количество"/>
-                    <Label Text="Доставка"/>-->
-
+                    <Button CornerRadius="15" BackgroundColor="DeepSkyBlue" Text="Добавить способ оплаты"/>
                 </StackLayout>
             </Frame>
 
-            <Button Style="{DynamicResource BtZakazat}"  Text="Заказать" />
+            <Frame Style="{DynamicResource FrameGlavnaya}">
+                <StackLayout>
+                    <Label Text="{Binding Goods_Total_Price_with_discount,StringFormat='Итого {0} ₽'}" FontSize="20" TextColor="Black"/>
+                    <Label Text="{Binding Goods_Total_Count,StringFormat='Количество {0} шт.'}" FontSize="17"  TextColor="Black"/>
+                    <!--<Label  Text="Количество"/>
+                    <Label Text="Доставка"/>-->
+                    <Label x:Name="lab21"/>
+                </StackLayout>
+            </Frame>
+
+            <Button Style="{DynamicResource BtZakazat}" Clicked="BtnZakazat"  Text="Заказать" />
+            <Button Style="{DynamicResource BtZakazat}" Clicked="Btnyomt"  Text="Юмани" />
         </StackLayout>
     </ScrollView>
 </ContentPage>

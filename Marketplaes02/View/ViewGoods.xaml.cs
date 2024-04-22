@@ -5,12 +5,13 @@ namespace Marketplaes02.View;
 
 public partial class ViewGoods : ContentPage
 {
-	public ViewGoods()
-	{
+    ViewModel_Goods viewModel_Goods = new ViewModel_Goods();
+    public ViewGoods()
+    {
 
         Update();
         InitializeComponent();
-        
+
     }
 
     public void Update()
@@ -29,7 +30,7 @@ public partial class ViewGoods : ContentPage
 
             Preferences.Default.Set("Kartochka_ID_goods", g.ID_goods);
         };
-            await Navigation.PushAsync(new ViewKartochkaGood());
+        await Navigation.PushAsync(new ViewKartochkaGood());
     }
 
     private async void RefreshGoodsData(object sender, EventArgs e)
@@ -48,4 +49,6 @@ public partial class ViewGoods : ContentPage
         };
         await Navigation.PushAsync(new ViewKartochkaGood());
     }
+
+
 }

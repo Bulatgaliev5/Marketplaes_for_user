@@ -30,13 +30,18 @@
                                 <StackLayout.GestureRecognizers >
                                     <TapGestureRecognizer Tapped="OpenKategoriya"/>
                                 </StackLayout.GestureRecognizers>
-                                
-                                    
-                                    
-                                    
-                                    
-                                    <Image  Aspect="Fill" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"
-                                            Source="{Binding Image}" Style="{DynamicResource ImageGlavGoods}"/>
+
+
+
+
+
+                                <Image  Aspect="Fill" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"
+                                            Source="{Binding Image}" Style="{DynamicResource ImageGlavGoods}">
+                                    <Image.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OpenKartochkaImage"/>
+                                    </Image.GestureRecognizers>
+                            
+                                </Image>
                                 
                                 <Label HorizontalTextAlignment="Center" LineBreakMode="TailTruncation"  Text="{Binding Name}"/>
 

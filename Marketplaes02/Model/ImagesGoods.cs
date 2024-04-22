@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 
 namespace Marketplaes02.Model
 {
@@ -43,7 +38,7 @@ namespace Marketplaes02.Model
         /// </summary>
         /// 
 
-        public int ID_goods 
+        public int ID_goods
         {
             get => _ID_goods;
             set
@@ -59,7 +54,7 @@ namespace Marketplaes02.Model
         /// </summary>
         public string ImageGoods
         {
-            get => _ImageGoods;  
+            get => _ImageGoods;
             set
             {
                 _ImageGoods = value;

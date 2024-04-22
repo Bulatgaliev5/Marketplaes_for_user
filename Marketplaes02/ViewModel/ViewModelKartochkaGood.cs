@@ -2,18 +2,13 @@
 using Marketplaes02.BD;
 using Marketplaes02.Model;
 using MySqlConnector;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace Marketplaes02.ViewModel
 {
-    public class ViewModelKartochkaGood: KartochkaGood,  INotifyPropertyChanged
+    public class ViewModelKartochkaGood : KartochkaGood, INotifyPropertyChanged
     {
         int Kartochka_ID_goods, UserID;
         public event PropertyChangedEventHandler PropertyChanged;
@@ -41,8 +36,8 @@ namespace Marketplaes02.ViewModel
         }
         public ViewModelKartochkaGood()
         {
-            Kartochka_ID_goods = Preferences.Default.Get("Kartochka_ID_goods",0);
-             UserID = Preferences.Default.Get("UserID", 0);
+            Kartochka_ID_goods = Preferences.Default.Get("Kartochka_ID_goods", 0);
+            UserID = Preferences.Default.Get("UserID", 0);
             Load();
             CheckAddKorzinaGood(Kartochka_ID_goods, UserID);
             UpdatePlusCountCommand = new Command<int>(UpdatePlusCount);
@@ -64,8 +59,8 @@ namespace Marketplaes02.ViewModel
                 Count++;
                 await UpdateCountKorzinaGood(id_goods, UserID);
             }
-           
-          
+
+
         }
         public async void UpdateMinusCount(int id_goods)
         {
@@ -75,7 +70,7 @@ namespace Marketplaes02.ViewModel
         public int Count
         {
             get => _Count;
-            set 
+            set
             {
                 if (value <= 1)
                     value = 1;
@@ -166,19 +161,19 @@ namespace Marketplaes02.ViewModel
             {
                 count++;
                 Count = Convert.ToInt32(reader["Count"]);
-               
+
             }
             OnPropertyChanged("Count");
             if (count != 0)
             {
-                
+
                 // Синхронное отключение от БД
                 await conn.GetCloseBD();
                 // Возращение false
                 return false;
             }
 
-            
+
             await conn.GetCloseBD();
 
             return true;
@@ -223,12 +218,12 @@ namespace Marketplaes02.ViewModel
                     ImageGoods = reader["Image"].ToString(),
                 });
 
-                
+
             }
             OnPropertyChanged("ImagesGoodsList");
 
             await conn.GetCloseBD();
-           
+
             return true;
         }
 
@@ -278,9 +273,9 @@ namespace Marketplaes02.ViewModel
             //OnPropertyChanged("Image");
             OnPropertyChanged("Description");
             OnPropertyChanged("Price_with_discount");
-            
+
             await conn.GetCloseBD();
-          
+
             return true;
         }
     }

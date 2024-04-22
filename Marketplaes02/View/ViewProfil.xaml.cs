@@ -2,9 +2,9 @@ namespace Marketplaes02.View;
 
 public partial class ViewProfil : ContentPage
 {
-	public ViewProfil()
-	{
-		InitializeComponent();
+    public ViewProfil()
+    {
+        InitializeComponent();
         string UserName = Preferences.Default.Get("UserName", "Unknown");
         NameUser.Text = "Здравствуй, " + UserName;
     }

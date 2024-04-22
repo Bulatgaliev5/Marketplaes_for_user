@@ -1,27 +1,22 @@
 ﻿using Marketplaes02.BD;
 using Marketplaes02.Model;
-using Microsoft.Maui.ApplicationModel.DataTransfer;
 using MySqlConnector;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
+using System.Text.Json;
+
 
 namespace Marketplaes02.ViewModel
 {
     public class ViewModelKorzina : Korzina, INotifyPropertyChanged
     {
-       
+
 
         public ViewModelKorzina()
         {
 
             Load();
-           
+
         }
 
         int UserID;
@@ -37,8 +32,8 @@ namespace Marketplaes02.ViewModel
         }
 
 
-      
-       
+
+
 
         public async void Load()
         {
@@ -46,7 +41,7 @@ namespace Marketplaes02.ViewModel
             await LoadKorzinalist(UserID);
         }
 
-       
+
 
         private async Task<bool> LoadKorzinalist(int id)
         {
@@ -73,7 +68,7 @@ namespace Marketplaes02.ViewModel
             if (!reader.HasRows)
             {
                 await con.GetCloseBD();
-                
+
                 return false;
 
             }
@@ -89,8 +84,8 @@ namespace Marketplaes02.ViewModel
                     ID_korzina = Convert.ToInt32(reader["ID_korzina"]),
                     ID_user = Convert.ToInt32(reader["User_ID"]),
                     Count = Convert.ToInt32(reader["Count"]),
-                    NameGood = reader["Goods_Name"].ToString(),
-                    ImageGood = reader["Goods_Image"].ToString(),
+                    Name = reader["Goods_Name"].ToString(),
+                    Image = reader["Goods_Image"].ToString(),
                     Price = Convert.ToSingle(reader["Total_price"]),
                     Price_with_discount = Convert.ToSingle(reader["Total_Price_with_discount"]),
 
@@ -101,10 +96,18 @@ namespace Marketplaes02.ViewModel
 
             OnPropertyChanged("Korzinalist");
             await con.GetCloseBD();
+            //Preferences.Default.Set("Sostavzakazalist", Korzinalist);
+            SaveList<Korzina>("Sostavzakazalist", Korzinalist);
             return true;
+
+
         }
 
-
+        public static void SaveList<SostavZakaza>(string key, IList<SostavZakaza> list)
+        {
+            var jsonString = JsonSerializer.Serialize(list);
+            Preferences.Set(key, jsonString);
+        }
 
 
 

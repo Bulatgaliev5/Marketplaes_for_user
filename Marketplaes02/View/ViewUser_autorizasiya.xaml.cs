@@ -8,12 +8,12 @@ public partial class ViewUser_autorizasiya : ContentPage
 {
     ViewModelUser viewModelUser = new ViewModelUser();
     public string
-           UserName;
+           UserName, UserNumber_phone;
     int UserID;
     public ViewUser_autorizasiya()
-	{
-		InitializeComponent();
-        
+    {
+        InitializeComponent();
+
 
     }
 
@@ -50,10 +50,13 @@ public partial class ViewUser_autorizasiya : ContentPage
         }
         while (await readed.ReadAsync())
         {
-           UserName = Convert.ToString(readed["Name"]);
+            UserName = Convert.ToString(readed["Name"]);
             UserID = Convert.ToInt32(readed["ID"]);
+            UserNumber_phone = Convert.ToString(readed["Number_phone"]);
             Preferences.Default.Set("UserName", UserName);
-            Preferences.Default.Set("UserID", UserID);// Строковое значение
+            Preferences.Default.Set("UserID", UserID);
+            Preferences.Default.Set("UserNumber_phone", UserNumber_phone);
+
             //  Role_name = Convert.ToString(readed["RoleName"]);
             // Role_id = Convert.ToInt32(readed["RoleID"]);
             // ID_User = Convert.ToInt32(readed["UserID"]);

@@ -1,24 +1,31 @@
 ﻿using Marketplaes02.BD;
 using Marketplaes02.Model;
 using MySqlConnector;
+using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using static Android.Util.EventLogTags;
 
 namespace Marketplaes02.ViewModel
 {
-    public class ViewModel_Goods : INotifyPropertyChanged
+    public class ViewModelGoodsKategoriya : INotifyPropertyChanged
     {
+        int id_kategoriya;
         /// <summary>
         /// Список Good
         /// </summary>
-        private IList<Goods> _Goods;
-        public IList<Goods> Goods
+        private IList<GoodsKategoriya> _GoodsKategoriyalist;
+        public IList<GoodsKategoriya> GoodsKategoriyalist
         {
-            get => _Goods;
+            get => _GoodsKategoriyalist;
             set
             {
-                _Goods = value;
-                OnPropertyChanged("Goods");
+                _GoodsKategoriyalist = value;
+                OnPropertyChanged("GoodsKategoriyalist");
             }
         }
 
@@ -35,7 +42,7 @@ namespace Marketplaes02.ViewModel
 
 
         }
-        public ViewModel_Goods()
+        public ViewModelGoodsKategoriya()
         {
             Load();
         }
@@ -46,17 +53,18 @@ namespace Marketplaes02.ViewModel
         /// </summary>
         public async void Load()
         {
-            await LoadGoods();
+            id_kategoriya = Preferences.Default.Get("id_kategoriya", 0);
+            await LoadGoods(id_kategoriya);
         }
         /// <summary>
         /// Метод Получения изделий из БД
         /// </summary>
         /// <returns></returns>
-        private async Task<bool> LoadGoods()
+        private async Task<bool> LoadGoods(int id_kategoriya)
         {
             // Строка запроса
             string
-                sql = "SELECT * FROM goods ORDER BY RAND()";
+                sql = "SELECT * FROM goods WHERE id_kategoriya=@id_kategoriya";
 
             // Объявление переменной на основе класс подключения:
             // >    Connector conn
@@ -71,7 +79,8 @@ namespace Marketplaes02.ViewModel
             // Инициализация объекта команды:
             // >    new MySqlCommand(sql, conn.GetConn());
             MySqlCommand
-                cmd = new MySqlCommand(sql, con.GetConnBD());
+             cmd = new MySqlCommand(sql, con.GetConnBD());
+            cmd.Parameters.Add(new MySqlParameter("@id_kategoriya", id_kategoriya));
 
             // Синхронное подключение к БД
             await con.GetConnectBD();
@@ -84,19 +93,19 @@ namespace Marketplaes02.ViewModel
             if (!reader.HasRows)
             {
                 // Список товаров опусташается
-                Goods.Clear();
+                GoodsKategoriyalist.Clear();
                 // Синхронное отключение от БД
                 await con.GetCloseBD();
                 // Возращение false
                 return false;
             }
-            Goods = new ObservableCollection<Goods>();
+            GoodsKategoriyalist = new ObservableCollection<GoodsKategoriya>();
             // Цикл while выполняется, пока есть строки для чтения из БД
             while (await reader.ReadAsync())
             {
 
                 // Добавление элемента в коллекцию списка товаров на основе класса (Экземпляр класс создается - объект)
-                Goods.Add(new Goods()
+                GoodsKategoriyalist.Add(new GoodsKategoriya()
                 {
                     ID_goods = Convert.ToInt32(reader["ID_goods"]),
                     Name = reader["Name"].ToString(),
@@ -104,11 +113,12 @@ namespace Marketplaes02.ViewModel
                     Image = reader["ImageGood"].ToString(),
                     Price_with_discount = Convert.ToSingle(reader["Price_with_discount"]),
                     Discount = Convert.ToInt32(reader["Discount"]),
+                    Description = reader["Description"].ToString(),
                 });
 
                 // await Task.Delay(1000);
             }
-            OnPropertyChanged("Good");
+            OnPropertyChanged("GoodsKategoriyalist");
 
             // Синхронное отключение от БД
             await con.GetCloseBD();
@@ -138,10 +148,5 @@ namespace Marketplaes02.ViewModel
             // App.Current.Properties["ID_goods"] = id;
             return false;
         }
-
-
-
-
-
     }
 }

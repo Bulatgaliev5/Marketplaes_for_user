@@ -1,17 +1,11 @@
-﻿using Marketplaes02.BD;
-using Marketplaes02.Model;
-using MySqlConnector;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using Marketplaes02.Model;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Text.Json;
+
 
 namespace Marketplaes02.ViewModel
 {
-    public class VewModelSostavZakaza :  INotifyPropertyChanged
+    public class VewModelSostavZakaza : OformlenieZakaza, INotifyPropertyChanged
     {
         int ID_goods;
         private IList<SostavZakaza> _SostavZakazalist;
@@ -26,64 +20,47 @@ namespace Marketplaes02.ViewModel
         }
         public VewModelSostavZakaza()
         {
-          
+
             Load();
 
         }
         public async void Load()
         {
-            ID_goods = Preferences.Default.Get("ID_goods", 0);
-            await LoadSostavZakazalist(ID_goods);
+
+
+            SostavZakazalist = GetList<SostavZakaza>("Sostavzakazalist");
+            User_Name = Preferences.Default.Get("UserName", "Unknown");
+            User_Number_phone = Preferences.Default.Get("UserNumber_phone", "Unknown");
+            User_Data = GetUser_Data();
+            Goods_Total_Price_with_discount = GetGoods_Total_Price_with_discount();
+            Goods_Total_Count = GetGoods_Total_Count();
+            //  ID_goods = Preferences.Default.Get("ID_goods", 0);
+            //  await LoadSostavZakazalist(ID_goods);
         }
-        private async Task<bool> LoadSostavZakazalist(int id)
+
+        public float GetGoods_Total_Price_with_discount()
         {
-
-            string
-                  sql = "SELECT * FROM goods WHERE  ID_goods=@ID_goods";
-
-
-
-
-            ConnectBD con = new ConnectBD();
-
-
-            MySqlCommand cmd = new MySqlCommand(sql, con.GetConnBD());
-            cmd.Parameters.Add(new MySqlParameter("@ID_goods", id));
-            await con.GetConnectBD();
-            MySqlDataReader reader = cmd.ExecuteReader();
-
-            if (!reader.HasRows)
-            {
-                await con.GetCloseBD();
-
-                return false;
-
-            }
-
-            SostavZakazalist = new ObservableCollection<SostavZakaza>();
-
-            while (reader.Read())
-            {
-
-                SostavZakazalist.Add(new SostavZakaza()
-                {
-                    ID_goods = Convert.ToInt32(reader["ID_goods"]),
-                  //  Count =  ,
-                    Name = reader["Name"].ToString(),
-                    // Image = reader["Image"].ToString(),
-                    Price = Convert.ToSingle(reader["Goods_Price"]),
-                    Price_with_discount = Convert.ToSingle(reader["Goods_Price_with_discount"]),
-
-
-                }) ;
-
-            }
-
-            OnPropertyChanged("Korzinalist");
-            await con.GetCloseBD();
-            return true;
+            return SostavZakazalist.Sum(item => item.Price_with_discount);
         }
 
+        public int GetGoods_Total_Count()
+        {
+            return SostavZakazalist.Sum(item => item.Count);
+        }
+
+
+        public string GetUser_Data()
+        {
+            return User_Name + ", " + User_Number_phone;
+        }
+
+
+
+        public static List<SostavZakaza> GetList<SostavZakaza>(string key)
+        {
+            var jsonString = Preferences.Get(key, string.Empty);
+            return string.IsNullOrEmpty(jsonString) ? null : JsonSerializer.Deserialize<List<SostavZakaza>>(jsonString);
+        }
 
 
         public event PropertyChangedEventHandler PropertyChanged;

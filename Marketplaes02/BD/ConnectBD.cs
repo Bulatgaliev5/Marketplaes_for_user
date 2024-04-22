@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MySqlConnector;
+﻿using MySqlConnector;
 
 namespace Marketplaes02.BD
 {
@@ -28,7 +23,7 @@ namespace Marketplaes02.BD
         /// <returns></returns>
         public async Task GetConnectBD()
         {
-          await con.OpenAsync();
+            await con.OpenAsync();
         }
         /// <summary>
         /// Метод синхронного отключения от БД с объекта подключения

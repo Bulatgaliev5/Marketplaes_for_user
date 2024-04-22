@@ -1,12 +1,20 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Marketplaes02.Model
 {
-    public class SostavZakaza : INotifyPropertyChanged
+    public class GoodsKategoriya : INotifyPropertyChanged
     {
-
-        private int _Count;
+        private int _Discount;
         private float _Price_with_discount;
+        /// <summary>
+        /// Поле Описание товара
+        /// </summary>
+        private string _Description;
         /// <summary>
         /// Поле ID_goods
         /// </summary>
@@ -25,6 +33,32 @@ namespace Marketplaes02.Model
         /// </summary>
         private string _Image;
 
+        /// <summary>
+        /// Свойсва ID_goods
+        /// </summary>
+        /// 
+        public int Discount
+        {
+            get => _Discount;
+            set
+            {
+                _Discount = value;
+                OnPropertyChanged("Discount");
+            }
+        }
+        /// <summary>
+        /// Свойство Описание товара
+        /// </summary>
+        public string Description
+        {
+            get => _Description;
+            set
+            {
+                _Description = value;
+                OnPropertyChanged("Description");
+
+            }
+        }
         public int ID_goods
         {
             get => _ID_goods;
@@ -46,20 +80,6 @@ namespace Marketplaes02.Model
                 OnPropertyChanged("Name");
 
             }
-        }
-
-        public int Count
-        {
-            get => _Count;
-            set
-            {
-                if (value <= 1)
-                    value = 1;
-
-                _Count = value;
-                OnPropertyChanged("Count");
-            }
-
         }
         /// <summary>
         /// Свойства цена

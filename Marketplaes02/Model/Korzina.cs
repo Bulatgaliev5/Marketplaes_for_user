@@ -1,11 +1,6 @@
 ﻿using Marketplaes02.BD;
 using MySqlConnector;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace Marketplaes02.Model
@@ -13,14 +8,14 @@ namespace Marketplaes02.Model
     public class Korzina : INotifyPropertyChanged
     {
         int Kartochka_ID_goods, UserID;
-        public Korzina() 
+        public Korzina()
         {
             Kartochka_ID_goods = Preferences.Default.Get("Kartochka_ID_goods", 0);
             UserID = Preferences.Default.Get("UserID", 0);
-            Price = Price * Count;
-            UpdatePlusCountCommand =  new Command<int>(UpdatePlusCount);
+            //  Price = Price * Count;
+            UpdatePlusCountCommand = new Command<int>(UpdatePlusCount);
             UpdateMinusCountCommand = new Command<int>(UpdateMinusCount);
-           
+
         }
         private async void UpdatePlusCount(int id_goods)
         {
@@ -28,8 +23,8 @@ namespace Marketplaes02.Model
             Count++;
             await UpdateCountKorzinaGood(id_goods, UserID);
             await LoadKorzinaGoodPrice(id_goods, UserID);
-           
-           
+
+
             // Price = Price * Count;
             // Price_with_discount = Price_with_discount * Count;
         }
@@ -39,7 +34,7 @@ namespace Marketplaes02.Model
 
             await UpdateCountKorzinaGood(id_goods, UserID);
             await LoadKorzinaGoodPrice(id_goods, UserID);
-           
+
             // Price = Price * Count;
             //Price_with_discount = Price_with_discount * Count;
         }
@@ -79,7 +74,7 @@ namespace Marketplaes02.Model
                 Price_with_discount = Convert.ToSingle(reader["Total_Price_with_discount"]);
                 // await Task.Delay(1000);
             }
-            
+
             await conn.GetCloseBD();
             OnPropertyChanged("Price");
             OnPropertyChanged("Price_with_discount");
@@ -124,8 +119,8 @@ namespace Marketplaes02.Model
         private int _ID_goods;
         private int _ID_user;
         private int _Count;
-        private string _NameGood;
-        private string _ImageGood;
+        private string _Name;
+        private string _Image;
         private float _Price;
         private float _Price_with_discount;
 
@@ -149,22 +144,22 @@ namespace Marketplaes02.Model
 
             }
         }
-        public string NameGood
+        public string Name
         {
-            get => _NameGood;
+            get => _Name;
             set
             {
-                _NameGood = value;
-                OnPropertyChanged("NameGood");
+                _Name = value;
+                OnPropertyChanged("Name");
             }
         }
-        public string ImageGood
+        public string Image
         {
-            get => _ImageGood;
+            get => _Image;
             set
             {
-                _ImageGood = value;
-                OnPropertyChanged("ImageGood");
+                _Image = value;
+                OnPropertyChanged("Image");
             }
         }
         public int ID_korzina
@@ -191,7 +186,7 @@ namespace Marketplaes02.Model
             get => _Count;
             set
             {
-                if (value <=1)
+                if (value <= 1)
                     value = 1;
 
                 _Count = value;

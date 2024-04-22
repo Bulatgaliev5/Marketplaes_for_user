@@ -27,30 +27,32 @@
 
 
     <StackLayout>
-        <Frame Style="{DynamicResource FrameSearch}">
-            
-              <SearchBar    Placeholder="Поиск..." />
-            
-        </Frame>   
 
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="90000"/>
+            </Grid.RowDefinitions>
 
-        <RefreshView x:Name="RefreshView1"
+            <Label Margin="15" VerticalOptions="Center" Grid.Row="0" Text="Подобрали для вас"/>
+            <RefreshView x:Name="RefreshView1"  Grid.Row="1"
              RefreshColor="DeepSkyBlue"
              Refreshing="RefreshGoodsData">
 
-            <CollectionView   x:Name="GoodsData" ItemsLayout="VerticalGrid, 2"
-         ItemsSource="{Binding Goods}" x:FieldModifier="public" 
+                <CollectionView    x:Name="GoodsData" ItemsLayout="VerticalGrid, 2"
+         ItemsSource="{Binding Goods}" 
         SelectionMode="Single"    
         >
 
-                <CollectionView.ItemTemplate>
+                    <CollectionView.ItemTemplate   >
 
-                    <DataTemplate>
+                        <DataTemplate  >
 
                         <Grid Padding="5" 
                       >
 
-                            <Frame Margin="0" Padding="5"   Style="{DynamicResource FrameGlavnaya}" >
+                          
+                            <Frame Grid.Row="1" Margin="0" Padding="5"   Style="{DynamicResource FrameGlavnaya}" >
                                 <StackLayout>
                                     <StackLayout.GestureRecognizers >
                                         <TapGestureRecognizer Tapped="OpenKartochka"/>
@@ -110,5 +112,6 @@
             </CollectionView>
 
         </RefreshView>
+        </Grid>
     </StackLayout>
 </ContentPage>

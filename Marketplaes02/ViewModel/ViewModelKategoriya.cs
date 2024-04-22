@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Marketplaes02.BD;
+﻿using Marketplaes02.BD;
 using Marketplaes02.Model;
 using MySqlConnector;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 
 namespace Marketplaes02.ViewModel
 {
@@ -95,9 +90,9 @@ namespace Marketplaes02.ViewModel
                 // Добавление элемента в коллекцию списка товаров на основе класса (Экземпляр класс создается - объект)
                 KategoriyaList.Add(new Kategoriya()
                 {
-                   // ID_goods = Convert.ToInt32(reader["ID_goods"]),
+                    ID_katehorii = Convert.ToInt32(reader["id_kategoriya"]),
                     Name = reader["Name"].ToString(),
-                   
+
                     Image = reader["Image"].ToString(),
                 });
 
