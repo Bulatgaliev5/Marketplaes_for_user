@@ -23,6 +23,7 @@
                    ContentTemplate="{DataTemplate view:ViewGoods}"
           
                 />
+        
         <ShellContent Route="kategoriya" Title="Каталог" Icon="pois_po_katalogu.png"
            ContentTemplate="{DataTemplate view:ViewKategoriya}"
   

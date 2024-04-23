@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Marketplaes02.View.ViewSearchGoodsList"
+             Title="ViewSearchGoodsList"
+              Shell.TabBarIsVisible="True"
+             >
+
+    <!--Задается цвета выдклкния при нажатии на карточку товара (код Майкрософт)-->
+    <ContentPage.Resources>
+        <Style TargetType="Grid">
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="Selected">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor"
+                                        Value="Azure" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+    </ContentPage.Resources>
+
+
+    <StackLayout>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="90000"/>
+            </Grid.RowDefinitions>
+
+            <StackLayout  Background="DeepSkyBlue" Grid.Row="0">
+            <Frame Padding="0"  Style="{DynamicResource FrameSearch}"  Margin="10,5,10,5" >
+                    <SearchBar  TextChanged="SearchBarSearch"   x:Name="ElementSearchBar" Margin="0"   Placeholder="Поиск..." />
+            </Frame>
+            </StackLayout>
+            <RefreshView x:Name="RefreshView1"  Grid.Row="1"
+             RefreshColor="DeepSkyBlue"
+             Refreshing="RefreshGoodsData">
+
+                <CollectionView    x:Name="GoodsData" ItemsLayout="VerticalGrid, 2"
+         ItemsSource="{Binding Goods}" 
+        SelectionMode="Single"    
+        >
+
+                    <CollectionView.ItemTemplate   >
+
+                        <DataTemplate  >
+
+                            <Grid Padding="5" 
+                      >
+
+
+                                <Frame Grid.Row="1" Margin="0" Padding="5"   Style="{DynamicResource FrameGlavnaya}" >
+                                    <StackLayout>
+                                        <StackLayout.GestureRecognizers >
+                                            <TapGestureRecognizer Tapped="OpenKartochka"/>
+                                        </StackLayout.GestureRecognizers>
+                                        <Frame Margin="5" Style="{DynamicResource FrameImageGood}">
+                                            <Grid>
+                                                <Image Source="{Binding Image}">
+                                                    <Image.GestureRecognizers>
+                                                        <TapGestureRecognizer Tapped="OpenKartochkaImage"/>
+                                                    </Image.GestureRecognizers>
+                                                </Image>
+                                                <Frame Style="{DynamicResource FrameDiscount}">
+
+                                                    <Label  Style="{DynamicResource LabelDiscount}" Text="{Binding Discount,StringFormat='- {0} %'}"  />
+
+                                                </Frame>
+                                            </Grid>
+                                        </Frame>
+
+
+                                        <!-- <ImageButton Style="{DynamicResource IsbranImBt}" Source="isbrannoe.png"
+                                         BackgroundColor="White"
+                                         VerticalOptions="Start"
+                                         HorizontalOptions="End"
+                                         Margin="10"/> -->
+                                        <StackLayout Margin="0,5,0,5" HorizontalOptions="Start"  Orientation="Horizontal">
+
+
+                                            <Label Margin="0" Style="{DynamicResource LabSale}" Text="{Binding Price_with_discount,StringFormat='{0} ₽'}"/>
+                                            <Label Style="{DynamicResource LabPrice}" Text="{Binding Price,StringFormat='{0} ₽'}"/>
+                                        </StackLayout>
+
+                                        <Label Margin="0,0,0,5" LineBreakMode="TailTruncation" TextColor="Black"  Text="{Binding Name}"/>
+
+
+
+                                        <Button Margin="10,15,10,15"   x:Name="BtZakazat" Text="Заказать" 
+                                        Style="{DynamicResource VKorzinuBut}"
+                                        VerticalOptions="End" />
+                                    </StackLayout>
+
+
+
+
+
+
+                                </Frame>
+
+                            </Grid>
+
+                        </DataTemplate>
+
+                    </CollectionView.ItemTemplate>
+
+
+
+                </CollectionView>
+
+            </RefreshView>
+        </Grid>
+    </StackLayout>
+</ContentPage>

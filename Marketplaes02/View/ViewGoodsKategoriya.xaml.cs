@@ -7,11 +7,11 @@ public partial class ViewGoodsKategoriya : ContentPage
 {
     ViewModelGoodsKategoriya viewModelGoodsKategoriya = new ViewModelGoodsKategoriya();
     public ViewGoodsKategoriya()
-	{
+    {
         Update();
 
         InitializeComponent();
-	}
+    }
     public void Update()
     {
 

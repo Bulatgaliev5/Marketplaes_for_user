@@ -32,4 +32,16 @@ public partial class ViewKategoriya : ContentPage
         };
         await Navigation.PushAsync(new ViewGoodsKategoriya());
     }
+
+    private void SearchBarSearch(object sender, TextChangedEventArgs e)
+    {
+
+    }
+
+    private async void FocusedSearchBar(object sender, FocusEventArgs e)
+    {
+        await Navigation.PushModalAsync(new ViewSearchGoodsList());
+        
+
+    }
 }

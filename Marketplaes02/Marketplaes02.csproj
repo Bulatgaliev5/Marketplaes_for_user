@@ -89,6 +89,9 @@
 	  <MauiXaml Update="View\ViewProfil.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="View\ViewSearchGoodsList.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="View\ViewUser_autorizasiya.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

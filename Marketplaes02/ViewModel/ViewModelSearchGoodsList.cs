@@ -4,23 +4,21 @@ using MySqlConnector;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 
-
 namespace Marketplaes02.ViewModel
 {
-    public class ViewModelGoodsKategoriya : INotifyPropertyChanged
+    public class ViewModelSearchGoodsList : INotifyPropertyChanged
     {
-        int id_kategoriya;
         /// <summary>
         /// Список Good
         /// </summary>
-        private IList<GoodsKategoriya> _GoodsKategoriyalist;
-        public IList<GoodsKategoriya> GoodsKategoriyalist
+        private IList<SearchGoodsList> _Goods;
+        public IList<SearchGoodsList> Goods
         {
-            get => _GoodsKategoriyalist;
+            get => _Goods;
             set
             {
-                _GoodsKategoriyalist = value;
-                OnPropertyChanged("GoodsKategoriyalist");
+                _Goods = value;
+                OnPropertyChanged("Goods");
             }
         }
 
@@ -37,7 +35,7 @@ namespace Marketplaes02.ViewModel
 
 
         }
-        public ViewModelGoodsKategoriya()
+        public ViewModelSearchGoodsList()
         {
             Load();
         }
@@ -48,18 +46,17 @@ namespace Marketplaes02.ViewModel
         /// </summary>
         public async void Load()
         {
-            id_kategoriya = Preferences.Default.Get("id_kategoriya", 0);
-            await LoadGoods(id_kategoriya);
+            await LoadGoods();
         }
         /// <summary>
         /// Метод Получения изделий из БД
         /// </summary>
         /// <returns></returns>
-        private async Task<bool> LoadGoods(int id_kategoriya)
+        private async Task<bool> LoadGoods()
         {
             // Строка запроса
             string
-                sql = "SELECT * FROM goods WHERE id_kategoriya=@id_kategoriya";
+                sql = "SELECT * FROM goods ORDER BY RAND()";
 
             // Объявление переменной на основе класс подключения:
             // >    Connector conn
@@ -74,8 +71,7 @@ namespace Marketplaes02.ViewModel
             // Инициализация объекта команды:
             // >    new MySqlCommand(sql, conn.GetConn());
             MySqlCommand
-             cmd = new MySqlCommand(sql, con.GetConnBD());
-            cmd.Parameters.Add(new MySqlParameter("@id_kategoriya", id_kategoriya));
+                cmd = new MySqlCommand(sql, con.GetConnBD());
 
             // Синхронное подключение к БД
             await con.GetConnectBD();
@@ -88,19 +84,19 @@ namespace Marketplaes02.ViewModel
             if (!reader.HasRows)
             {
                 // Список товаров опусташается
-                GoodsKategoriyalist.Clear();
+                Goods.Clear();
                 // Синхронное отключение от БД
                 await con.GetCloseBD();
                 // Возращение false
                 return false;
             }
-            GoodsKategoriyalist = new ObservableCollection<GoodsKategoriya>();
+            Goods = new ObservableCollection<SearchGoodsList>();
             // Цикл while выполняется, пока есть строки для чтения из БД
             while (await reader.ReadAsync())
             {
 
                 // Добавление элемента в коллекцию списка товаров на основе класса (Экземпляр класс создается - объект)
-                GoodsKategoriyalist.Add(new GoodsKategoriya()
+                Goods.Add(new SearchGoodsList()
                 {
                     ID_goods = Convert.ToInt32(reader["ID_goods"]),
                     Name = reader["Name"].ToString(),
@@ -108,12 +104,11 @@ namespace Marketplaes02.ViewModel
                     Image = reader["ImageGood"].ToString(),
                     Price_with_discount = Convert.ToSingle(reader["Price_with_discount"]),
                     Discount = Convert.ToInt32(reader["Discount"]),
-                    Description = reader["Description"].ToString(),
                 });
 
                 // await Task.Delay(1000);
             }
-            OnPropertyChanged("GoodsKategoriyalist");
+            OnPropertyChanged("Goods");
 
             // Синхронное отключение от БД
             await con.GetCloseBD();
@@ -143,5 +138,6 @@ namespace Marketplaes02.ViewModel
             // App.Current.Properties["ID_goods"] = id;
             return false;
         }
+
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Marketplaes02.Model
 {
-    public class GoodsKategoriya : INotifyPropertyChanged
+    public class SearchGoodsList : INotifyPropertyChanged
     {
         private int _Discount;
         private float _Price_with_discount;

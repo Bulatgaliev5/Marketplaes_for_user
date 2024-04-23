@@ -9,10 +9,12 @@ public partial class ViewGoods : ContentPage
     public ViewGoods()
     {
 
-        Update();
+
         InitializeComponent();
+        Update();
 
     }
+
 
     public void Update()
     {
@@ -22,6 +24,7 @@ public partial class ViewGoods : ContentPage
 
 
     }
+
 
     private async void OpenKartochka(object sender, TappedEventArgs e)
     {

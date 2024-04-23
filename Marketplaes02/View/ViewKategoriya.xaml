@@ -6,7 +6,7 @@
     <StackLayout>
         <Frame Style="{DynamicResource FrameSearch}">
 
-            <SearchBar    Placeholder="Поиск..." />
+            <SearchBar Focused="FocusedSearchBar" TextChanged="SearchBarSearch" x:Name="ElementSearchBar"  Placeholder="Поиск..." />
 
         </Frame>
         <CollectionView   ItemsLayout="VerticalGrid, 2"

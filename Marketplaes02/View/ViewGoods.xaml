@@ -3,8 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Marketplaes02.View.ViewGoods"
             BackgroundColor="Azure" 
-             
+              
          >
+
+
+
+
+
 
     <!--Задается цвета выдклкния при нажатии на карточку товара (код Майкрософт)-->
     <ContentPage.Resources>
