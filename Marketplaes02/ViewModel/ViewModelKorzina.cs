@@ -17,7 +17,7 @@ namespace Marketplaes02.ViewModel
 
             Load();
 
-
+           
         }
 
         int UserID;
@@ -33,8 +33,40 @@ namespace Marketplaes02.ViewModel
         }
 
 
+        public void CleanListData(int id)
+        {
 
+            foreach (Korzina good in Korzinalist)
+            {
+                if (good.ID_goods != id)
+                    continue;
+                Korzinalist.Remove(good);
+                Load();
+                return;
+            }
 
+        }
+        public async Task<bool> DeleteGoodSQL(int id_goods, int UserID)
+        {
+            string
+             sql = "DELETE FROM korzina WHERE  ID_goods=@id AND ID_user=@UserID";
+            ConnectBD
+             conn = new ConnectBD();
+            MySqlCommand
+              cmd = new MySqlCommand(sql, conn.GetConnBD());
+            cmd.Parameters.Add(new MySqlParameter("@id", id_goods));
+            cmd.Parameters.Add(new MySqlParameter("@UserID", UserID));
+            await conn.GetConnectBD();
+            if (await cmd.ExecuteNonQueryAsync() == 1)
+            {
+                await conn.GetCloseBD();
+                return true;
+
+            }
+            await conn.GetCloseBD();
+            return false;
+
+        }
 
         public async void Load()
         {

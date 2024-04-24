@@ -74,8 +74,8 @@
             <Frame Style="{DynamicResource FrameGlavnaya}">
                 <StackLayout>
                     <Label Text="Адрес доставки"/>
-                    <Label  TextColor="Black" Text="{Binding Adres_Dostavki}"   x:Name="Adres_dostavki"/>
-                    <Button Style="{DynamicResource BtEditAdressDostavki}" x:Name="BtdresDostavki"  Text="{Binding ButtonAdres_Dostavki}" />
+                    <Label  TextColor="Black" Text="{Binding User_Adres_Dostavki}"   x:Name="Adres_dostavki"/>
+                    <Button Style="{DynamicResource BtEditAdressDostavki}" Clicked="BtdresDostavki"  Text="{Binding ButtonAdres_Dostavki}" />
                 </StackLayout>
             </Frame>
 

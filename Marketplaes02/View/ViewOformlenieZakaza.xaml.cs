@@ -53,6 +53,8 @@ public partial class ViewOformlenieZakaza : ContentPage
         return true;
     }
 
-
-
+    private void BtdresDostavki(object sender, EventArgs e)
+    {
+        
+    }
 }

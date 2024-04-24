@@ -9,9 +9,9 @@ public partial class ViewGoods : ContentPage
     public ViewGoods()
     {
 
-
-        InitializeComponent();
         Update();
+        InitializeComponent();
+        
 
     }
 

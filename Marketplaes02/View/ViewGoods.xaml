@@ -36,15 +36,17 @@
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
-                <RowDefinition Height="90000"/>
+                <RowDefinition Height="645"/>
             </Grid.RowDefinitions>
 
             <Label Margin="15" VerticalOptions="Center" Grid.Row="0" Text="Подобрали для вас"/>
-            <RefreshView x:Name="RefreshView1"  Grid.Row="1"
+          
+                
+                    <RefreshView x:Name="RefreshView1"  Grid.Row="1"
              RefreshColor="DeepSkyBlue"
              Refreshing="RefreshGoodsData">
-
-                <CollectionView    x:Name="GoodsData" ItemsLayout="VerticalGrid, 2"
+                <ScrollView Grid.Row="1">
+                    <CollectionView    x:Name="GoodsData" ItemsLayout="VerticalGrid, 2"
          ItemsSource="{Binding Goods}" 
         SelectionMode="Single"    
         >
@@ -115,8 +117,10 @@
 
 
             </CollectionView>
+            </ScrollView>
+            </RefreshView>
+                
 
-        </RefreshView>
         </Grid>
     </StackLayout>
 </ContentPage>
