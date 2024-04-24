@@ -28,6 +28,8 @@ namespace Marketplaes02.Model
             // Price = Price * Count;
             // Price_with_discount = Price_with_discount * Count;
         }
+
+
         private async void UpdateMinusCount(int id_goods)
         {
             Count--;

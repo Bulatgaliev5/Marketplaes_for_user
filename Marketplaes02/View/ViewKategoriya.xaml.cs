@@ -40,8 +40,9 @@ public partial class ViewKategoriya : ContentPage
 
     private async void FocusedSearchBar(object sender, FocusEventArgs e)
     {
-        await Navigation.PushModalAsync(new ViewSearchGoodsList());
-        
+        ElementSearchBar.Unfocus();
+        await Navigation.PushAsync(new ViewSearchGoodsList());
+       
 
     }
 }

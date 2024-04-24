@@ -1,31 +1,58 @@
 using Marketplaes02.BD;
 using Marketplaes02.ViewModel;
 
+using Newtonsoft.Json.Linq;
+using System.Linq;
+
 namespace Marketplaes02.View;
 
 public partial class ViewOformlenieZakaza : ContentPage
 {
     int Count;
     Yoomoney yoomoney = new Yoomoney();
+
+
+    VewModelSostavZakaza vewModelSostavZakaza = new VewModelSostavZakaza();
     public ViewOformlenieZakaza()
     {
+        
         InitializeComponent();
         BindingContext = new VewModelSostavZakaza();
+        
 
     }
 
-    private void BtnZakazat(object sender, EventArgs e)
+    private async void BtnZakazat(object sender, EventArgs e)
     {
 
-        yoomoney.LoadData();
 
+        bool result = Pay();
+        if (result)
+        {
+
+        }
+        else
+        {
+
+        }
 
 
     }
 
-    private void Btnyomt(object sender, EventArgs e)
+    public bool Pay()
     {
-        yoomoney.LoadDataAccaunt();
-        //  lab21.Text = Convert.ToString(yoomoney.accountInfo);
+        var link = yoomoney.GetPayLink(
+            Convert.ToDecimal(vewModelSostavZakaza.Goods_Total_Price_with_discount),
+            vewModelSostavZakaza.SostavZakazalist.Select(s => s.Name).ToList());
+
+        WebView webView = new WebView
+        {
+            Source = link
+        };
+        Content = webView;
+        return true;
     }
+
+
+
 }

@@ -4,6 +4,7 @@
              x:Class="Marketplaes02.View.ViewSearchGoodsList"
              Title="ViewSearchGoodsList"
               Shell.TabBarIsVisible="True"
+             Shell.NavBarIsVisible="False"
              >
 
     <!--Задается цвета выдклкния при нажатии на карточку товара (код Майкрософт)-->

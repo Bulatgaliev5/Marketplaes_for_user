@@ -15,7 +15,7 @@ public partial class ViewSearchGoodsList : ContentPage
     {
         base.OnAppearing();
 
-        Device.StartTimer(TimeSpan.FromMilliseconds(500), () =>
+        Device.StartTimer(TimeSpan.FromMilliseconds(100), () =>
         {
             ElementSearchBar.Focus();
             return false; // Возвращает false, чтобы остановить таймер после одного вызова
@@ -32,10 +32,11 @@ public partial class ViewSearchGoodsList : ContentPage
     }
     private void SearchBarSearch(object sender, TextChangedEventArgs e)
     {
-        GoodsData.ItemsSource = viewModelSearchGoodsList.Goods
-     .Where(a => a.Name.IndexOf(ElementSearchBar.Text, StringComparison.OrdinalIgnoreCase) >= 0
-     || a.Description.IndexOf(ElementSearchBar.Text, StringComparison.OrdinalIgnoreCase) >= 0)
-     .ToList();
+
+            GoodsData.ItemsSource = viewModelSearchGoodsList.Goods
+                .Where(a => a.Name.IndexOf(ElementSearchBar.Text, StringComparison.OrdinalIgnoreCase) >= 0
+                || a.Description.IndexOf(ElementSearchBar.Text, StringComparison.OrdinalIgnoreCase) >= 0)
+                .ToList();
 
     }
 
@@ -56,7 +57,7 @@ public partial class ViewSearchGoodsList : ContentPage
             Preferences.Default.Set("Kartochka_ID_goods", g.ID_goods);
         };
         await Navigation.PushAsync(new ViewKartochkaGood());
-        await Navigation.PopModalAsync();
+     
     }
 
     private async void OpenKartochka(object sender, TappedEventArgs e)

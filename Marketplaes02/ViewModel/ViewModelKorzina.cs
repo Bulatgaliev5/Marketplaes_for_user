@@ -17,6 +17,7 @@ namespace Marketplaes02.ViewModel
 
             Load();
 
+
         }
 
         int UserID;
@@ -39,6 +40,12 @@ namespace Marketplaes02.ViewModel
         {
             UserID = Preferences.Default.Get("UserID", 0);
             await LoadKorzinalist(UserID);
+        }
+
+        public async void UpdateCount()
+        {
+
+            SaveList("Sostavzakazalist", Korzinalist);
         }
 
 
@@ -66,7 +73,7 @@ namespace Marketplaes02.ViewModel
             MySqlDataReader reader = cmd.ExecuteReader();
 
             if (!reader.HasRows)
-            {
+            {   
                 await con.GetCloseBD();
 
                 return false;
@@ -93,17 +100,17 @@ namespace Marketplaes02.ViewModel
                 });
 
             }
-
+           UpdateCount();
             OnPropertyChanged("Korzinalist");
             await con.GetCloseBD();
-            //Preferences.Default.Set("Sostavzakazalist", Korzinalist);
-            SaveList<Korzina>("Sostavzakazalist", Korzinalist);
+           // Preferences.Default.Set("Sostavzakazalist", Korzinalist.ToList<Korzina>);
+          ///  UpdateCount();
             return true;
 
 
         }
-
-        public static void SaveList<SostavZakaza>(string key, IList<SostavZakaza> list)
+        //Для загрузки списка в словарь лист в состав заказа
+        public static void SaveList(string key, IList<Korzina> list)
         {
             var jsonString = JsonSerializer.Serialize(list);
             Preferences.Set(key, jsonString);

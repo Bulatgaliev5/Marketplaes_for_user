@@ -104,6 +104,7 @@ namespace Marketplaes02.ViewModel
                     Image = reader["ImageGood"].ToString(),
                     Price_with_discount = Convert.ToSingle(reader["Price_with_discount"]),
                     Discount = Convert.ToInt32(reader["Discount"]),
+                    Description = reader["Description"].ToString(),
                 });
 
                 // await Task.Delay(1000);

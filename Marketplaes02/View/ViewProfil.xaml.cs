@@ -8,7 +8,7 @@ public partial class ViewProfil : ContentPage
         string UserName = Preferences.Default.Get("UserName", "Unknown");
         NameUser.Text = "Здравствуй, " + UserName;
     }
-
+    
     private void FrameExitIsProfile(object sender, TappedEventArgs e)
     {
 

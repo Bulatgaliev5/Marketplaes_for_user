@@ -1,3 +1,4 @@
+using Marketplaes02.Model;
 using Marketplaes02.ViewModel;
 
 
@@ -5,6 +6,7 @@ namespace Marketplaes02.View;
 
 public partial class ViewKorzina : ContentPage
 {
+    ViewModelKorzina viewModelKorzina = new ViewModelKorzina();
     public ViewKorzina()
     {
         InitializeComponent();
@@ -19,6 +21,8 @@ public partial class ViewKorzina : ContentPage
 
 
     }
+
+
     private async void RefreshGoodsData(object sender, EventArgs e)
     {
         Update();
@@ -34,9 +38,9 @@ public partial class ViewKorzina : ContentPage
 
     }
 
-    private void btnpay(object sender, EventArgs e)
+    private  void btnpay(object sender, EventArgs e)
     {
-        Update();
-        Navigation.PushAsync(new ViewOformlenieZakaza());
+       viewModelKorzina.Load();
+       Navigation.PushAsync(new ViewOformlenieZakaza());
     }
 }

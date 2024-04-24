@@ -6,10 +6,22 @@ namespace Marketplaes02.Model
     {
         private string _User_Name;
         private string _User_Number_phone;
+        private string _User_Adres_Dostavki;
         private string _User_Data;
         private float _Goods_Total_Price_with_discount;
         private int _Goods_Total_Count;
 
+        private string _ButtonAdres_Dostavki;
+
+        public string ButtonAdres_Dostavki
+        {
+            get => _ButtonAdres_Dostavki;
+            set
+            {
+                _ButtonAdres_Dostavki = value;
+                OnPropertyChanged("ButtonAdres_Dostavki");
+            }
+        }
         public int Goods_Total_Count
         {
             get => _Goods_Total_Count;
@@ -38,7 +50,15 @@ namespace Marketplaes02.Model
             }
         }
 
-
+        public string User_Adres_Dostavki
+        {
+            get => _User_Adres_Dostavki;
+            set
+            {
+                _User_Adres_Dostavki = value;
+                OnPropertyChanged("User_Adres_Dostavki");
+            }
+        }
         public string User_Number_phone
         {
             get => _User_Number_phone;
