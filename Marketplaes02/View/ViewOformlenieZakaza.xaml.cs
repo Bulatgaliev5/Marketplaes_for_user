@@ -1,8 +1,13 @@
+
 using Marketplaes02.BD;
 using Marketplaes02.ViewModel;
-
+using Dadata;
+using Dadata.Model;
 using Newtonsoft.Json.Linq;
 using System.Linq;
+using Geocoding;
+using CommunityToolkit.Maui.Views;
+
 
 namespace Marketplaes02.View;
 
@@ -17,11 +22,22 @@ public partial class ViewOformlenieZakaza : ContentPage
     {
         
         InitializeComponent();
-        BindingContext = new VewModelSostavZakaza();
-        
+        Update();
+
+
 
     }
+    public async void Update()
+    {
 
+        BindingContext = new VewModelSostavZakaza();
+
+
+    }
+    private bool IsValidText(Label box)
+    {
+        return string.IsNullOrEmpty(box.Text) || box.Text.Length < 1;
+    }
     private async void BtnZakazat(object sender, EventArgs e)
     {
 
@@ -53,8 +69,21 @@ public partial class ViewOformlenieZakaza : ContentPage
         return true;
     }
 
-    private void BtdresDostavki(object sender, EventArgs e)
+    private async void BtdresDostavki(object sender, EventArgs e)
     {
-        
+        var popup = new ViewAddAdres_dostavki();
+
+        this.ShowPopup(popup);
     }
+    protected override void OnAppearing()
+    {
+        //Подписка на сообщения
+
+        MessagingCenter.Subscribe<Page>(this, "ViewOformlenieZakaza", (sender) =>
+        {
+            Update();
+        });
+    }
+
+
 }

@@ -63,18 +63,29 @@
           
 
 
-            <Frame Style="{DynamicResource FrameGlavnaya}">
-                <StackLayout>
-                    <Label Text="Получатель"/>
-                    <Label  Margin="0,5,0,5"  TextColor="Black" Text="{Binding User_Data}" x:Name="User_Data"/>
+            <Frame  Style="{DynamicResource FrameGlavnaya}">
+                <Grid   >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="50"/>
+                    </Grid.ColumnDefinitions>
+                    <StackLayout>
+
+                        <HorizontalStackLayout Grid.Column="0">
+                            <Label Grid.Column="0" Text="Получатель"/>
+                            <ImageButton Grid.Column="1" WidthRequest="500" HeightRequest="40" Source="edit_profil.png"/>
+                        </HorizontalStackLayout>
+                        <Label FontSize="17" Margin="0,5,0,5"  TextColor="Black" Text="{Binding User_Data}" x:Name="User_Data"/>
                  
                 </StackLayout>
+                </Grid>
             </Frame>
 
             <Frame Style="{DynamicResource FrameGlavnaya}">
                 <StackLayout>
+
                     <Label Text="Адрес доставки"/>
-                    <Label  TextColor="Black" Text="{Binding User_Adres_Dostavki}"   x:Name="Adres_dostavki"/>
+                    <Label FontSize="17" Margin="0,5,0,15"   TextColor="Black" Text="{Binding User_Adres_Dostavki}"   x:Name="Adres_dostavki"/>
                     <Button Style="{DynamicResource BtEditAdressDostavki}" Clicked="BtdresDostavki"  Text="{Binding ButtonAdres_Dostavki}" />
                 </StackLayout>
             </Frame>
@@ -94,7 +105,7 @@
                 </StackLayout>
             </Frame>
 
-            <Button Margin="5" Style="{DynamicResource BtZakazat}" Clicked="BtnZakazat"  Text="Заказать" />
+            <Button Margin="20" Style="{DynamicResource BtZakazat}" Clicked="BtnZakazat"  Text="Заказать" />
         </StackLayout>
     </ScrollView>
 </ContentPage>

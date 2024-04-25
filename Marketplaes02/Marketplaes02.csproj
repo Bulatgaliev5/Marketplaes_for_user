@@ -70,6 +70,10 @@
 		<PackageReference Include="Azure.Storage.Blobs" Version="12.19.1" />
 		<PackageReference Include="CommunityToolkit.Maui" Version="8.0.1" />
 		<PackageReference Include="ContextMenuContainer" Version="1.2.3" />
+		<PackageReference Include="Dadata" Version="23.6.1" />
+		<PackageReference Include="Geocoding.Core" Version="4.0.1" />
+		<PackageReference Include="Geocoding.Google" Version="4.0.1" />
+		<PackageReference Include="Geocoding.net" Version="3.6.1" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.14" />
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.14" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
@@ -81,6 +85,9 @@
 
 	<ItemGroup>
 	  <MauiXaml Update="View\PopupView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\ViewAddAdres_dostavki.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="View\ViewGoods.xaml">

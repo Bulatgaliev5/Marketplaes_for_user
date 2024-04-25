@@ -171,5 +171,15 @@
           
            
         </Style>
+
+
+        <Style TargetType="Frame" x:Key="FrameAdressDostavki">
+
+           
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="Padding" Value="20"/>
+            <Setter Property="CornerRadius"  Value="15" />
+            <Setter Property="Background"  Value="Snow" />
+        </Style>
     </Application.Resources>
 </Application>

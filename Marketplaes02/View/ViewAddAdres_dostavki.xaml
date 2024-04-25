@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Marketplaes02.View.ViewAddAdres_dostavki"
+               xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             >
+    <VerticalStackLayout>
+        <Frame Style="{DynamicResource FrameAdressDostavki}">
+    <VerticalStackLayout  Padding="5" VerticalOptions="Center">
+        <Editor HeightRequest="100" Placeholder="Введите адрес доставки" TextChanged="addressEntry_TextChanged" x:Name="addressEntry"/>
+        <ListView HeightRequest="230" BackgroundColor="White" SeparatorColor="Black" RefreshControlColor="Black" x:Name="addressDataList" ItemSelected="SelectAdres">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout>
+                            <Label Text="{Binding .}" LineBreakMode="WordWrap"/>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            </ListView>
+            <Button Margin="20" Clicked="Save" Text="Сохранить" Style="{DynamicResource BtEditAdressDostavki}"/>
+    </VerticalStackLayout>
+    </Frame>
+    </VerticalStackLayout>
+</toolkit:Popup>
