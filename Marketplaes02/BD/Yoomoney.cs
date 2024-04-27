@@ -2,6 +2,9 @@
 using Yoomoney_API_username_Bulatgaliev5.authorize;
 using Yoomoney_API_username_Bulatgaliev5.quickpay;
 using Yoomoney_API_username_Bulatgaliev5.notification;
+using Yoomoney_API_username_Bulatgaliev5.operation_details;
+using Microsoft.Maui;
+
 
 
 namespace Marketplaes02.BD
@@ -20,18 +23,7 @@ namespace Marketplaes02.BD
             var redirectUrivar = "https://t.me/Bulatgaliev53";
 
 
-            authorize = new(clientId: clientIdvar, redirectUri: redirectUrivar, scope: new[]
-            {
-
-                    "account-info",
-                     "operation-history",
-                       "operation-details",
-                          "incoming-transfers",
-                             "payment-p2p",
-
-             });
-
-            authorizevar = authorize.AuthorizeUrl;
+          
             var YOUR_СODEvar = "https://t.me/Bulatgaliev53?code=4B70019CF7D4DBDF050F0CCE6835FC3A67725D483596F08AF549D867FB5BF0350736A5BC7C52729D7A23F9F85788EB9D1AB115A2C5205098412E1A80D4087D51A3680393A9797BB674CFFCA0F7AA07CA2A1B45ECFCB48CDB78967239CE2952912BE9DD544DBB6E50BB1D5DBDFF959EAE28E4481B5D013A7247C9DC70CDD683C2";
              token = await authorize.GetAccessToken(code: YOUR_СODEvar, clientId: clientIdvar, redirectUri: redirectUrivar);
 
@@ -48,6 +40,15 @@ namespace Marketplaes02.BD
             var quickpay = new Quickpay(receiver: "410015744747795", quickpayForm: "shop", sum: sum, comment: comment.ToString(),
                 label: label, paymentType: "AC");
             return quickpay.LinkPayment;
+        }
+
+        public async Task< bool> GetStatusOperazii_and_check()
+        {
+            string YOUR_TOKENvar = "410015744747795.3A16C76AEC3568152E277959620EC7F993709927B27B64D605D964BA34E3787B8B1C00BD7E5BF9612CA8AFDAAAA106DBE72AE3119C1AF99A995A79DE8FEFA27E9688697456B7C7EA38D6CB274CF855B894EF4EDF7B48A1CA08E1D7915E1F9E178FA66E63016C193156FE570E49159661E360BE4CAD388B4D5BE1917E1308E91B";
+            var client = new Client(token: YOUR_TOKENvar);
+            var operationrHistory =  client.GetOperationHistory(token: YOUR_TOKENvar);
+           
+            return true;
         }
     }   
 }

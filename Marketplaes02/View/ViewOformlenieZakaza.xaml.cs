@@ -7,6 +7,7 @@ using Newtonsoft.Json.Linq;
 using System.Linq;
 using Geocoding;
 using CommunityToolkit.Maui.Views;
+using System.Net;
 
 
 namespace Marketplaes02.View;
@@ -41,31 +42,41 @@ public partial class ViewOformlenieZakaza : ContentPage
     private async void BtnZakazat(object sender, EventArgs e)
     {
 
-
-        bool result = Pay();
-        if (result)
+        if (!IsValidText(Adres_dostavki))
         {
-
+            bool result = Pay();
+            bool resultAddzakaz = await vewModelSostavZakaza.AddZakazi();
+            if (result && resultAddzakaz)
+            {
+                await DisplayAlert("Уведомление", "Оплата прошла", "Ок");
+            }
+            else
+            {
+                await DisplayAlert("Уведомление", "Оплата не прошла", "Ок");
+            }
         }
         else
         {
-
+            await DisplayAlert("Уведомление", "Заполните все поля", "Ок");
         }
 
 
     }
 
-    public bool Pay()
+    public  bool Pay()
     {
         var link = yoomoney.GetPayLink(
             Convert.ToDecimal(vewModelSostavZakaza.Goods_Total_Price_with_discount),
             vewModelSostavZakaza.SostavZakazalist.Select(s => s.Name).ToList());
 
-        WebView webView = new WebView
+         WebView webView = new WebView
         {
             Source = link
+            
         };
-        Content = webView;
+         Content = webView;
+       // var result = yoomoney.GetStatusOperazii_and_check();
+
         return true;
     }
 
