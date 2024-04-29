@@ -53,5 +53,8 @@ public partial class ViewGoods : ContentPage
         await Navigation.PushAsync(new ViewKartochkaGood());
     }
 
-
+    private void Add_isbrannoe(object sender, TappedEventArgs e)
+    {
+        
+    }
 }

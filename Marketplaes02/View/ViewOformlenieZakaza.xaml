@@ -92,8 +92,12 @@
 
              <Frame Style="{DynamicResource FrameGlavnaya}">
                 <StackLayout>
-                    <Label Text="Способ оплаты"/>
-                    <Button Style="{DynamicResource BtEditAdressDostavki}" Text="Добавить способ оплаты"/>
+                   
+                    <StackLayout RadioButtonGroup.GroupName="languages">
+                        <Label Text="Способ оплаты"/>
+                        <RadioButton Margin="5" IsChecked="True" Content="Банковская карта" Value="Банковская карта"/>
+                    </StackLayout>
+                    
                 </StackLayout>
             </Frame>
 

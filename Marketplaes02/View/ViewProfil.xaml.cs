@@ -9,23 +9,25 @@ public partial class ViewProfil : ContentPage
         NameUser.Text = "Здравствуй, " + UserName;
     }
     
-    private void FrameExitIsProfile(object sender, TappedEventArgs e)
-    {
 
+    private async Task AnimateButton(StackLayout frame)
+    {
+        await frame.ScaleTo(0.9, 100);
+        await frame.FadeTo(0.7, 100);
+        await frame.ScaleTo(1, 100);
+        await frame.FadeTo(1, 100);
     }
 
-    private void FrameO_APP(object sender, TappedEventArgs e)
+
+
+
+
+
+    private async void ClickStackLayout(object sender, TappedEventArgs e)
     {
-
-    }
-
-    private void Selet_Aktev_zakaz(object sender, TappedEventArgs e)
-    {
-
-    }
-
-    private void OnButtonTapped(object sender, TappedEventArgs e)
-    {
-
+        if (sender is StackLayout frame)
+        {
+            await AnimateButton(frame);
+        }
     }
 }

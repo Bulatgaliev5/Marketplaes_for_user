@@ -11,75 +11,30 @@
         <Label x:Name="NameUser"  HorizontalOptions="StartAndExpand" Style="{DynamicResource LabProfil}" />
 
 
-       
 
-        <Frame  x:Name="FrameZakaziKlienta" Margin="10" Padding="0" Style="{DynamicResource FrameGlavnaya}">
-            <StackLayout >
-                <Label HorizontalOptions="StartAndExpand" Text="Мои аказы" Style="{DynamicResource LabProfil}" />
-                <Frame  x:Name="FAktev_zakaz" Margin="0"  Padding="0" Style="{DynamicResource FrameGlavnaya}">
+
+        <StackLayout>
+            <StackLayout.GestureRecognizers>
+                <TapGestureRecognizer
+                  Tapped="ClickStackLayout" />
+            </StackLayout.GestureRecognizers>
+            <Frame  x:Name="FAktev_zakaz" Margin="5,50,5,0"  Padding="0" Style="{DynamicResource FrameGlavnaya}">
                     <StackLayout Orientation="Horizontal" Margin="10" >
-                        <StackLayout.GestureRecognizers>
-                            <TapGestureRecognizer
-                          Tapped="Selet_Aktev_zakaz" />
-                        </StackLayout.GestureRecognizers>
+                      
                         <Image HeightRequest="50" Source="Aktiv_zakaz.png"/>
                         <Label Text="Мои заказы" Style="{DynamicResource LabProfil}"/>
                     </StackLayout>
                 </Frame>
-
-                <!--<Frame x:Name="FArhiv_zakaz" Margin="0"   Padding="0" Style="{DynamicResource FrameGlavnaya}">
-                    <StackLayout Orientation="Horizontal" Margin="10"  >
-                        <StackLayout.GestureRecognizers>
-                            <TapGestureRecognizer
-                          Tapped="Selet_Arhiv_zakaz" />
-                        </StackLayout.GestureRecognizers>
-                        <Image HeightRequest="50" Source="Aktiv_zakaz.png"/>
-                        <Label Text="Архивные заказы" Style="{DynamicResource LabProfil}"/>
-                    </StackLayout>
-                </Frame>-->
-            </StackLayout>
-        </Frame>
+        </StackLayout>
+      
 
 
 
 
-        
-            <Grid Margin="10" >
-                <Grid.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="OnButtonTapped"/>
-                </Grid.GestureRecognizers>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <VisualStateManager.VisualStateGroups>
-                    <VisualStateGroup x:Name="CommonStates">
-                        <VisualState x:Name="Normal"/>
-                        <VisualState x:Name="Pressed">
-                            <VisualState.Setters>
-                                <Setter Property="Scale"
-                            Value="0.95" />
-                            </VisualState.Setters>
-                        </VisualState>
-                    </VisualStateGroup>
-                </VisualStateManager.VisualStateGroups>
-                <Image Grid.Column="0" Source="Aktiv_zakaz.png" WidthRequest="24" HeightRequest="24"/>
-                <Label Grid.Column="1" Text="О приложении" VerticalOptions="CenterAndExpand" Style="{DynamicResource LabProfil}"/>
-            </Grid>
+    
 
 
 
-
-
-        <Frame VerticalOptions="EndAndExpand"   x:Name="ExitIsProfile"  Margin="10"  Padding="0" Style="{DynamicResource FrameGlavnaya}">
-            <StackLayout Orientation="Horizontal" Margin="10" >
-                <StackLayout.GestureRecognizers>
-                    <TapGestureRecognizer
-                               Tapped="FrameExitIsProfile" />
-                </StackLayout.GestureRecognizers>
-                <Image HeightRequest="50" Source="Exit.png"/>
-                <Label Text="Выйти" Style="{DynamicResource LabProfil}"/>
-            </StackLayout>
-        </Frame>
+     
     </StackLayout>
 </ContentPage>

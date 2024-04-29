@@ -17,8 +17,9 @@ public partial class ViewOformlenieZakaza : ContentPage
     int Count;
     Yoomoney yoomoney = new Yoomoney();
 
-
+    WebView webView;
     VewModelSostavZakaza vewModelSostavZakaza = new VewModelSostavZakaza();
+    ViewModelKorzina modelKorzina = new ViewModelKorzina();
     public ViewOformlenieZakaza()
     {
         
@@ -44,16 +45,20 @@ public partial class ViewOformlenieZakaza : ContentPage
 
         if (!IsValidText(Adres_dostavki))
         {
-            bool result = Pay();
-            bool resultAddzakaz = await vewModelSostavZakaza.AddZakazi();
-            if (result && resultAddzakaz)
-            {
-                await DisplayAlert("Уведомление", "Оплата прошла", "Ок");
-            }
-            else
-            {
-                await DisplayAlert("Уведомление", "Оплата не прошла", "Ок");
-            }
+           
+                bool resultAddzakaz = await vewModelSostavZakaza.AddZakazi();
+                bool resultDeletekorzina = await modelKorzina.Delete_Korzina();
+                if (resultAddzakaz && resultDeletekorzina)
+                {
+                    modelKorzina.Load();
+                    await DisplayAlert("Уведомление", "Оплата прошла", "Ок");
+                }
+                else{
+                    await DisplayAlert("Уведомление", "Оплата  не прошла", "Ок");
+            
+
+                }
+           
         }
         else
         {
@@ -69,15 +74,30 @@ public partial class ViewOformlenieZakaza : ContentPage
             Convert.ToDecimal(vewModelSostavZakaza.Goods_Total_Price_with_discount),
             vewModelSostavZakaza.SostavZakazalist.Select(s => s.Name).ToList());
 
-         WebView webView = new WebView
+          webView = new WebView
         {
             Source = link
             
         };
-         Content = webView;
-       // var result = yoomoney.GetStatusOperazii_and_check();
+        Content = webView;
+       
 
-        return true;
+        var result = yoomoney.GetStatusOperazii_and_check();
+        if (result)
+        {
+            return true;
+        }
+        return false;
+
+    }
+
+    // обрабатываем завершение перехода
+    void WebView_Navigated(object sender, WebNavigatedEventArgs e)
+    {
+        if (webView.CanGoBack)
+        {
+            webView.GoBack();
+        }
     }
 
     private async void BtdresDostavki(object sender, EventArgs e)

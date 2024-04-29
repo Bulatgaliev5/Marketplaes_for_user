@@ -1,3 +1,4 @@
+
 using CommunityToolkit.Maui.Views;
 using Marketplaes02.Model;
 using Marketplaes02.ViewModel;
@@ -8,19 +9,24 @@ namespace Marketplaes02.View;
 public partial class ViewKorzina : ContentPage
 {
     ViewModelKorzina viewModelKorzina = new ViewModelKorzina();
+    
     public ViewKorzina()
     {
         InitializeComponent();
         Update();
-
+        
     }
+
     public void Update()
     {
 
         BindingContext = new ViewModelKorzina();
 
 
-
+    }
+    private async void OnDataUpdated(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync(nameof(ViewKorzina), false);
     }
 
 
@@ -41,8 +47,8 @@ public partial class ViewKorzina : ContentPage
 
     private async void btnpay(object sender, EventArgs e)
     {
-        await Task.Delay(1000);
-        viewModelKorzina.Load();
+      
+        Update();
        await Navigation.PushAsync(new ViewOformlenieZakaza());
     }
 

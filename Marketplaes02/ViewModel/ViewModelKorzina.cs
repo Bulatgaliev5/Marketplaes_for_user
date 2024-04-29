@@ -1,5 +1,6 @@
 ﻿using Marketplaes02.BD;
 using Marketplaes02.Model;
+using Microsoft.Maui;
 using MySqlConnector;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -10,7 +11,6 @@ namespace Marketplaes02.ViewModel
 {
     public class ViewModelKorzina : Korzina, INotifyPropertyChanged
     {
-
 
         public ViewModelKorzina()
         {
@@ -80,8 +80,35 @@ namespace Marketplaes02.ViewModel
             SaveList("Sostavzakazalist", Korzinalist);
         }
 
+        public async Task<bool> SQL_Delete_Korzina(int ID_user, int i)
+        {
+            ConnectBD con = new ConnectBD();
+            string sql = "DELETE FROM `korzina` WHERE  `ID_user`=@ID_user AND ID_korzina=@ID_korzina";
+            MySqlCommand cmd = new MySqlCommand(sql, con.GetConnBD());
+            cmd.Parameters.Add(new MySqlParameter("@ID_user", ID_user));
+            cmd.Parameters.Add(new MySqlParameter("@ID_korzina", Korzinalist[i].ID_korzina));
+            await con.GetConnectBD();
+            cmd.ExecuteNonQuery();
+            await con.GetCloseBD();
+            return true;
+        }
+        public async Task<bool> Delete_Korzina()
+        {
+            int i = 0;
+            for (; i < Korzinalist.Count; i++)
+            {
+
+                await SQL_Delete_Korzina(UserID, i);
 
 
+            }
+            if (i == Korzinalist.Count)
+            {
+                Korzinalist.Clear();
+                return true;
+            }
+            return false;
+        }
         private async Task<bool> LoadKorzinalist(int id)
         {
 

@@ -94,9 +94,7 @@
 
 
 
-                                        <Button Margin="10,15,10,15"   x:Name="BtZakazat" Text="Заказать" 
-                                        Style="{DynamicResource VKorzinuBut}"
-                                        VerticalOptions="End" />
+                                       
                                     </StackLayout>
 
 
