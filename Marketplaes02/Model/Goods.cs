@@ -25,6 +25,18 @@ namespace Marketplaes02.Model
         /// </summary>
         private string _Image;
 
+
+        private string _ImageIsbrannoe;
+        public string ImageIsbrannoe
+        {
+            get => _ImageIsbrannoe;
+            set
+            {
+                _ImageIsbrannoe = value;
+                OnPropertyChanged("ImageIsbrannoe");
+
+            }
+        }
         /// <summary>
         /// Свойсва ID_goods
         /// </summary>

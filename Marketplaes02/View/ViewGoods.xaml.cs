@@ -1,5 +1,6 @@
 using Marketplaes02.Model;
 using Marketplaes02.ViewModel;
+using Microsoft.Maui.Controls;
 
 namespace Marketplaes02.View;
 
@@ -53,8 +54,32 @@ public partial class ViewGoods : ContentPage
         await Navigation.PushAsync(new ViewKartochkaGood());
     }
 
-    private void Add_isbrannoe(object sender, TappedEventArgs e)
+    private async void Add_isbrannoe(object sender, TappedEventArgs e)
     {
-        
+        var ID_user = Preferences.Default.Get("UserID", 0);
+        if (sender is Image b && b.BindingContext is Goods g)
+        {
+     
+            if (sender is Image image)
+            {
+                if (image.Source is FileImageSource fileImageSource)
+                {
+                    if (fileImageSource.File=="isbrannoe_true.png")
+                     {
+                           await viewModel_Goods.SQLImageIsbrannoeDelete(ID_user, g.ID_goods);
+                           fileImageSource.File = "isbrannoe.png";
+                     }
+                    else
+                    {
+                        await viewModel_Goods.AddSQLImageIsbrannoe(ID_user, g.ID_goods);
+                        fileImageSource.File = "isbrannoe_true.png";
+                    }
+                }
+            }
+        };
+
+
+
+
     }
 }
