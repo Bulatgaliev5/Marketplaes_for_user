@@ -132,7 +132,8 @@ namespace Marketplaes02.ViewModel
             MySqlDataReader reader = cmd.ExecuteReader();
 
             if (!reader.HasRows)
-            {   
+            {
+                
                 await con.GetCloseBD();
 
                 return false;

@@ -30,4 +30,26 @@ public partial class ViewProfil : ContentPage
             await AnimateButton(frame);
         }
     }
+
+    private async void ClickStackLayout_isbrannoe(object sender, TappedEventArgs e)
+    {
+        if (sender is StackLayout frame)
+        {
+            await AnimateButton(frame);
+        }
+       
+    }
+
+    private async void ClickStackLayout_Exit(object sender, TappedEventArgs e)
+    {
+        if (sender is StackLayout frame)
+        {
+            await AnimateButton(frame);
+        }
+        bool result = await DisplayAlert("Подтвердить действие", "Вы действительно хотите выйти?", "Да", "Нет");
+        if (result)
+        {
+            Application.Current.MainPage = new AppShell();
+        }
+    }
 }

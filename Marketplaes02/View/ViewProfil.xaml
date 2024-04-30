@@ -5,36 +5,77 @@
             
             
              Title="ViewProfil">
-    <StackLayout >
+    <StackLayout Padding="0,10,0,10">
 
 
-        <Label x:Name="NameUser"  HorizontalOptions="StartAndExpand" Style="{DynamicResource LabProfil}" />
+        <Label Margin="10,0,0,0" x:Name="NameUser" TextColor="Black" FontAttributes="Bold" FontSize="20" HorizontalOptions="StartAndExpand" Style="{DynamicResource LabProfil}" />
 
 
+        <StackLayout Margin="0,20,0,20">
+            <Label Margin="10,0,0,10" TextColor="Black" FontAttributes="Bold" FontSize="20" Text="Основные"/>
+            <StackLayout  Margin="5,5,5,15" >
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer
+                     Tapped="ClickStackLayout" />
+                </StackLayout.GestureRecognizers>
+                <Border    Margin="0"  Padding="0" >
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="15" />
+                    </Border.StrokeShape>
+                    <Grid Padding="15,0,15,0" HorizontalOptions="FillAndExpand"  Margin="5" >
+                        <Image   HorizontalOptions="Start" WidthRequest="35"  HeightRequest="40" Source="Aktiv_zakaz.png"/>
+                        <Label   HorizontalOptions="Center" Text="Мои заказы" Style="{DynamicResource LabProfil}"/>
+                        <Image  HorizontalOptions="End" WidthRequest="30" HeightRequest="30" Source="strelka_for_button.png"/>
+                    </Grid>
+                </Border>
+            </StackLayout>
 
+            <StackLayout  Margin="5,5,5,15" >
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer
+          Tapped="ClickStackLayout_isbrannoe" />
+                </StackLayout.GestureRecognizers>
+                <Border    Margin="0"  Padding="0" >
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="15" />
+                    </Border.StrokeShape>
+                    <Grid Padding="15,0,15,0" HorizontalOptions="FillAndExpand"  Margin="5" >
+                        <Image   HorizontalOptions="Start" WidthRequest="35"  HeightRequest="40" Source="isbrannoe2.png"/>
+                        <Label   HorizontalOptions="Center" Text="Избранное" Style="{DynamicResource LabProfil}"/>
+                        <Image  HorizontalOptions="End" WidthRequest="30" HeightRequest="30" Source="strelka_for_button.png"/>
+                    </Grid>
+                </Border>
+            </StackLayout>
 
-        <StackLayout>
-            <StackLayout.GestureRecognizers>
-                <TapGestureRecognizer
-                  Tapped="ClickStackLayout" />
-            </StackLayout.GestureRecognizers>
-            <Frame  x:Name="FAktev_zakaz" Margin="5,50,5,0"  Padding="0" Style="{DynamicResource FrameGlavnaya}">
-                    <StackLayout Orientation="Horizontal" Margin="10" >
-                      
-                        <Image HeightRequest="50" Source="Aktiv_zakaz.png"/>
-                        <Label Text="Мои заказы" Style="{DynamicResource LabProfil}"/>
-                    </StackLayout>
-                </Frame>
         </StackLayout>
-      
+
+
+        <StackLayout Margin="0,20,0,20">
+            <Label Margin="10,0,0,10" TextColor="Black" FontAttributes="Bold" FontSize="20" Text="Настройки"/>
+
+
+            <StackLayout  Margin="5,5,5,15" >
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer
+   Tapped="ClickStackLayout_Exit" />
+                </StackLayout.GestureRecognizers>
+                <Border    Margin="0"  Padding="0" >
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="15" />
+                    </Border.StrokeShape>
+                    <Grid Padding="15,0,15,0" HorizontalOptions="FillAndExpand"  Margin="5" >
+                        <Image   HorizontalOptions="Start" WidthRequest="35"  HeightRequest="40" Source="exit.png"/>
+                        <Label   HorizontalOptions="Center" Text="Выйти" Style="{DynamicResource LabProfil}"/>
+                        <Image  HorizontalOptions="End" WidthRequest="30" HeightRequest="30" Source="strelka_for_button.png"/>
+                    </Grid>
+                </Border>
+            </StackLayout>
+
+        </StackLayout>
 
 
 
 
-    
 
-
-
-     
     </StackLayout>
 </ContentPage>

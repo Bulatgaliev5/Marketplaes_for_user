@@ -70,4 +70,29 @@ public partial class ViewSearchGoodsList : ContentPage
         await Navigation.PushAsync(new ViewKartochkaGood());
 
     }
+
+    private async void Add_isbrannoe(object sender, TappedEventArgs e)
+    {
+        var ID_user = Preferences.Default.Get("UserID", 0);
+        if (sender is Image b && b.BindingContext is SearchGoodsList g)
+        {
+
+            if (sender is Image image)
+            {
+                if (image.Source is FileImageSource fileImageSource)
+                {
+                    if (fileImageSource.File == "isbrannoe_true.png")
+                    {
+                        await viewModelSearchGoodsList.SQLImageIsbrannoeDelete(ID_user, g.ID_goods);
+                        fileImageSource.File = "isbrannoe.png";
+                    }
+                    else
+                    {
+                        await viewModelSearchGoodsList.AddSQLImageIsbrannoe(ID_user, g.ID_goods);
+                        fileImageSource.File = "isbrannoe_true.png";
+                    }
+                }
+            }
+        };
+    }
 }

@@ -112,6 +112,17 @@ namespace Marketplaes02.Model
 
             }
         }
+        private string _ImageIsbrannoe;
+        public string ImageIsbrannoe
+        {
+            get => _ImageIsbrannoe;
+            set
+            {
+                _ImageIsbrannoe = value;
+                OnPropertyChanged("ImageIsbrannoe");
+
+            }
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged(string property)

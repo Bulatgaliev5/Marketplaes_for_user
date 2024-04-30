@@ -29,11 +29,11 @@
   
         />
         <ShellContent Route="korzina"  Title="Корзина" Icon="korzina.png" 
-                ContentTemplate="{DataTemplate view:ViewKorzina}"  
+              ContentTemplate="{DataTemplate view:ViewKorzina}"  
             />
 
         <ShellContent Route="profil"  Title="Профиль" Icon="Profil.png" 
-         ContentTemplate="{DataTemplate view:ViewProfil}"  
+          ContentTemplate="{DataTemplate view:ViewProfil}"  
      />
     </TabBar>
 </Shell>

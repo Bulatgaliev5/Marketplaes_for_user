@@ -8,22 +8,24 @@ namespace Marketplaes02.View;
 
 public partial class ViewKorzina : ContentPage
 {
+
     ViewModelKorzina viewModelKorzina = new ViewModelKorzina();
-    
     public ViewKorzina()
     {
+
         InitializeComponent();
         Update();
         
     }
 
-    public void Update()
+    public async void Update()
     {
-
+      
         BindingContext = new ViewModelKorzina();
-
+   
 
     }
+   
     private async void OnDataUpdated(object sender, EventArgs e)
     {
         await Shell.Current.GoToAsync(nameof(ViewKorzina), false);

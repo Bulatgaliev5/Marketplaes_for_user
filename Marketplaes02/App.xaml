@@ -181,5 +181,11 @@
             <Setter Property="CornerRadius"  Value="15" />
             <Setter Property="Background"  Value="Snow" />
         </Style>
+        <Style TargetType="Border" x:Key="BorderButton">
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="StrokeShape" Value="RoundRectangle"/>
+            <Setter Property="Stroke" Value="PaleTurquoise"/>
+        </Style>
+        
     </Application.Resources>
 </Application>

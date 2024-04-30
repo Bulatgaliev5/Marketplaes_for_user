@@ -92,19 +92,15 @@
                                          VerticalOptions="Start"
                                          HorizontalOptions="End"
                                          Margin="10"/> -->
-                                    <StackLayout Margin="0,5,0,5" HorizontalOptions="Start"  Orientation="Horizontal">
+                                    <StackLayout Margin="5" HorizontalOptions="Start"  Orientation="Horizontal">
 
 
                                         <Label Margin="0" Style="{DynamicResource LabSale}" Text="{Binding Price_with_discount,StringFormat='{0} ₽'}"/>
                                         <Label Style="{DynamicResource LabPrice}" Text="{Binding Price,StringFormat='{0} ₽'}"/>
                                     </StackLayout>
-                                    
-                                    <Label Margin="0,0,0,5" LineBreakMode="TailTruncation" TextColor="Black"  Text="{Binding Name}"/>
 
-
-
-                                 
-                                </StackLayout>
+                                            <Label Margin="5" LineBreakMode="WordWrap" TextColor="Black"  Text="{Binding Name}"/>
+                                        </StackLayout>
 
 
 

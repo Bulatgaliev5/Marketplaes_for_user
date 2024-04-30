@@ -8,6 +8,7 @@ namespace Marketplaes02.ViewModel
 {
     public class ViewModelSearchGoodsList : INotifyPropertyChanged
     {
+        int ID_user;
         /// <summary>
         /// Список Good
         /// </summary>
@@ -46,7 +47,125 @@ namespace Marketplaes02.ViewModel
         /// </summary>
         public async void Load()
         {
+            ID_user = Preferences.Default.Get("UserID", 0);
             await LoadGoods();
+            await ImageIsbrannoeLoad();
+        }
+        public async Task<bool> ImageIsbrannoeLoad()
+        {
+
+
+            int i = 0;
+            for (; i < Goods.Count; i++)
+            {
+
+                bool res = await SQLImageIsbrannoeLoad(ID_user, Goods[i].ID_goods);
+                if (res)
+                {
+                    Goods[i].ImageIsbrannoe = "isbrannoe_true.png";
+                }
+                else
+                {
+
+                    Goods[i].ImageIsbrannoe = "isbrannoe.png";
+                }
+
+            }
+
+            return true;
+        }
+        private async Task<bool> SQLImageIsbrannoeLoad(int ID_user, int ID_goods)
+        {
+            // Строка запроса
+            string
+                sql = "SELECT * FROM isbrannoe_goods where ID_user=@ID_user AND ID_goods=@ID_goods";
+
+
+            ConnectBD con = new ConnectBD();
+            MySqlCommand
+                cmd = new MySqlCommand(sql, con.GetConnBD());
+
+            cmd.Parameters.Add(new MySqlParameter("@ID_user", ID_user));
+            cmd.Parameters.Add(new MySqlParameter("@ID_goods", ID_goods));
+            await con.GetConnectBD();
+
+            // Объявление и инициалзиация метода асинрхонного чтения данных из бд
+            MySqlDataReader
+                 reader = cmd.ExecuteReader();
+
+            // Проверка, что строк нет
+            if (!reader.HasRows)
+            {
+
+                await con.GetCloseBD();
+
+                return false;
+            }
+
+            // Цикл while выполняется, пока есть строки для чтения из БД
+            while (await reader.ReadAsync())
+            {
+
+
+            }
+            OnPropertyChanged("Goods");
+
+            // Синхронное отключение от БД
+            await con.GetCloseBD();
+            // Возращение true
+            return true;
+        }
+        public async Task<bool> AddSQLImageIsbrannoe(int ID_user, int ID_goods)
+        {
+            // Строка запроса
+            //INSERT INTO `dp_bulat_base`.`isbrannoe_goods` (`ID_goods`, `ID_user`) VALUES (57, 27);
+            string
+                sql = "INSERT INTO isbrannoe_goods (ID_goods, ID_user) VALUES (@ID_goods, @ID_user)";
+
+
+            ConnectBD con = new ConnectBD();
+            MySqlCommand
+                cmd = new MySqlCommand(sql, con.GetConnBD());
+
+            cmd.Parameters.Add(new MySqlParameter("@ID_user", ID_user));
+            cmd.Parameters.Add(new MySqlParameter("@ID_goods", ID_goods));
+            await con.GetConnectBD();
+            cmd.ExecuteNonQuery();
+            OnPropertyChanged("Goods");
+            // Синхронное отключение от БД
+            await con.GetCloseBD();
+            // Возращение true
+            return true;
+        }
+        public async Task<bool> SQLImageIsbrannoeDelete(int ID_user, int ID_goods)
+        {
+            // Строка запроса
+            string
+                sql = "DELETE FROM isbrannoe_goods where ID_user=@ID_user AND ID_goods=@ID_goods";
+
+
+            ConnectBD con = new ConnectBD();
+            MySqlCommand
+                cmd = new MySqlCommand(sql, con.GetConnBD());
+
+            cmd.Parameters.Add(new MySqlParameter("@ID_user", ID_user));
+            cmd.Parameters.Add(new MySqlParameter("@ID_goods", ID_goods));
+            await con.GetConnectBD();
+
+            if (await cmd.ExecuteNonQueryAsync() == 1)
+            {
+                await con.GetCloseBD();
+                return true;
+
+            }
+
+
+            OnPropertyChanged("Goods");
+
+            // Синхронное отключение от БД
+            await con.GetCloseBD();
+            // Возращение true
+            return false;
         }
         /// <summary>
         /// Метод Получения изделий из БД

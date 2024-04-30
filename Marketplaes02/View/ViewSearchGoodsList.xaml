@@ -74,23 +74,23 @@
                                                     <Label  Style="{DynamicResource LabelDiscount}" Text="{Binding Discount,StringFormat='- {0} %'}"  />
 
                                                 </Frame>
+                                                <Frame CornerRadius="15" Padding="0"   HorizontalOptions="End" VerticalOptions="Start" >
+                                                    <Image x:Name="ImageIsbrannoe" WidthRequest="35" VerticalOptions="End" HorizontalOptions="Start"  Source="{Binding ImageIsbrannoe}">
+                                                        <Image.GestureRecognizers>
+                                                            <TapGestureRecognizer Tapped="Add_isbrannoe"/>
+                                                        </Image.GestureRecognizers>
+                                                    </Image>
+                                                </Frame>
                                             </Grid>
                                         </Frame>
-
-
-                                        <!-- <ImageButton Style="{DynamicResource IsbranImBt}" Source="isbrannoe.png"
-                                         BackgroundColor="White"
-                                         VerticalOptions="Start"
-                                         HorizontalOptions="End"
-                                         Margin="10"/> -->
-                                        <StackLayout Margin="0,5,0,5" HorizontalOptions="Start"  Orientation="Horizontal">
+                                        <StackLayout Margin="5" HorizontalOptions="Start"  Orientation="Horizontal">
 
 
                                             <Label Margin="0" Style="{DynamicResource LabSale}" Text="{Binding Price_with_discount,StringFormat='{0} ₽'}"/>
                                             <Label Style="{DynamicResource LabPrice}" Text="{Binding Price,StringFormat='{0} ₽'}"/>
                                         </StackLayout>
 
-                                        <Label Margin="0,0,0,5" LineBreakMode="TailTruncation" TextColor="Black"  Text="{Binding Name}"/>
+                                        <Label Margin="5" LineBreakMode="WordWrap" TextColor="Black"  Text="{Binding Name}"/>
 
 
 

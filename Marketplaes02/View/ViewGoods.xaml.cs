@@ -17,7 +17,7 @@ public partial class ViewGoods : ContentPage
     }
 
 
-    public void Update()
+    public async void Update()
     {
 
         BindingContext = new ViewModel_Goods();
