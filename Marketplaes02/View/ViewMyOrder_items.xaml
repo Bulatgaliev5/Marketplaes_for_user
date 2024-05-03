@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Marketplaes02.View.ViewMyOrder_items"
+             Title="{Binding ID_order}">
+    <ScrollView>
+        <StackLayout>
+        
+        <StackLayout>
+            <Border    Margin="5"  Padding="20" >
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="15" />
+                </Border.StrokeShape>
+                <StackLayout Orientation="Vertical" VerticalOptions="Center" >
+                    <StackLayout Orientation="Horizontal">
+                        <Image WidthRequest="40" Source="gps.png"/>
+                        <Label TextColor="Black" FontSize="20"  Text="Адрес доставки"/>
+                    </StackLayout>
+                    <Label FontSize="18" Text="{Binding Adres_Dostavki}"/>
+                </StackLayout>
+            </Border>
+            <Border    Margin="5"  Padding="20" >
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="15" />
+                </Border.StrokeShape>
+                <StackLayout Orientation="Vertical" VerticalOptions="Center" >
+                    <StackLayout Orientation="Horizontal">
+                        <Image WidthRequest="40" Source="user.png"/>
+                        <Label TextColor="Black" FontSize="20"  Text="Получатель"/>
+                    </StackLayout>
+                    <Label FontSize="18" Text="{Binding User_Name}"/>
+                    <Label FontSize="18" Text="{Binding User_Number_phone}"/>
+                </StackLayout>
+            </Border>
+        </StackLayout>
+        
+                <StackLayout  Margin="10,20,0,0" Orientation="Horizontal">
+                    <Image WidthRequest="40" Source="sostav_zakaza.png"/>
+                    <Label Margin="10,0,0,0" TextColor="Black" FontSize="20"  Text="Состав заказа"/>
+                </StackLayout>
+         
+
+
+
+
+
+            <CollectionView   ItemsLayout="VerticalGrid, 1"
+                        ItemsSource="{Binding MyOrder_itemslist}"
+ 
+ >
+
+                        <CollectionView.ItemTemplate>
+
+                            <DataTemplate >
+
+                                <Grid Padding="1" 
+                >
+
+                                    <Border    Margin="5"  Padding="15" >
+
+                                        <Border.StrokeShape>
+                                            <RoundRectangle CornerRadius="15" />
+                                        </Border.StrokeShape>
+                                        <StackLayout Margin="0" Orientation="Horizontal">
+                                            <Frame Margin="0" WidthRequest="50" HeightRequest="50"  Style="{DynamicResource Fram_My_zakazi}" >
+                                                <Image 
+                              Source="{Binding Image}" Style="{DynamicResource ImageGlavGoods}"/>
+                                            </Frame>
+                                            <StackLayout  Padding="10,0,0,0" HorizontalOptions="FillAndExpand">
+                                        <Grid HorizontalOptions="FillAndExpand">
+                                            <Label   FontAttributes="Bold" TextDecorations="Underline"  x:Name="LabelTrack_number" HorizontalOptions="Start" FontSize="18" Text="{Binding Track_number, StringFormat='Трек номер: {0}'}"  />
+                                            <ImageButton Clicked="ClickCopy_Track_number" HorizontalOptions="End" WidthRequest="35" HeightRequest="35" Source="copy.png"/>
+                                        </Grid>
+                                        <Label x:Name="LabelStatus"  FontSize="18" Text="{Binding Status,StringFormat='Статус: {0}'}"  />
+                                                
+                                            <Label  FontSize="18" LineBreakMode="WordWrap"  Text="{Binding Name}"/>
+                                                <Label FontSize="18"  Text="{Binding Total_Count,StringFormat='Количество: {0} шт.'}"  />
+                                                <Label  FontSize="18" Text="{Binding Total_Price_with_discount,StringFormat='Стоимость: {0} ₽'}"  />
+                                               
+                                               
+                                        </StackLayout>
+                                            
+                                        </StackLayout>
+                                   
+                                    </Border>
+                                    
+                               
+                                </Grid>
+
+                            </DataTemplate>
+
+                        </CollectionView.ItemTemplate>
+
+
+
+                    </CollectionView>
+
+           
+
+
+            <StackLayout>
+                <Border    Margin="5"  Padding="20" >
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="15" />
+                    </Border.StrokeShape>
+                    <StackLayout Orientation="Vertical" VerticalOptions="Center" >
+                        <StackLayout Orientation="Horizontal">
+                            <Image WidthRequest="40" Source="gps.png"/>
+                            <Label TextColor="Black" FontSize="20"  Text="Ваш заказа"/>
+                        </StackLayout>
+                        <Grid HorizontalOptions="FillAndExpand">
+                            <HorizontalStackLayout>
+                        <Label HorizontalOptions="Start" FontSize="18" Text="Итого"/>
+                                <Label HorizontalOptions="End" FontSize="18" Text="{Binding Total_Price_with_discount}"/>
+                            </HorizontalStackLayout>
+                        </Grid>
+                    </StackLayout>
+                </Border>
+
+            </StackLayout>
+        </StackLayout>
+      
+    </ScrollView>
+</ContentPage>

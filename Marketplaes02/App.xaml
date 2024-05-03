@@ -87,6 +87,9 @@
             <Setter Property="FontSize" Value="Default"/>
             <Setter Property="Margin" Value="0,0,0,20"/>
         </Style>
+        <Style TargetType="Label" >
+            <Setter Property="TextColor" Value="#3B3C36"/>
+        </Style>
         <Style TargetType="Button" x:Key="BtVoiti">
             <Setter Property="Background" Value="DeepSkyBlue"/>
             <Setter Property="BackgroundColor" Value="Dodgerblue"/>

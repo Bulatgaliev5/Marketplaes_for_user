@@ -7,40 +7,11 @@ using System.Threading.Tasks;
 
 namespace Marketplaes02.Model
 {
-    public class MyOrders : INotifyPropertyChanged
+    public class MyOrder_items : INotifyPropertyChanged
     {
-        private string _User_Name;
-        private string _User_Number_phone;
+      
         private int _Total_Count;
-        private int _Count_goods;
-        public string User_Name
-        {
-            get => _User_Name;
-            set
-            {
-                _User_Name = value;
-                OnPropertyChanged("User_Name");
-            }
-        }
-        public string User_Number_phone
-        {
-            get => _User_Number_phone;
-            set
-            {
-                _User_Number_phone = value;
-                OnPropertyChanged("User_Number_phone");
-            }
-        }
-        public int Count_goods
-        {
-            get => _Count_goods;
-            set
-            {
-                _Count_goods = value;
-                OnPropertyChanged("Count_goods");
-
-            }
-        }
+       
         private float _Total_Price_with_discount;
 
         public float Total_Price_with_discount
@@ -53,6 +24,8 @@ namespace Marketplaes02.Model
 
             }
         }
+
+      
 
         public int Total_Count
         {
@@ -83,15 +56,16 @@ namespace Marketplaes02.Model
             get => _status;
             set
             {
+               
                 _status = value;
                 OnPropertyChanged("Status");
             }
         }
-        public MyOrders()
+        public MyOrder_items()
         {
 
         }
-        private int _ID_order;
+        private int _ID_Order_items;
 
         /// <summary>
         /// Поле Название изделия
@@ -102,11 +76,16 @@ namespace Marketplaes02.Model
         /// </summary>
         private string _Image;
 
-        /// <summary>
-        /// Поле Адрес доставки
-        /// </summary>
-        private string _adres_Dostavki;
-        
+        private int _ID_order;
+        public int ID_order
+        {
+            get => _ID_order;
+            set
+            {
+                _ID_order = value;
+                OnPropertyChanged("ID_order");
+            }
+        }
 
         private DateTime _Order_date;
         private int _ID_user;
@@ -138,26 +117,18 @@ namespace Marketplaes02.Model
                 OnPropertyChanged("ID_user");
             }
         }
-        public int ID_order
+        public int ID_Order_items
         {
-            get => _ID_order;
+            get => _ID_Order_items;
             set
             {
-                _ID_order = value;
-                OnPropertyChanged("ID_order");
+                _ID_Order_items = value;
+                OnPropertyChanged("ID_Order_items");
             }
         }
 
        
-        public string Adres_Dostavki
-        {
-            get => _adres_Dostavki;
-            set
-            {
-                _adres_Dostavki = value;
-                OnPropertyChanged("Adres_Dostavki");
-            }
-        }
+      
 
         public string Name
         {
