@@ -52,8 +52,8 @@
                                 <StackLayout Orientation="Vertical" VerticalOptions="Center" >
                                     <Grid Padding="0,0,0,0" HorizontalOptions="FillAndExpand"  Margin="0" >
                                         <StackLayout>
-                                        <Label TextColor="Black" FontSize="22"  Text="{Binding Order.ID_order,StringFormat='Заказ № {0}'}"/>
-                                        <Label Margin="0,0,0,5" FontSize="20"  Text="{Binding Order.Order_date,StringFormat='от {0:dd.MM.yyyy}'}"/>
+                                            <Label TextColor="Black" FontSize="22"  Text="{Binding Order.ID_order,StringFormat='Заказ № {0}'}"/>
+                                            <Label Margin="0,0,0,5" FontSize="20"  Text="{Binding Order.Order_date,StringFormat='от {0:dd.MM.yyyy}'}"/>
                                         </StackLayout>
                                         <Image  HorizontalOptions="End" WidthRequest="30" HeightRequest="30" Source="strelka_for_button.png"/>
                                     </Grid>
@@ -75,17 +75,17 @@
                                                             <RoundRectangle CornerRadius="15" />
                                                         </Border.StrokeShape>
                                                         <StackLayout Margin="0" Orientation="Horizontal">
-                                                          
-                                                                <Image 
+
+                                                            <Image 
                                                                     Source="{Binding Image}" HeightRequest="50" WidthRequest="50" Style="{DynamicResource ImageGlavGoods}"/>
-                                                     
+
                                                             <StackLayout  Padding="10,0,0,0" HorizontalOptions="FillAndExpand">
 
                                                                 <Label  FontSize="20" LineBreakMode="WordWrap"  Text="{Binding ID_Order_items,StringFormat='Доставка: {0}'}"/>
                                                                 <Label  FontSize="18" Text="{Binding Total_Count,StringFormat='Количество: {0} шт.'}"  />
                                                                 <Label FontSize="18"  Text="{Binding Status,StringFormat='Статус: {0}'}"  />
 
-                                                              
+
 
                                                             </StackLayout>
 
@@ -106,10 +106,10 @@
 
 
                                 </StackLayout>
-                                
+
                             </Border>
 
-                           
+
 
 
                         </Grid>
@@ -118,7 +118,16 @@
 
                 </CollectionView.ItemTemplate>
 
-
+                <!-- Пустое представление -->
+                <CollectionView.EmptyView>
+                    <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+                        <Image WidthRequest="50" Source="no_zakaz.png"/>
+                        <Label FontSize="20" Margin="10,0,0,0" VerticalOptions="Center" Text="У вас нет заказов :(" 
+                         />
+                      
+                    </StackLayout>
+                        
+                </CollectionView.EmptyView>
 
             </CollectionView>
 

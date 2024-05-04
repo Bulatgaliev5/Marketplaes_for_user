@@ -29,7 +29,7 @@ namespace Marketplaes02.ViewModel
         {
           ID_order = Preferences.Default.Get("ID_order", 0);
             UserID = Preferences.Default.Get("UserID", 0);
-            //Total_Order_Price_with_discount = Convert.ToSingle( Preferences.Default.Get("Total_Order_Price_with_discount", 0.00));
+           
            
             await LoadMyOrders(UserID, ID_order);   
           
@@ -52,7 +52,7 @@ namespace Marketplaes02.ViewModel
             string
                   sql = "SELECT u_i.ID_order_item AS ID_order_item, u_i.Track_number, u_i.Status, o.ID_order, o.Order_date, u_i.Total_Count,u_i.Total_Price_with_discount, " +
                   "g.Name AS Goods_Name, g.ID_goods AS Goods_ID, g.ImageGood AS Goods_Image, u.ID AS User_ID, o.Adres_Dostavki, " +
-                  "u.Name AS User_Name, u.Number_phone AS User_Number_phone  " +
+                  "u.Name AS User_Name, u.Number_phone AS User_Number_phone, o.Total_Price_with_discount AS Total_Order_Price_with_discount  " +
                   "FROM orders o " +
                   "JOIN order_items u_i ON u_i.ID_order = o.ID_order " +
                   "JOIN goods g ON u_i.ID_goods = g.ID_goods " +
@@ -90,32 +90,34 @@ namespace Marketplaes02.ViewModel
                     Name = Convert.ToString(reader["Goods_Name"]),
                     Total_Count = Convert.ToInt32(reader["Total_Count"]),
                     ID_user = Convert.ToInt32(reader["User_ID"]),
-                    Order_date = Convert.ToDateTime(reader["Order_date"]),
                     Total_Price_with_discount = Convert.ToSingle(reader["Total_Price_with_discount"]),
                     Status = Convert.ToString(reader["Status"]),
                     Track_number = Convert.ToString(reader["Track_number"]),
+
                 });
+                
                  Adres_Dostavki = Convert.ToString(reader["Adres_Dostavki"]);
                  User_Name = Convert.ToString(reader["User_Name"]);
                 User_Number_phone = Convert.ToString(reader["User_Number_phone"]);
-                
+                Total_Order_Price_with_discount = Convert.ToSingle(reader["Total_Order_Price_with_discount"]);
+                Order_date = Convert.ToDateTime(reader["Order_date"]);
+
 
             }
+            OnPropertyChanged("Order_date");
             OnPropertyChanged("Adres_Dostavki");
             OnPropertyChanged("MyOrder_itemslist");
             OnPropertyChanged("User_Name");
             OnPropertyChanged("User_Number_phone");
             OnPropertyChanged("Track_number");
+            OnPropertyChanged("Total_Order_Price_with_discount");
             await con.GetCloseBD();
 
             return true;
 
 
         }
-        private void Get_Count_goods()
-        {
 
-        }
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged(string property)
         {

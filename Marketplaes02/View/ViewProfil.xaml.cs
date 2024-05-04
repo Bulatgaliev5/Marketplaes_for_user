@@ -38,7 +38,7 @@ public partial class ViewProfil : ContentPage
         {
             await AnimateButton(frame);
         }
-       // Navigation.PushAsync(new NewContent1());
+        await Navigation.PushAsync(new ViewIsbrannoe());
     }
 
     private async void ClickStackLayout_Exit(object sender, TappedEventArgs e)

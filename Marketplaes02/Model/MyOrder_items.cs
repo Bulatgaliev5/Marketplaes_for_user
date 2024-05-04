@@ -25,7 +25,18 @@ namespace Marketplaes02.Model
             }
         }
 
-      
+        private float _Total_Order_Price_with_discount;
+
+        public float Total_Order_Price_with_discount
+        {
+            get => _Total_Order_Price_with_discount;
+            set
+            {
+                _Total_Order_Price_with_discount = value;
+                OnPropertyChanged("Total_Order_Price_with_discount");
+
+            }
+        }
 
         public int Total_Count
         {

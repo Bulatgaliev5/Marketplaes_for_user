@@ -14,10 +14,22 @@ namespace Marketplaes02.ViewModel
 
         public ViewModelKorzina()
         {
-
+            
             Load();
-
            
+
+        }
+       
+        private bool _btnbuy;
+        public bool btnbuy
+        {
+            get => _btnbuy;
+            set
+            {
+                _btnbuy = value;
+                OnPropertyChanged("btnbuy");
+
+            }
         }
 
         int UserID;
@@ -71,7 +83,15 @@ namespace Marketplaes02.ViewModel
         public async void Load()
         {
             UserID = Preferences.Default.Get("UserID", 0);
-            await LoadKorzinalist(UserID);
+           bool result = await LoadKorzinalist(UserID);
+            if (result)
+            {
+                btnbuy = true;
+            }
+            else
+            {
+                btnbuy = false;
+            }
         }
 
         public async void UpdateCount()

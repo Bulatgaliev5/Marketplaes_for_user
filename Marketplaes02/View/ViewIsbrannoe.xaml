@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Marketplaes02.View.ViewIsbrannoe"
+            BackgroundColor="Azure" 
+              Title="Избранное"
+         >
+
+
+
+
+
+
+    <!--Задается цвета выдклкния при нажатии на карточку товара (код Майкрософт)-->
+    <ContentPage.Resources>
+        <Style TargetType="Grid">
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="Selected">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor"
+                                        Value="Azure" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+    </ContentPage.Resources>
+
+
+    <StackLayout>
+
+      
+          
+                
+                    <RefreshView x:Name="RefreshView1"  Grid.Row="1"
+             RefreshColor="DeepSkyBlue"
+             Refreshing="RefreshGoodsData">
+                <ScrollView Grid.Row="1">
+                    <CollectionView    x:Name="GoodsData" ItemsLayout="VerticalGrid, 2"
+         ItemsSource="{Binding Goods}" 
+        SelectionMode="Single"    
+        >
+
+                    <CollectionView.ItemTemplate   >
+
+                        <DataTemplate  >
+
+                        <Grid Padding="5" 
+                      >
+
+                          
+                            <Frame Grid.Row="1" Margin="0" Padding="5"   Style="{DynamicResource FrameGlavnaya}" >
+                                <StackLayout>
+                                    <StackLayout.GestureRecognizers >
+                                        <TapGestureRecognizer Tapped="OpenKartochka"/>
+                                    </StackLayout.GestureRecognizers>
+                                    <Frame Margin="5" Style="{DynamicResource FrameImageGood}">
+                                        <Grid>
+                                            <Image Source="{Binding Image}">
+                                                <Image.GestureRecognizers>
+                                                    <TapGestureRecognizer Tapped="OpenKartochkaImage"/>
+                                                </Image.GestureRecognizers>
+                                            </Image>
+                                            <Frame Style="{DynamicResource FrameDiscount}">
+
+                                               <Label  Style="{DynamicResource LabelDiscount}" Text="{Binding Discount,StringFormat='- {0} %'}"  />
+                                            </Frame>
+
+                                                    <Frame CornerRadius="15" Padding="0"   HorizontalOptions="End" VerticalOptions="Start" >
+                                                        <Image x:Name="ImageIsbrannoe" WidthRequest="35" VerticalOptions="End" HorizontalOptions="Start"  Source="{Binding ImageIsbrannoe}">
+                                                            <Image.GestureRecognizers>
+                                                                <TapGestureRecognizer Tapped="Add_isbrannoe"/>
+                                                            </Image.GestureRecognizers>
+                                                        </Image>
+                                                    </Frame>
+                                                </Grid>
+                                    </Frame>
+
+
+                                    <!-- <ImageButton Style="{DynamicResource IsbranImBt}" Source="isbrannoe.png"
+                                         BackgroundColor="White"
+                                         VerticalOptions="Start"
+                                         HorizontalOptions="End"
+                                         Margin="10"/> -->
+                                    <StackLayout Margin="5" HorizontalOptions="Start"  Orientation="Horizontal">
+
+
+                                        <Label Margin="0" Style="{DynamicResource LabSale}" Text="{Binding Price_with_discount,StringFormat='{0} ₽'}"/>
+                                        <Label Style="{DynamicResource LabPrice}" Text="{Binding Price,StringFormat='{0} ₽'}"/>
+                                    </StackLayout>
+
+                                            <Label Margin="5" LineBreakMode="WordWrap" TextColor="Black"  Text="{Binding Name}"/>
+                                        </StackLayout>
+
+
+
+
+
+
+                            </Frame>
+
+                        </Grid>
+
+                    </DataTemplate>
+
+                </CollectionView.ItemTemplate>
+
+                    <!-- Пустое представление -->
+                    <CollectionView.EmptyView>
+                        <StackLayout   Orientation="Horizontal" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+                            <Image Margin="40,0,10,0"  WidthRequest="50" Source="no_zakaz.png"/>
+                            <Label HorizontalOptions="FillAndExpand" LineBreakMode="WordWrap"  FontSize="20" Margin="10,0,40,0" VerticalOptions="Center" Text="Вы ничего не добавили в избранное"/>
+                        </StackLayout>
+
+                    </CollectionView.EmptyView>
+
+                </CollectionView>
+            </ScrollView>
+            </RefreshView>
+                
+
+     
+    </StackLayout>
+</ContentPage>

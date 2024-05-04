@@ -28,8 +28,7 @@ namespace Marketplaes02.ViewModel
         {
             UserID = Preferences.Default.Get("UserID", 0);
             await LoadMyOrders(UserID);
-            int minID = MyOrderslist.Min(order => order.ID_order);
-            int maxID = MyOrderslist.Max(order => order.ID_order);
+
 
             //foreach (var order in MyOrderslist.Where(o => o.ID_order >= minID && o.ID_order <= maxID))
             //{
@@ -38,11 +37,20 @@ namespace Marketplaes02.ViewModel
             //}
             //OnPropertyChanged("MyOrder_itemslist");
             await LoadMyOrder_items(UserID);
-            groupedResult = (from order in MyOrderslist
-                             join orderItem in MyOrder_itemslist on order.ID_order equals orderItem.ID_order into orderGroup
-                             select new OrderWithItems { Order = order, Items = orderGroup.ToList() })
-                 .OrderByDescending(o => o.Order.ID_order)
-                 .ToList();
+
+            if (MyOrderslist != null && MyOrder_itemslist != null)
+            {
+                groupedResult = (from order in MyOrderslist
+                                 join orderItem in MyOrder_itemslist on order.ID_order equals orderItem.ID_order into orderGroup
+                                 select new OrderWithItems { Order = order, Items = orderGroup.ToList() })
+                    .OrderByDescending(o => o.Order.ID_order)
+                    .ToList();
+            }
+            else
+            {
+                // Обработка ситуации, когда один из списков равен null
+            }
+
 
 
 

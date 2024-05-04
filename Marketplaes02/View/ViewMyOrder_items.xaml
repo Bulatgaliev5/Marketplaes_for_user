@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Marketplaes02.View.ViewMyOrder_items"
-             Title="{Binding ID_order}">
+             Title="{Binding Order_date,StringFormat='Заказ от {0:dd.MM.yyyy}'}">
     <ScrollView>
         <StackLayout>
         
@@ -62,7 +62,7 @@
                                             <RoundRectangle CornerRadius="15" />
                                         </Border.StrokeShape>
                                         <StackLayout Margin="0" Orientation="Horizontal">
-                                            <Frame Margin="0" WidthRequest="50" HeightRequest="50"  Style="{DynamicResource Fram_My_zakazi}" >
+                                            <Frame Padding="5" Margin="0" WidthRequest="50" HeightRequest="50"  Style="{DynamicResource Fram_My_zakazi}" >
                                                 <Image 
                               Source="{Binding Image}" Style="{DynamicResource ImageGlavGoods}"/>
                                             </Frame>
@@ -91,9 +91,9 @@
 
                         </CollectionView.ItemTemplate>
 
+              
 
-
-                    </CollectionView>
+            </CollectionView>
 
            
 
@@ -105,15 +105,15 @@
                     </Border.StrokeShape>
                     <StackLayout Orientation="Vertical" VerticalOptions="Center" >
                         <StackLayout Orientation="Horizontal">
-                            <Image WidthRequest="40" Source="gps.png"/>
-                            <Label TextColor="Black" FontSize="20"  Text="Ваш заказа"/>
+                            <Image WidthRequest="40" Source="info_order.png"/>
+                            <Label Margin="10,0,0,0" TextColor="Black" FontSize="20"  Text="Ваш заказ"/>
                         </StackLayout>
-                        <Grid HorizontalOptions="FillAndExpand">
-                            <HorizontalStackLayout>
+                       
+                            <Grid  HorizontalOptions="FillAndExpand" Padding="5">
                         <Label HorizontalOptions="Start" FontSize="18" Text="Итого"/>
-                                <Label HorizontalOptions="End" FontSize="18" Text="{Binding Total_Price_with_discount}"/>
-                            </HorizontalStackLayout>
-                        </Grid>
+                            <Label HorizontalOptions="End" FontSize="18" Text="{Binding Total_Order_Price_with_discount,StringFormat='{0} ₽'}"/>
+                            </Grid>
+                      
                     </StackLayout>
                 </Border>
 

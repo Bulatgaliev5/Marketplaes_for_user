@@ -89,10 +89,19 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="View\ViewIsbrannoe.xaml.cs">
+	    <DependentUpon>ViewIsbrannoe.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
 	  <MauiXaml Update="View\PopupView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="View\ViewAddAdres_dostavki.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\ViewIsbrannoe.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="View\ViewGoods.xaml">

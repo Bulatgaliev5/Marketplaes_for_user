@@ -80,15 +80,22 @@
 
                 </CollectionView.ItemTemplate>
 
+                    <!-- Пустое представление -->
+                    <CollectionView.EmptyView>
+                        <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+                            <Image WidthRequest="50" Source="no_zakaz.png"/>
+                            <Label FontSize="20" Margin="10,0,0,0" VerticalOptions="Center" Text="Ваша корзина пуста"/>
+                        </StackLayout>
 
+                    </CollectionView.EmptyView>
 
-            </CollectionView>
+                </CollectionView>
                 
             </RefreshView>
           
         </StackLayout>
 
-        <StackLayout   Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center" Orientation="Horizontal">
+        <StackLayout  IsVisible="{Binding btnbuy}"  Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center" Orientation="Horizontal">
 
             <Button  Clicked="btnpay"
                Style="{DynamicResource BtnOformleniu}"  Text="Перейти к оформлению" />
