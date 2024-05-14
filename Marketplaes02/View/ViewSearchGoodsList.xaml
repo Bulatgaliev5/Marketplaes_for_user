@@ -36,9 +36,9 @@
             </Grid.RowDefinitions>
 
             <StackLayout  Background="DeepSkyBlue" Grid.Row="0">
-            <Frame VerticalOptions="CenterAndExpand" Padding="0"  Style="{DynamicResource FrameSearch}"  Margin="10,5,10,5" >
+                <Border VerticalOptions="CenterAndExpand" Padding="0"  Style="{DynamicResource FrameSearch}"  Margin="10,5,10,5" >
                     <SearchBar  TextChanged="SearchBarSearch"   x:Name="ElementSearchBar" Margin="0"   Placeholder="Поиск..." />
-            </Frame>
+            </Border>
             </StackLayout>
             <RefreshView x:Name="RefreshView1"  Grid.Row="1"
              RefreshColor="DeepSkyBlue"
@@ -57,7 +57,7 @@
                       >
 
 
-                                <Frame Grid.Row="1" Margin="0" Padding="5"   Style="{DynamicResource FrameGlavnaya}" >
+                                <Border Grid.Row="1" Margin="0" Padding="5"   Style="{DynamicResource BorderGlavnaya}" >
                                     <StackLayout>
                                         <StackLayout.GestureRecognizers >
                                             <TapGestureRecognizer Tapped="OpenKartochka"/>
@@ -69,18 +69,21 @@
                                                         <TapGestureRecognizer Tapped="OpenKartochkaImage"/>
                                                     </Image.GestureRecognizers>
                                                 </Image>
-                                                <Frame Style="{DynamicResource FrameDiscount}">
+                                                <Border Style="{DynamicResource FrameDiscount}">
 
                                                     <Label  Style="{DynamicResource LabelDiscount}" Text="{Binding Discount,StringFormat='- {0} %'}"  />
 
-                                                </Frame>
-                                                <Frame CornerRadius="15" Padding="0"   HorizontalOptions="End" VerticalOptions="Start" >
+                                                </Border>
+                                                <Border  Padding="0"   HorizontalOptions="End" VerticalOptions="Start" >
+                                                    <Border.StrokeShape>
+                                                        <RoundRectangle CornerRadius="15" />
+                                                    </Border.StrokeShape>
                                                     <Image x:Name="ImageIsbrannoe" WidthRequest="35" VerticalOptions="End" HorizontalOptions="Start"  Source="{Binding ImageIsbrannoe}">
                                                         <Image.GestureRecognizers>
                                                             <TapGestureRecognizer Tapped="Add_isbrannoe"/>
                                                         </Image.GestureRecognizers>
                                                     </Image>
-                                                </Frame>
+                                                </Border>
                                             </Grid>
                                         </Frame>
                                         <StackLayout Margin="5" HorizontalOptions="Start"  Orientation="Horizontal">
@@ -102,7 +105,7 @@
 
 
 
-                                </Frame>
+                                </Border>
 
                             </Grid>
 

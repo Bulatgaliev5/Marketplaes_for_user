@@ -12,19 +12,25 @@
         <Style TargetType="Image" x:Key="ImageGlavGoods">
             <Setter Property="Aspect" Value="AspectFit"/>
         </Style>
-        <Style TargetType="Frame" x:Key="FrameImageGood">
-           
+        <Style TargetType="Border" x:Key="FrameImageGood">
             <Setter Property="HeightRequest"  Value="200" />
-            <Setter Property="Margin" Value="0"/>
-            <Setter Property="Padding" Value="0"/>
-            <Setter Property="CornerRadius"  Value="15" />
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Padding" Value="5"/>
             <Setter Property="Background"  Value="Snow" />
+            <Setter Property="Stroke" Value="PaleTurquoise"/>
+            <Setter Property="StrokeThickness" Value="1.5"/>
+            <Setter Property="StrokeShape">
+                <Setter.Value>
+                    <RoundRectangle CornerRadius="15" />
+                </Setter.Value>
+            </Setter>
         </Style>
-        <Style TargetType="Frame" BasedOn="{StaticResource FrameImageGood}" x:Key="Fram_My_zakazi">
-            <Setter Property="Margin" Value="0"/>
-            <Setter Property="Padding" Value="0"/>
+        <Style TargetType="Border" BasedOn="{StaticResource FrameImageGood}" x:Key="Fram_My_zakazi">
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Padding" Value="5"/>
             <Setter Property="HeightRequest" Value="100"/>
             <Setter Property="WidthRequest" Value="100"/>
+            
         </Style>
         <Style TargetType="Button" x:Key="VKorzinuBut">
             <Setter Property="Background" Value="DeepSkyBlue"/>
@@ -70,7 +76,19 @@
             <Setter Property="Placeholder" Value="Логин"/>
             <Setter Property="Margin" Value="5"/>
         </Style>
-
+        <Style TargetType="Border" x:Key="BorderGlavnaya">
+            <Setter Property="Stroke" Value="PaleTurquoise"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="Stroke" Value="PaleTurquoise"/>
+            <Setter Property="StrokeThickness" Value="1.5"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="StrokeShape">
+                <Setter.Value>
+                    <RoundRectangle CornerRadius="15" />
+                </Setter.Value>
+            </Setter>
+        </Style>
         <Style TargetType="Entry" x:Key="EntryPass" BasedOn="{StaticResource EntryLogin}">
             <Setter Property="Placeholder" Value="Пароль"/>
         </Style>
@@ -131,30 +149,40 @@
             <Setter Property="Margin" Value="0"/>
             <Setter Property="CornerRadius" Value="15"/>
         </Style>
-        <Style TargetType="Frame" x:Key="FrameSearch">
-            <Setter Property="BorderColor" Value="PaleTurquoise"/>
-            <Setter Property="CornerRadius" Value="15"/>
+        <Style TargetType="Border" x:Key="FrameSearch">
+           
             <Setter Property="Margin" Value="1"/>
             <Setter Property="Padding" Value="4"/>
+            <Setter Property="Stroke" Value="PaleTurquoise"/>
+            <Setter Property="StrokeThickness" Value="1.5"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="StrokeShape">
+                <Setter.Value>
+                    <RoundRectangle CornerRadius="15" />
+                </Setter.Value>
+            </Setter>
         </Style>
-        <Style TargetType="Frame" x:Key="FrameDiscount">
+        <Style TargetType="Border" x:Key="FrameDiscount">
             <Setter Property="WidthRequest" Value="50"/>
-            <Setter Property="HeightRequest" Value="10"/>
+            <Setter Property="HeightRequest" Value="20"/>
             <Setter Property="HorizontalOptions" Value="Start"/>
-      
             <Setter Property="VerticalOptions" Value="Start"/>
             <Setter Property="Margin" Value="5"/>
-            <Setter Property="Padding" Value="0,10,0,0"/>
-            <Setter Property="CornerRadius" Value="15"/>
+            <Setter Property="Padding" Value="0,0,0,0"/>
             <Setter Property="Background" Value="#F6D7D7"/>
 
+            <Setter Property="StrokeShape">
+                <Setter.Value>
+                    <RoundRectangle CornerRadius="15" />
+                </Setter.Value>
+            </Setter>
         </Style>
 
         <Style TargetType="Label" x:Key="LabelDiscount">
             <Setter Property="HorizontalTextAlignment" Value="Center"/>
-            <Setter Property="VerticalTextAlignment" Value="End"/>
+            <Setter Property="VerticalTextAlignment" Value="Start"/>
             <Setter Property="HorizontalOptions" Value="Center"/>
-            <Setter Property="VerticalOptions" Value="End"/>
+            <Setter Property="VerticalOptions" Value="Start"/>
             <Setter Property="TextColor" Value="Red"/>
 
         </Style>

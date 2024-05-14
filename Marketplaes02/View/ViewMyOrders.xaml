@@ -6,12 +6,12 @@
              >
 
 
-    <ContentPage.ToolbarItems>
+    <!--<ContentPage.ToolbarItems>
         <ToolbarItem Clicked="BtFilter"
                  IconImageSource="filter.png"
                  Order="Primary"
                  Priority="0" />
-    </ContentPage.ToolbarItems>
+    </ContentPage.ToolbarItems>-->
     <StackLayout>
       
         <RefreshView x:Name="RefreshView1" 

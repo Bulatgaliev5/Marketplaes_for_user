@@ -81,10 +81,10 @@
                                             <RoundRectangle CornerRadius="15" />
                                         </Border.StrokeShape>
                                         <StackLayout Margin="0" Orientation="Horizontal">
-                                            <Frame Padding="5" Margin="0" WidthRequest="50" HeightRequest="50"  Style="{DynamicResource Fram_My_zakazi}" >
+                                            <Border  Padding="5" Margin="0" WidthRequest="50" HeightRequest="50"  Style="{DynamicResource Fram_My_zakazi}" >
                                                 <Image 
                               Source="{Binding Image}" Style="{DynamicResource ImageGlavGoods}"/>
-                                            </Frame>
+                                            </Border>
                                             <StackLayout  Padding="10,0,0,0" HorizontalOptions="FillAndExpand">
 
                                       

@@ -35,14 +35,14 @@
                         <Grid Padding="1"  
                         >
 
-                                    <Frame  x:FieldModifier="public"   Style="{DynamicResource FrameGlavnaya}" >
+                                    <Border  x:FieldModifier="public"   Style="{DynamicResource BorderGlavnaya}" >
                                     <StackLayout  Orientation="Horizontal">
 
                                       
-                                        <Frame   Style="{DynamicResource Fram_My_zakazi}">
+                                        <Border   Style="{DynamicResource Fram_My_zakazi}">
                                             <Image 
                                      Source="{Binding Image}" Style="{DynamicResource ImageGlavGoods}"/>
-                                    </Frame>
+                                    </Border>
 
                                        
 
@@ -75,7 +75,7 @@
 
                                     </StackLayout>
 
-                            </Frame>
+                            </Border>
                
     </Grid>
 

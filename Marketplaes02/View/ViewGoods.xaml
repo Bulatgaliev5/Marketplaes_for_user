@@ -60,22 +60,22 @@
                       >
 
 
-                                        <Frame Grid.Row="1" Margin="0" Padding="5"   Style="{DynamicResource FrameGlavnaya}" >
+                                        <Border Grid.Row="1" Margin="0" Padding="5"   Style="{DynamicResource BorderGlavnaya}" >
                                             <StackLayout>
                                                 <StackLayout.GestureRecognizers >
                                                     <TapGestureRecognizer Tapped="OpenKartochka"/>
                                                 </StackLayout.GestureRecognizers>
-                                                <Frame Margin="5" Style="{DynamicResource FrameImageGood}">
+                                                <Border Margin="5" Style="{DynamicResource FrameImageGood}">
                                                     <Grid>
                                                         <Image Source="{Binding Image}">
                                                             <Image.GestureRecognizers>
                                                                 <TapGestureRecognizer Tapped="OpenKartochkaImage"/>
                                                             </Image.GestureRecognizers>
                                                         </Image>
-                                                        <Frame Style="{DynamicResource FrameDiscount}">
+                                                        <Border Style="{DynamicResource FrameDiscount}">
 
                                                             <Label  Style="{DynamicResource LabelDiscount}" Text="{Binding Discount,StringFormat='- {0} %'}"  />
-                                                        </Frame>
+                                                        </Border>
 
                                                         <Frame CornerRadius="15" Padding="0"   HorizontalOptions="End" VerticalOptions="Start" >
                                                             <Image x:Name="ImageIsbrannoe" WidthRequest="35" VerticalOptions="End" HorizontalOptions="Start"  Source="{Binding ImageIsbrannoe}">
@@ -85,7 +85,7 @@
                                                             </Image>
                                                         </Frame>
                                                     </Grid>
-                                                </Frame>
+                                                </Border>
 
 
                                                 <!-- <ImageButton Style="{DynamicResource IsbranImBt}" Source="isbrannoe.png"
@@ -108,7 +108,7 @@
 
 
 
-                                        </Frame>
+                                        </Border>
 
                                     </Grid>
 

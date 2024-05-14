@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Marketplaes02.View.ViewOformlenieZakaza" Background="Azure"
              Title="Офрормление заказа"
-            
+            Shell.TabBarIsVisible="False"
              >
     <RefreshView x:Name="RefreshView1"  Grid.Row="1"
   RefreshColor="DeepSkyBlue" HorizontalOptions="StartAndExpand" VerticalOptions="FillAndExpand"
@@ -39,10 +39,10 @@
                                                 <RoundRectangle CornerRadius="15" />
                                             </Border.StrokeShape>
                                             <StackLayout Orientation="Horizontal">
-                                                <Frame WidthRequest="50" HeightRequest="50"  Style="{DynamicResource Fram_My_zakazi}">
+                                                <Border WidthRequest="50" HeightRequest="50"  Style="{DynamicResource Fram_My_zakazi}">
                                                     <Image 
                                                             Source="{Binding Image}" Style="{DynamicResource ImageGlavGoods}"/>
-                                                </Frame>
+                                                </Border>
                                                 <StackLayout Margin="15,0,0,0" Padding="0">
                                                     <Label Text="{Binding Name}"  
                                                  FontAttributes="Bold"/>
@@ -81,13 +81,13 @@
 
 
 
-                <Frame  Style="{DynamicResource FrameGlavnaya}">
+                <Border  Style="{DynamicResource BorderGlavnaya}">
                     <Grid   >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="auto"/>
                             <ColumnDefinition Width="50"/>
                         </Grid.ColumnDefinitions>
-                        <StackLayout>
+                        <StackLayout Margin="15">
 
                             <HorizontalStackLayout Grid.Column="0">
                                 <Label Grid.Column="0" Text="Получатель"/>
@@ -97,19 +97,19 @@
 
                         </StackLayout>
                     </Grid>
-                </Frame>
+                </Border>
 
-                <Frame Style="{DynamicResource FrameGlavnaya}">
-                    <StackLayout>
+                <Border Style="{DynamicResource BorderGlavnaya}">
+                    <StackLayout Margin="15">
 
                         <Label Text="Адрес доставки"/>
                         <Label FontSize="17" Margin="0,5,0,15"   TextColor="Black" Text="{Binding User_Adres_Dostavki}"   x:Name="Adres_dostavki"/>
                         <Button Style="{DynamicResource BtEditAdressDostavki}" Clicked="BtdresDostavki"  Text="{Binding ButtonAdres_Dostavki}" />
                     </StackLayout>
-                </Frame>
+                </Border>
 
-                <Frame Style="{DynamicResource FrameGlavnaya}">
-                    <StackLayout>
+                <Border Style="{DynamicResource BorderGlavnaya}">
+                    <StackLayout Margin="15">
 
                         <StackLayout Padding="0"  RadioButtonGroup.GroupName="languages">
                             <Label Text="Способ оплаты"/>
@@ -117,15 +117,15 @@
                         </StackLayout>
 
                     </StackLayout>
-                </Frame>
+                </Border>
 
-                <Frame Style="{DynamicResource FrameGlavnaya}">
-                    <StackLayout>
+                <Border Style="{DynamicResource BorderGlavnaya}">
+                    <StackLayout Margin="15">
                         <Label Text="{Binding Goods_Total_Price_with_discount,StringFormat='Итого {0} ₽'}" FontSize="20" TextColor="Black"/>
                         <Label Text="{Binding Goods_Total_Count,StringFormat='Количество {0} шт.'}" FontSize="17"  TextColor="Black"/>
                         <Label FontSize="17"  TextColor="Black" Text="Доставка: Бесплатно"/>
                     </StackLayout>
-                </Frame>
+                </Border>
 
                 <Button Margin="20" Style="{DynamicResource BtZakazat}" Clicked="BtnZakazat"  Text="Заказать" />
             </StackLayout>

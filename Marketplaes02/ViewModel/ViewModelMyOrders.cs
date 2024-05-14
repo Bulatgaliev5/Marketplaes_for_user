@@ -30,7 +30,7 @@ namespace Marketplaes02.ViewModel
             VisibleNullList = true;
             UserID = Preferences.Default.Get("UserID", 0);
             await LoadMyOrders(UserID);
-
+            await LoadMyOrder_items(UserID);
             if (MyOrderslist != null && MyOrder_itemslist != null)
             {
                 All_MyOrderList = (from order in MyOrderslist
@@ -38,10 +38,11 @@ namespace Marketplaes02.ViewModel
                                    select new All_MyOrder { Order = order, Items = orderGroup.ToList() })
                    .OrderByDescending(o => o.Order.ID_order)
                    .ToList();
+                VisibleCollectionViewEmptyView = true;
             }
             else
             {
-                VisibleCollectionViewEmptyView = true;
+                
             }
             VisibleNullList = false;
 

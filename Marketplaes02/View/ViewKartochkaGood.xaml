@@ -11,12 +11,12 @@
         </Grid.RowDefinitions>
         <ScrollView Grid.Row="0">
             <StackLayout >
-                
-                <VerticalStackLayout  Padding="0" >
+                <Frame Padding="5"  Style="{DynamicResource FrameGlavnaya}">
+                    <VerticalStackLayout  Padding="0" >
 
                     <Grid Padding="0" Margin="5" HeightRequest="400">
                         
-                    <CarouselView ItemsSource="{Binding ImagesGoodsList}" IndicatorView="indicatorView">
+                    <CarouselView  ItemsSource="{Binding ImagesGoodsList}" IndicatorView="indicatorView">
                         <CarouselView.ItemTemplate>
                             <DataTemplate>
                                     <Frame>
@@ -36,7 +36,7 @@
                    HorizontalOptions="Center" />
                    
                 </VerticalStackLayout>
-               
+                </Frame>
 
                 <Frame  Style="{DynamicResource FrameGlavnaya}">
                     <StackLayout HorizontalOptions="Start"  Orientation="Horizontal">
