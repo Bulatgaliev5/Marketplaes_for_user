@@ -12,9 +12,9 @@ public partial class ViewKorzina : ContentPage
     ViewModelKorzina viewModelKorzina = new ViewModelKorzina();
     public ViewKorzina()
     {
-
-        InitializeComponent();
         Update();
+        InitializeComponent();
+      
         
     }
 
@@ -34,9 +34,12 @@ public partial class ViewKorzina : ContentPage
 
     private async void RefreshGoodsData(object sender, EventArgs e)
     {
-        Update();
-        await Task.Delay(1000);
+
+
+         Update();
+
         RefreshView1.IsRefreshing = false;
+
     }
 
     private void CountGoods(object sender, ValueChangedEventArgs e)

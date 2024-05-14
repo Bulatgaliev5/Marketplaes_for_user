@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Marketplaes02.View.ViewMyOrder_items"
+             x:Class="Marketplaes02.View.ViewMyOrder_items" Background="Azure"
              Title="{Binding Order_date,StringFormat='Заказ от {0:dd.MM.yyyy}'}">
     <ScrollView>
         <StackLayout>
@@ -32,8 +32,27 @@
                     <Label FontSize="18" Text="{Binding User_Number_phone}"/>
                 </StackLayout>
             </Border>
-        </StackLayout>
+                <Border    Margin="5"  Padding="20" >
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="15" />
+                    </Border.StrokeShape>
+                    <StackLayout Orientation="Vertical" VerticalOptions="Center" >
+                        <StackLayout Orientation="Horizontal">
+                            <Image WidthRequest="40" Source="user.png"/>
+                            <Label TextColor="Black" FontSize="20"  Text="Информация о доставке"/>
+                        </StackLayout>
+                        <Grid HorizontalOptions="FillAndExpand">
+                            <Label   FontAttributes="Bold" TextDecorations="Underline"  x:Name="LabelTrack_number" HorizontalOptions="Start" FontSize="18" Text="{Binding Track_number, StringFormat='Трек номер: {0}'}"  />
+                            <ImageButton x:Name="BtnCopy"  Clicked="ClickCopy_Track_number" HorizontalOptions="End" WidthRequest="35" HeightRequest="35" Source="copy.png"/>
+                        </Grid>
+                        <Label FontSize="18" Text="{Binding Status, StringFormat='Статус заказа: {0}'}"/>
+                    </StackLayout>
+                </Border>
+            </StackLayout>
         
+            
+            
+            
                 <StackLayout  Margin="10,20,0,0" Orientation="Horizontal">
                     <Image WidthRequest="40" Source="sostav_zakaza.png"/>
                     <Label Margin="10,0,0,0" TextColor="Black" FontSize="20"  Text="Состав заказа"/>
@@ -67,11 +86,8 @@
                               Source="{Binding Image}" Style="{DynamicResource ImageGlavGoods}"/>
                                             </Frame>
                                             <StackLayout  Padding="10,0,0,0" HorizontalOptions="FillAndExpand">
-                                        <Grid HorizontalOptions="FillAndExpand">
-                                            <Label   FontAttributes="Bold" TextDecorations="Underline"  x:Name="LabelTrack_number" HorizontalOptions="Start" FontSize="18" Text="{Binding Track_number, StringFormat='Трек номер: {0}'}"  />
-                                            <ImageButton Clicked="ClickCopy_Track_number" HorizontalOptions="End" WidthRequest="35" HeightRequest="35" Source="copy.png"/>
-                                        </Grid>
-                                        <Label x:Name="LabelStatus"  FontSize="18" Text="{Binding Status,StringFormat='Статус: {0}'}"  />
+
+                                      
                                                 
                                             <Label  FontSize="18" LineBreakMode="WordWrap"  Text="{Binding Name}"/>
                                                 <Label FontSize="18"  Text="{Binding Total_Count,StringFormat='Количество: {0} шт.'}"  />

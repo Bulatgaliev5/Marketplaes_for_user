@@ -14,7 +14,8 @@ namespace Marketplaes02.ViewModel
 
         public ViewModelKorzina()
         {
-            
+            VisibleCollectionViewEmptyView = false;
+            VisibleNullList = true; 
             Load();
            
 
@@ -29,6 +30,29 @@ namespace Marketplaes02.ViewModel
                 _btnbuy = value;
                 OnPropertyChanged("btnbuy");
 
+            }
+        }
+        private bool _VisibleNullList;
+
+        public bool VisibleNullList
+        {
+            get => _VisibleNullList;
+            set
+            {
+                _VisibleNullList = value;
+                OnPropertyChanged("VisibleNullList");
+            }
+        }
+
+        private bool _VisibleCollectionViewEmptyView;
+
+        public bool VisibleCollectionViewEmptyView
+        {
+            get => _VisibleCollectionViewEmptyView;
+            set
+            {
+                _VisibleCollectionViewEmptyView = value;
+                OnPropertyChanged("VisibleCollectionViewEmptyView");
             }
         }
 
@@ -82,16 +106,23 @@ namespace Marketplaes02.ViewModel
 
         public async void Load()
         {
+            VisibleNullList = true;
             UserID = Preferences.Default.Get("UserID", 0);
-           bool result = await LoadKorzinalist(UserID);
-            if (result)
+            await LoadKorzinalist(UserID);
+            if (Korzinalist != null)
             {
                 btnbuy = true;
             }
             else
             {
                 btnbuy = false;
+                VisibleNullList = false;
+                VisibleCollectionViewEmptyView = true;
             }
+            VisibleNullList = false;
+
+
+
         }
 
         public async void UpdateCount()

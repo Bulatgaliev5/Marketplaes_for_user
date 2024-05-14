@@ -4,6 +4,7 @@ using Microsoft.Maui;
 using MySqlConnector;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Windows.Input;
 
 namespace Marketplaes02.ViewModel
 {
@@ -37,20 +38,79 @@ namespace Marketplaes02.ViewModel
 
 
         }
+        private ICommand refreshCommand;
+        public ICommand RefreshCommand { get; }
+
+        private bool isRefreshing;
+        public bool IsRefreshing
+        {
+            get => isRefreshing;
+            set
+            {
+                isRefreshing = value;
+                OnPropertyChanged(nameof(IsRefreshing));
+            }
+        }
         public ViewModel_Goods()
         {
+            VisibleCollectionViewEmptyView = false;
+            VisibleNullList = true;
+            RefreshCommand = new Command(async () => await RefreshItemsAsync());
             Load();
+          
+        }
+        private async Task RefreshItemsAsync()
+        {
+           
+            IsRefreshing = true;
+
+
+            await Load();
+
+
+            IsRefreshing = false;
+        }
+        private bool _VisibleNullList;
+
+        public bool VisibleNullList
+        {
+            get => _VisibleNullList;
+            set
+            {
+                _VisibleNullList = value;
+                OnPropertyChanged("VisibleNullList");
+            }
         }
 
+        private bool _VisibleCollectionViewEmptyView;
 
+        public bool VisibleCollectionViewEmptyView
+        {
+            get => _VisibleCollectionViewEmptyView;
+            set
+            {
+                _VisibleCollectionViewEmptyView = value;
+                OnPropertyChanged("VisibleCollectionViewEmptyView");
+            }
+        }
+      
         /// <summary>
         /// Метод загрузки изделтй Load
         /// </summary>
-        public async void Load()
+        public async Task Load()
         {
             ID_user = Preferences.Default.Get("UserID", 0);
             await LoadGoods();
-            await ImageIsbrannoeLoad();
+            if (Goods != null)
+            {
+                await ImageIsbrannoeLoad();
+            }
+            else
+            {
+                VisibleCollectionViewEmptyView = true;
+            }
+            VisibleNullList = false;
+          
         }
         public async Task<bool> ImageIsbrannoeLoad()
         {

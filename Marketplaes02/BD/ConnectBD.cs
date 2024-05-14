@@ -1,4 +1,5 @@
-﻿using MySqlConnector;
+﻿
+using MySqlConnector;
 
 namespace Marketplaes02.BD
 {
@@ -23,7 +24,16 @@ namespace Marketplaes02.BD
         /// <returns></returns>
         public async Task GetConnectBD()
         {
-            await con.OpenAsync();
+            try
+            {
+                await con.OpenAsync();
+            }
+            catch (MySqlException ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("Уведомление", "Не удалось подключиться серверу. Попробуйте попозже или же сообщите администратору: " + ex.Message, "ОK");
+
+            }
+         
         }
         /// <summary>
         /// Метод синхронного отключения от БД с объекта подключения

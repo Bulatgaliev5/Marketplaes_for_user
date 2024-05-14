@@ -10,6 +10,17 @@ namespace Marketplaes02.ViewModel
     public class ViewModelGoodsKategoriya : INotifyPropertyChanged
     {
         int id_kategoriya, ID_user;
+        private string _NameKategoriya;
+        public string NameKategoriya
+        {
+            get => _NameKategoriya;
+            set
+            {
+                _NameKategoriya = value;
+                OnPropertyChanged("NameKategoriya");
+
+            }
+        }
         /// <summary>
         /// Список Good
         /// </summary>
@@ -62,7 +73,9 @@ namespace Marketplaes02.ViewModel
         {
             // Строка запроса
             string
-                sql = "SELECT * FROM goods WHERE id_kategoriya=@id_kategoriya";
+                sql = "SELECT *, k.Name AS NameKategoriya FROM goods g " +
+                "JOIN kategoriya k ON k.id_kategoriya = g.id_kategoriya " +
+                "WHERE k.id_kategoriya=@id_kategoriya";
 
             // Объявление переменной на основе класс подключения:
             // >    Connector conn
@@ -113,9 +126,11 @@ namespace Marketplaes02.ViewModel
                     Discount = Convert.ToInt32(reader["Discount"]),
                     Description = reader["Description"].ToString(),
                 });
-
+                NameKategoriya = reader["NameKategoriya"].ToString();
                 // await Task.Delay(1000);
             }
+            
+            OnPropertyChanged("NameKategoriya");
             OnPropertyChanged("GoodsKategoriyalist");
 
             // Синхронное отключение от БД

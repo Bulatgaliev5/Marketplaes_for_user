@@ -1,70 +1,78 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Marketplaes02.View.ViewKategoriya"
+             x:Class="Marketplaes02.View.ViewKategoriya" Background="Azure"
+             Title="Каталог"
             >
     <StackLayout>
-        <Frame Style="{DynamicResource FrameSearch}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="70"/>
 
-            <SearchBar Focused="FocusedSearchBar" TextChanged="SearchBarSearch" x:Name="ElementSearchBar"  Placeholder="Поиск..." />
+                <RowDefinition Height="645"/>
+            </Grid.RowDefinitions>
+            <Frame Margin="5" Grid.Row="0" Style="{DynamicResource FrameSearch}">
 
-        </Frame>
-        <CollectionView   ItemsLayout="VerticalGrid, 2"
+                <SearchBar Focused="FocusedSearchBar" TextChanged="SearchBarSearch" x:Name="ElementSearchBar"  Placeholder="Поиск..." />
+
+            </Frame>
+            <CollectionView   ItemsLayout="VerticalGrid, 2" Grid.Row="1"
                 ItemsSource="{Binding KategoriyaList}" 
                 SelectionMode="Single"    
                 >
 
-            <CollectionView.ItemTemplate>
+                <CollectionView.ItemTemplate>
 
-                <DataTemplate>
+                    <DataTemplate>
 
-                    <Grid Padding="0"  
+                        <Grid Padding="0"  
               >
 
-                        <Frame  Padding="1"  Style="{DynamicResource FrameGlavnaya}" >
-                            
-                            
-                            
-                            <StackLayout Padding="30" >
-                                
-                                <StackLayout.GestureRecognizers >
-                                    <TapGestureRecognizer Tapped="OpenKategoriya"/>
-                                </StackLayout.GestureRecognizers>
+                            <Frame  Padding="1"  Style="{DynamicResource FrameGlavnaya}" >
+
+
+
+                                <StackLayout Padding="30" >
+
+                                    <StackLayout.GestureRecognizers >
+                                        <TapGestureRecognizer Tapped="OpenKategoriya"/>
+                                    </StackLayout.GestureRecognizers>
 
 
 
 
 
-                                <Image  Aspect="Fill" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"
+                                    <Image  Aspect="Fill" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"
                                             Source="{Binding Image}" Style="{DynamicResource ImageGlavGoods}">
-                                    <Image.GestureRecognizers>
-                                        <TapGestureRecognizer Tapped="OpenKartochkaImage"/>
-                                    </Image.GestureRecognizers>
-                            
-                                </Image>
-                                
-                                <Label HorizontalTextAlignment="Center" LineBreakMode="TailTruncation"  Text="{Binding Name}"/>
+                                        <Image.GestureRecognizers>
+                                            <TapGestureRecognizer Tapped="OpenKartochkaImage"/>
+                                        </Image.GestureRecognizers>
 
+                                    </Image>
 
-
-                               
-                            </StackLayout>
+                                    <Label HorizontalTextAlignment="Center" LineBreakMode="TailTruncation"  Text="{Binding Name}"/>
 
 
 
 
-
-
-                        </Frame>
-
-                    </Grid>
-
-                </DataTemplate>
-
-            </CollectionView.ItemTemplate>
+                                </StackLayout>
 
 
 
-        </CollectionView>
+
+
+
+                            </Frame>
+
+                        </Grid>
+
+                    </DataTemplate>
+
+                </CollectionView.ItemTemplate>
+
+
+
+            </CollectionView>
+        </Grid>
     </StackLayout>
 </ContentPage>

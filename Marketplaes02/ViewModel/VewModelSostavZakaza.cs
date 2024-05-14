@@ -11,7 +11,7 @@ using System.Xml.Linq;
 
 namespace Marketplaes02.ViewModel
 {
-    public class VewModelSostavZakaza : OformlenieZakaza, INotifyPropertyChanged
+    public class VewModelSostavZakaza : OformlenieZakaza
     {
         string Order_date;
         int ID_order;
@@ -179,14 +179,6 @@ namespace Marketplaes02.ViewModel
         }
 
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged(string property)
-        {
-            if (property == null)
-                return;
-
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
-
-        }
+        
     }
 }

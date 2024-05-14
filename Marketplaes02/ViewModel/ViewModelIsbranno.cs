@@ -24,8 +24,29 @@ namespace Marketplaes02.ViewModel
             }
         }
 
+        private bool _VisibleNullList;
 
+        public bool VisibleNullList
+        {
+            get => _VisibleNullList;
+            set
+            {
+                _VisibleNullList = value;
+                OnPropertyChanged("VisibleNullList");
+            }
+        }
 
+        private bool _VisibleCollectionViewEmptyView;
+
+        public bool VisibleCollectionViewEmptyView
+        {
+            get => _VisibleCollectionViewEmptyView;
+            set
+            {
+                _VisibleCollectionViewEmptyView = value;
+                OnPropertyChanged("VisibleCollectionViewEmptyView");
+            }
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged(string property)
@@ -39,6 +60,8 @@ namespace Marketplaes02.ViewModel
         }
         public ViewModelIsbrannoe()
         {
+            VisibleCollectionViewEmptyView = false;
+            VisibleNullList = true;
             Load();
         }
 
@@ -48,17 +71,19 @@ namespace Marketplaes02.ViewModel
         /// </summary>
         public async void Load()
         {
+            
             ID_user = Preferences.Default.Get("UserID", 0);
             await LoadGoods(ID_user);
             if (Isbrannoelist != null)
             {
                 await ImageIsbrannoeLoad();
+                
             }
             else
             {
-                // Обработка ситуации, когда один из списков равен null
+               VisibleCollectionViewEmptyView = true;
             }
-            
+            VisibleNullList = false;
         }
         public async Task<bool> ImageIsbrannoeLoad()
         {

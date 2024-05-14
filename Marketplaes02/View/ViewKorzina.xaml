@@ -3,17 +3,20 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Marketplaes02.View.ViewKorzina"
            xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             Title="ViewKorzina"
+             Title="Корзина"
              BackgroundColor="Azure" 
              >
-
+    
+ 
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"/>
             <RowDefinition Height="80"/>
         </Grid.RowDefinitions>
 
-            <StackLayout Grid.Row="0">
+        <ActivityIndicator Color="DeepSkyBlue" WidthRequest="100"  IsVisible="{Binding VisibleNullList}"/>
+
+        <StackLayout Grid.Row="0">
            
             <RefreshView x:Name="RefreshView1"
                RefreshColor="DeepSkyBlue"
@@ -81,13 +84,15 @@
                 </CollectionView.ItemTemplate>
 
                     <!-- Пустое представление -->
-                    <CollectionView.EmptyView>
-                        <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
-                            <Image WidthRequest="50" Source="no_zakaz.png"/>
-                            <Label FontSize="20" Margin="10,0,0,0" VerticalOptions="Center" Text="Ваша корзина пуста"/>
-                        </StackLayout>
-
-                    </CollectionView.EmptyView>
+                         <CollectionView.EmptyView>
+                             <StackLayout    VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+                                 <ActivityIndicator VerticalOptions="CenterAndExpand" IsRunning="{Binding VisibleNullList}" IsVisible="{Binding VisibleNullList}" Color="DeepSkyBlue" WidthRequest="200" />
+                                 <StackLayout  IsVisible="{Binding VisibleCollectionViewEmptyView}"   Orientation="Horizontal" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+                                 <Image Margin="40,0,10,0"  WidthRequest="50" Source="no_zakaz.png"/>
+                                    <Label HorizontalOptions="FillAndExpand" LineBreakMode="WordWrap"  FontSize="20" Margin="10,0,40,0" VerticalOptions="Center" Text="Ваша корзина пуста"/>
+                                 </StackLayout>
+                             </StackLayout>
+                         </CollectionView.EmptyView>
 
                 </CollectionView>
                 

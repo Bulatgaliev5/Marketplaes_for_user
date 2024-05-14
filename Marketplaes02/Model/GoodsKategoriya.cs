@@ -21,6 +21,7 @@ namespace Marketplaes02.Model
         /// <summary>
         /// Поле Цена
         /// </summary>
+
         private float _Price;
 
         /// <summary>
@@ -87,6 +88,7 @@ namespace Marketplaes02.Model
 
             }
         }
+       
         /// <summary>
         /// Свойства цена
         /// </summary>

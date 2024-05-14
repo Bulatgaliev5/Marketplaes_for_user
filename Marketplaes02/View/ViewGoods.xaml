@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Marketplaes02.View.ViewGoods"
             BackgroundColor="Azure" 
-              
+              Title="Главная"
          >
 
 
@@ -40,87 +40,98 @@
             </Grid.RowDefinitions>
 
             <Label Margin="15" VerticalOptions="Center" Grid.Row="0" Text="Подобрали для вас"/>
-          
-                
-                    <RefreshView x:Name="RefreshView1"  Grid.Row="1"
-             RefreshColor="DeepSkyBlue"
-             Refreshing="RefreshGoodsData">
-                <ScrollView Grid.Row="1">
-                    <CollectionView    x:Name="GoodsData" ItemsLayout="VerticalGrid, 2"
+
+           
+
+                <RefreshView x:Name="RefreshView1"  Grid.Row="1" 
+             RefreshColor="DeepSkyBlue" IsRefreshing="{Binding IsRefreshing}"
+             Command="{Binding RefreshCommand}">
+                    <ScrollView Grid.Row="1">
+                        <CollectionView    x:Name="GoodsData" ItemsLayout="VerticalGrid, 2"
          ItemsSource="{Binding Goods}" 
         SelectionMode="Single"    
         >
 
-                    <CollectionView.ItemTemplate   >
+                            <CollectionView.ItemTemplate   >
 
-                        <DataTemplate  >
+                                <DataTemplate  >
 
-                        <Grid Padding="5" 
+                                    <Grid Padding="5" 
                       >
 
-                          
-                            <Frame Grid.Row="1" Margin="0" Padding="5"   Style="{DynamicResource FrameGlavnaya}" >
-                                <StackLayout>
-                                    <StackLayout.GestureRecognizers >
-                                        <TapGestureRecognizer Tapped="OpenKartochka"/>
-                                    </StackLayout.GestureRecognizers>
-                                    <Frame Margin="5" Style="{DynamicResource FrameImageGood}">
-                                        <Grid>
-                                            <Image Source="{Binding Image}">
-                                                <Image.GestureRecognizers>
-                                                    <TapGestureRecognizer Tapped="OpenKartochkaImage"/>
-                                                </Image.GestureRecognizers>
-                                            </Image>
-                                            <Frame Style="{DynamicResource FrameDiscount}">
 
-                                               <Label  Style="{DynamicResource LabelDiscount}" Text="{Binding Discount,StringFormat='- {0} %'}"  />
-                                            </Frame>
-
-                                                    <Frame CornerRadius="15" Padding="0"   HorizontalOptions="End" VerticalOptions="Start" >
-                                                        <Image x:Name="ImageIsbrannoe" WidthRequest="35" VerticalOptions="End" HorizontalOptions="Start"  Source="{Binding ImageIsbrannoe}">
+                                        <Frame Grid.Row="1" Margin="0" Padding="5"   Style="{DynamicResource FrameGlavnaya}" >
+                                            <StackLayout>
+                                                <StackLayout.GestureRecognizers >
+                                                    <TapGestureRecognizer Tapped="OpenKartochka"/>
+                                                </StackLayout.GestureRecognizers>
+                                                <Frame Margin="5" Style="{DynamicResource FrameImageGood}">
+                                                    <Grid>
+                                                        <Image Source="{Binding Image}">
                                                             <Image.GestureRecognizers>
-                                                                <TapGestureRecognizer Tapped="Add_isbrannoe"/>
+                                                                <TapGestureRecognizer Tapped="OpenKartochkaImage"/>
                                                             </Image.GestureRecognizers>
                                                         </Image>
-                                                    </Frame>
-                                                </Grid>
-                                    </Frame>
+                                                        <Frame Style="{DynamicResource FrameDiscount}">
+
+                                                            <Label  Style="{DynamicResource LabelDiscount}" Text="{Binding Discount,StringFormat='- {0} %'}"  />
+                                                        </Frame>
+
+                                                        <Frame CornerRadius="15" Padding="0"   HorizontalOptions="End" VerticalOptions="Start" >
+                                                            <Image x:Name="ImageIsbrannoe" WidthRequest="35" VerticalOptions="End" HorizontalOptions="Start"  Source="{Binding ImageIsbrannoe}">
+                                                                <Image.GestureRecognizers>
+                                                                    <TapGestureRecognizer Tapped="Add_isbrannoe"/>
+                                                                </Image.GestureRecognizers>
+                                                            </Image>
+                                                        </Frame>
+                                                    </Grid>
+                                                </Frame>
 
 
-                                    <!-- <ImageButton Style="{DynamicResource IsbranImBt}" Source="isbrannoe.png"
+                                                <!-- <ImageButton Style="{DynamicResource IsbranImBt}" Source="isbrannoe.png"
                                          BackgroundColor="White"
                                          VerticalOptions="Start"
                                          HorizontalOptions="End"
                                          Margin="10"/> -->
-                                    <StackLayout Margin="5" HorizontalOptions="Start"  Orientation="Horizontal">
+                                                <StackLayout Margin="5" HorizontalOptions="Start"  Orientation="Horizontal">
 
 
-                                        <Label Margin="0" Style="{DynamicResource LabSale}" Text="{Binding Price_with_discount,StringFormat='{0} ₽'}"/>
-                                        <Label Style="{DynamicResource LabPrice}" Text="{Binding Price,StringFormat='{0} ₽'}"/>
+                                                    <Label Margin="0" Style="{DynamicResource LabSale}" Text="{Binding Price_with_discount,StringFormat='{0} ₽'}"/>
+                                                    <Label Style="{DynamicResource LabPrice}" Text="{Binding Price,StringFormat='{0} ₽'}"/>
+                                                </StackLayout>
+
+                                                <Label Margin="5" LineBreakMode="WordWrap" TextColor="Black"  Text="{Binding Name}"/>
+                                            </StackLayout>
+
+
+
+
+
+
+                                        </Frame>
+
+                                    </Grid>
+
+                                </DataTemplate>
+
+                            </CollectionView.ItemTemplate>
+
+                            <!-- Пустое представление -->
+                            <CollectionView.EmptyView>
+                                <StackLayout    VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+                                    <ActivityIndicator VerticalOptions="CenterAndExpand" IsRunning="{Binding VisibleNullList}" IsVisible="{Binding VisibleNullList}" Color="DeepSkyBlue" WidthRequest="200" />
+                                    <StackLayout  IsVisible="{Binding VisibleCollectionViewEmptyView}"   Orientation="Horizontal" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+                                        <Image Margin="40,0,10,0"  WidthRequest="50" Source="no_zakaz.png"/>
+                                        <Label HorizontalOptions="FillAndExpand" LineBreakMode="WordWrap"  FontSize="20" Margin="10,0,40,0" VerticalOptions="Center" Text="Ничего не нашлось по вашеиу запросу"/>
                                     </StackLayout>
-
-                                            <Label Margin="5" LineBreakMode="WordWrap" TextColor="Black"  Text="{Binding Name}"/>
-                                        </StackLayout>
-
+                                </StackLayout>
+                            </CollectionView.EmptyView>
 
 
-
-
-
-                            </Frame>
-
-                        </Grid>
-
-                    </DataTemplate>
-
-                </CollectionView.ItemTemplate>
-
-
-
-            </CollectionView>
-            </ScrollView>
-            </RefreshView>
-                
+                        </CollectionView>
+                    </ScrollView>
+                </RefreshView>
+           
 
         </Grid>
     </StackLayout>

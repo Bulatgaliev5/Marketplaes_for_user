@@ -4,23 +4,7 @@
              x:Class="Marketplaes02.View.ViewMyOrders" Title="Мои заказы"
          xmlns:view="clr-namespace:Marketplaes02.View" Background="Azure"
              >
-    <ContentPage.Resources>
-        <Style TargetType="Grid">
-            <Setter Property="VisualStateManager.VisualStateGroups">
-                <VisualStateGroupList>
-                    <VisualStateGroup x:Name="CommonStates">
-                        <VisualState x:Name="Normal" />
-                        <VisualState x:Name="Selected">
-                            <VisualState.Setters>
-                                <Setter Property="BackgroundColor"
-                                 Value="Dodgerblue" />
-                            </VisualState.Setters>
-                        </VisualState>
-                    </VisualStateGroup>
-                </VisualStateGroupList>
-            </Setter>
-        </Style>
-    </ContentPage.Resources>
+
 
     <ContentPage.ToolbarItems>
         <ToolbarItem Clicked="BtFilter"
@@ -34,8 +18,8 @@
                RefreshColor="DeepSkyBlue"
                Refreshing="RefreshGoodsData">
 
-            <CollectionView x:Name="CollectionViewMyOrderslist" SelectionMode="Single" SelectionChanged="SelectOrder"  ItemsLayout="VerticalGrid, 1"
-          ItemsSource="{Binding groupedResult}" x:FieldModifier="public" 
+            <CollectionView x:Name="CollectionViewMyOrderslist" SelectionMode="None"   ItemsLayout="VerticalGrid, 1"
+          ItemsSource="{Binding All_MyOrderList}" x:FieldModifier="public" 
          
          >
 
@@ -45,19 +29,24 @@
 
                         <Grid Padding="1"  
                         >
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="SelectOrder"/>
+                            </Grid.GestureRecognizers>
                             <Border    Margin="5"  Padding="20" >
                                 <Border.StrokeShape>
                                     <RoundRectangle CornerRadius="15" />
                                 </Border.StrokeShape>
                                 <StackLayout Orientation="Vertical" VerticalOptions="Center" >
                                     <Grid Padding="0,0,0,0" HorizontalOptions="FillAndExpand"  Margin="0" >
+                                       
                                         <StackLayout>
+                                            
                                             <Label TextColor="Black" FontSize="22"  Text="{Binding Order.ID_order,StringFormat='Заказ № {0}'}"/>
                                             <Label Margin="0,0,0,5" FontSize="20"  Text="{Binding Order.Order_date,StringFormat='от {0:dd.MM.yyyy}'}"/>
                                         </StackLayout>
                                         <Image  HorizontalOptions="End" WidthRequest="30" HeightRequest="30" Source="strelka_for_button.png"/>
                                     </Grid>
-
+                                    <Label TextColor="Black" FontSize="20"  Text="{Binding Order.Status,StringFormat='Статус заказа: {0}'}"/>
 
                                     <CollectionView Margin="0"  ItemsLayout="VerticalGrid, 1"
                                         ItemsSource="{Binding Items}" x:FieldModifier="public" 
@@ -83,7 +72,7 @@
 
                                                                 <Label  FontSize="20" LineBreakMode="WordWrap"  Text="{Binding ID_Order_items,StringFormat='Доставка: {0}'}"/>
                                                                 <Label  FontSize="18" Text="{Binding Total_Count,StringFormat='Количество: {0} шт.'}"  />
-                                                                <Label FontSize="18"  Text="{Binding Status,StringFormat='Статус: {0}'}"  />
+                                                                <!--<Label FontSize="18"  Text="{Binding Status,StringFormat='Статус: {0}'}"  />-->
 
 
 
@@ -120,13 +109,13 @@
 
                 <!-- Пустое представление -->
                 <CollectionView.EmptyView>
-                    <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
-                        <Image WidthRequest="50" Source="no_zakaz.png"/>
-                        <Label FontSize="20" Margin="10,0,0,0" VerticalOptions="Center" Text="У вас нет заказов :(" 
-                         />
-                      
+                    <StackLayout    VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+                        <ActivityIndicator VerticalOptions="CenterAndExpand" IsRunning="{Binding VisibleNullList}" IsVisible="{Binding VisibleNullList}" Color="DeepSkyBlue" WidthRequest="200" />
+                        <StackLayout  IsVisible="{Binding VisibleCollectionViewEmptyView}"   Orientation="Horizontal" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+                            <Image Margin="40,0,10,0"  WidthRequest="50" Source="no_zakaz.png"/>
+                            <Label HorizontalOptions="FillAndExpand" LineBreakMode="WordWrap"  FontSize="20" Margin="10,0,40,0" VerticalOptions="Center" Text="У вас нет заказов :("/>
+                        </StackLayout>
                     </StackLayout>
-                        
                 </CollectionView.EmptyView>
 
             </CollectionView>

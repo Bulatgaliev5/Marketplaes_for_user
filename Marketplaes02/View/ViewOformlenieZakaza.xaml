@@ -1,115 +1,134 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Marketplaes02.View.ViewOformlenieZakaza"
-             Title="ViewOformlenieZakaza"
+             x:Class="Marketplaes02.View.ViewOformlenieZakaza" Background="Azure"
+             Title="Офрормление заказа"
             
              >
-    <ScrollView>
+    <RefreshView x:Name="RefreshView1"  Grid.Row="1"
+  RefreshColor="DeepSkyBlue" HorizontalOptions="StartAndExpand" VerticalOptions="FillAndExpand"
+  Refreshing="RefreshGoodsData">
+        <ScrollView >
 
 
-        <StackLayout  >
+            <StackLayout HorizontalOptions="Fill"  VerticalOptions="FillAndExpand">
 
-            <Frame Style="{DynamicResource FrameGlavnaya}">
-                <StackLayout>
-                    <Label Text="Состав заказа"/>
+                <Border Stroke="PaleTurquoise" StrokeThickness="1.5" HorizontalOptions="StartAndExpand"   Margin="5"  Padding="10" >
+
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="15" />
+                    </Border.StrokeShape>
+                    <StackLayout Margin="0,5,0,5" HorizontalOptions="StartAndExpand" VerticalOptions="FillAndExpand">
+                        <Label Margin="10,5,0,5" Text="Состав заказа"/>
 
 
-                    <CollectionView   x:Name="SostavZakazaData" ItemsLayout="VerticalGrid, 1"
+                        <CollectionView HorizontalOptions="StartAndExpand" VerticalOptions="FillAndExpand"  x:Name="SostavZakazaData" ItemsLayout="VerticalGrid, 1"
                          ItemsSource="{Binding SostavZakazalist}" 
 
                                         >
 
-                        <CollectionView.ItemTemplate>
+                            <CollectionView.ItemTemplate>
 
-                            <DataTemplate   >
+                                <DataTemplate   >
 
-                                <Grid Padding="5"  
+                                    <Grid Padding="5"  
                                            >
+                                        <Border Background="White" Stroke="PaleTurquoise" StrokeThickness="1.5"  HorizontalOptions="FillAndExpand"   Margin="0"  Padding="10" >
 
-                                    <Frame   Margin="0" Padding="5">
-                                        <StackLayout Orientation="Horizontal">
-                                            <StackLayout Padding="5">
-                                                <Label Text="{Binding Name}"  
-                                                   FontAttributes="Bold"/>
+                                            <Border.StrokeShape>
+                                                <RoundRectangle CornerRadius="15" />
+                                            </Border.StrokeShape>
+                                            <StackLayout Orientation="Horizontal">
+                                                <Frame WidthRequest="50" HeightRequest="50"  Style="{DynamicResource Fram_My_zakazi}">
+                                                    <Image 
+                                                            Source="{Binding Image}" Style="{DynamicResource ImageGlavGoods}"/>
+                                                </Frame>
+                                                <StackLayout Margin="15,0,0,0" Padding="0">
+                                                    <Label Text="{Binding Name}"  
+                                                 FontAttributes="Bold"/>
 
-                                                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" >
-                                                <StackLayout Margin="0,5,0,5"  HorizontalOptions="Start"  Orientation="Horizontal">
-                                                    <Label Margin="0" Style="{DynamicResource LabSale}" Text="{Binding Price_with_discount,StringFormat='{0} ₽'}"/>
-                                                    <Label Style="{DynamicResource LabPrice}" Text="{Binding Price,StringFormat='{0} ₽'}"/>
-                                                </StackLayout >
-                                                    <StackLayout Margin="50,5,0,5"   Orientation="Horizontal">
-                                                    <Label TextColor="Black" HorizontalOptions="EndAndExpand"  FontSize="Medium"  Text="{Binding Count,StringFormat='{0} шт.'}"/>
+
+                                                    <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" >
+                                                        <StackLayout Margin="0,5,0,5"  HorizontalOptions="Start"  Orientation="Horizontal">
+                                                            <Label Margin="0" Style="{DynamicResource LabSale}" Text="{Binding Price_with_discount,StringFormat='{0} ₽'}"/>
+                                                            <Label Style="{DynamicResource LabPrice}" Text="{Binding Price,StringFormat='{0} ₽'}"/>
+                                                        </StackLayout >
+                                                        <StackLayout Margin="50,5,0,5"   Orientation="Horizontal">
+                                                            <Label TextColor="Black" HorizontalOptions="EndAndExpand"  FontSize="Medium"  Text="{Binding Count,StringFormat='{0} шт.'}"/>
+                                                        </StackLayout>
+                                                    </StackLayout>
                                                 </StackLayout>
-                                                </StackLayout>
+
+
                                             </StackLayout>
-
-
-                                        </StackLayout>
-                                    </Frame>
-                                </Grid>
-
-                            </DataTemplate>
-
-                        </CollectionView.ItemTemplate>
+                                        </Border>
 
 
 
-                    </CollectionView>
+                                    </Grid>
 
-                </StackLayout>
-            </Frame>
+                                </DataTemplate>
 
-          
+                            </CollectionView.ItemTemplate>
 
 
-            <Frame  Style="{DynamicResource FrameGlavnaya}">
-                <Grid   >
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="50"/>
-                    </Grid.ColumnDefinitions>
+
+                        </CollectionView>
+
+                    </StackLayout>
+                </Border>
+
+
+
+
+                <Frame  Style="{DynamicResource FrameGlavnaya}">
+                    <Grid   >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="50"/>
+                        </Grid.ColumnDefinitions>
+                        <StackLayout>
+
+                            <HorizontalStackLayout Grid.Column="0">
+                                <Label Grid.Column="0" Text="Получатель"/>
+                                <!--<ImageButton Grid.Column="1" WidthRequest="500" HeightRequest="40" Source="edit_profil.png"/>-->
+                            </HorizontalStackLayout>
+                            <Label FontSize="17" Margin="0,5,0,5"  TextColor="Black" Text="{Binding User_Data}" x:Name="User_Data"/>
+
+                        </StackLayout>
+                    </Grid>
+                </Frame>
+
+                <Frame Style="{DynamicResource FrameGlavnaya}">
                     <StackLayout>
 
-                        <HorizontalStackLayout Grid.Column="0">
-                            <Label Grid.Column="0" Text="Получатель"/>
-                            <ImageButton Grid.Column="1" WidthRequest="500" HeightRequest="40" Source="edit_profil.png"/>
-                        </HorizontalStackLayout>
-                        <Label FontSize="17" Margin="0,5,0,5"  TextColor="Black" Text="{Binding User_Data}" x:Name="User_Data"/>
-                 
-                </StackLayout>
-                </Grid>
-            </Frame>
-
-            <Frame Style="{DynamicResource FrameGlavnaya}">
-                <StackLayout>
-
-                    <Label Text="Адрес доставки"/>
-                    <Label FontSize="17" Margin="0,5,0,15"   TextColor="Black" Text="{Binding User_Adres_Dostavki}"   x:Name="Adres_dostavki"/>
-                    <Button Style="{DynamicResource BtEditAdressDostavki}" Clicked="BtdresDostavki"  Text="{Binding ButtonAdres_Dostavki}" />
-                </StackLayout>
-            </Frame>
-
-             <Frame Style="{DynamicResource FrameGlavnaya}">
-                <StackLayout>
-                   
-                    <StackLayout RadioButtonGroup.GroupName="languages">
-                        <Label Text="Способ оплаты"/>
-                        <RadioButton Margin="5" IsChecked="True" Content="Банковская карта" Value="Банковская карта"/>
+                        <Label Text="Адрес доставки"/>
+                        <Label FontSize="17" Margin="0,5,0,15"   TextColor="Black" Text="{Binding User_Adres_Dostavki}"   x:Name="Adres_dostavki"/>
+                        <Button Style="{DynamicResource BtEditAdressDostavki}" Clicked="BtdresDostavki"  Text="{Binding ButtonAdres_Dostavki}" />
                     </StackLayout>
-                    
-                </StackLayout>
-            </Frame>
+                </Frame>
 
-            <Frame Style="{DynamicResource FrameGlavnaya}">
-                <StackLayout>
-                    <Label Text="{Binding Goods_Total_Price_with_discount,StringFormat='Итого {0} ₽'}" FontSize="20" TextColor="Black"/>
-                    <Label Text="{Binding Goods_Total_Count,StringFormat='Количество {0} шт.'}" FontSize="17"  TextColor="Black"/>
-                    <Label FontSize="17"  TextColor="Black" Text="Доставка: Бесплатно"/>
-                </StackLayout>
-            </Frame>
+                <Frame Style="{DynamicResource FrameGlavnaya}">
+                    <StackLayout>
 
-            <Button Margin="20" Style="{DynamicResource BtZakazat}" Clicked="BtnZakazat"  Text="Заказать" />
-        </StackLayout>
-    </ScrollView>
+                        <StackLayout Padding="0"  RadioButtonGroup.GroupName="languages">
+                            <Label Text="Способ оплаты"/>
+                            <RadioButton Padding="0" Margin="0,5,5,5" IsChecked="True" Content="Банковская карта" Value="Банковская карта"/>
+                        </StackLayout>
+
+                    </StackLayout>
+                </Frame>
+
+                <Frame Style="{DynamicResource FrameGlavnaya}">
+                    <StackLayout>
+                        <Label Text="{Binding Goods_Total_Price_with_discount,StringFormat='Итого {0} ₽'}" FontSize="20" TextColor="Black"/>
+                        <Label Text="{Binding Goods_Total_Count,StringFormat='Количество {0} шт.'}" FontSize="17"  TextColor="Black"/>
+                        <Label FontSize="17"  TextColor="Black" Text="Доставка: Бесплатно"/>
+                    </StackLayout>
+                </Frame>
+
+                <Button Margin="20" Style="{DynamicResource BtZakazat}" Clicked="BtnZakazat"  Text="Заказать" />
+            </StackLayout>
+        </ScrollView>
+        </RefreshView>
 </ContentPage>

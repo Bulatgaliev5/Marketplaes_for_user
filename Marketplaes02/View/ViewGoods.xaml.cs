@@ -17,11 +17,11 @@ public partial class ViewGoods : ContentPage
     }
 
 
-    public async void Update()
+    public async Task Update()
     {
 
         BindingContext = new ViewModel_Goods();
-        // base.OnAppearing();
+        OnPropertyChanged(nameof(BindingContext));
 
 
     }
@@ -39,10 +39,18 @@ public partial class ViewGoods : ContentPage
 
     private async void RefreshGoodsData(object sender, EventArgs e)
     {
-        Update();
-        await Task.Delay(1000);
+        // Запуск анимации
+      //  RefreshView1.Opacity = 0;
+       await  RefreshView1.FadeTo(1, 3000);
+
+        await Update();
+
+        // Завершение анимации
+        await RefreshView1.FadeTo(1, 3000);
         RefreshView1.IsRefreshing = false;
+      //  RefreshView1.Opacity = 1;
     }
+
 
     private async void OpenKartochkaImage(object sender, TappedEventArgs e)
     {

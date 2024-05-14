@@ -4,7 +4,7 @@
              x:Class="Marketplaes02.View.ViewProfil"   Background="Azure"
             
             
-             Title="ViewProfil">
+             Title="Профиль">
     <StackLayout Padding="0,10,0,10">
 
 

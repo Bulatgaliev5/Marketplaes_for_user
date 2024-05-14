@@ -29,19 +29,20 @@
             </Setter>
         </Style>
     </ContentPage.Resources>
+  
 
+    <StackLayout VerticalOptions="FillAndExpand">
 
-    <StackLayout>
+       
 
-      
-          
-                
-                    <RefreshView x:Name="RefreshView1"  Grid.Row="1"
+        <RefreshView x:Name="RefreshView1"  Grid.Row="1"
              RefreshColor="DeepSkyBlue"
              Refreshing="RefreshGoodsData">
+            
                 <ScrollView Grid.Row="1">
-                    <CollectionView    x:Name="GoodsData" ItemsLayout="VerticalGrid, 2"
-         ItemsSource="{Binding Goods}" 
+                    
+                    <CollectionView ItemsLayout="VerticalGrid, 2"
+         ItemsSource="{Binding Isbrannoelist}" 
         SelectionMode="Single"    
         >
 
@@ -111,14 +112,17 @@
 
                     <!-- Пустое представление -->
                     <CollectionView.EmptyView>
-                        <StackLayout   Orientation="Horizontal" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+                        <StackLayout    VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+                            <ActivityIndicator VerticalOptions="CenterAndExpand" IsRunning="{Binding VisibleNullList}" IsVisible="{Binding VisibleNullList}" Color="DeepSkyBlue" WidthRequest="200" />
+                            <StackLayout  IsVisible="{Binding VisibleCollectionViewEmptyView}"   Orientation="Horizontal" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
                             <Image Margin="40,0,10,0"  WidthRequest="50" Source="no_zakaz.png"/>
                             <Label HorizontalOptions="FillAndExpand" LineBreakMode="WordWrap"  FontSize="20" Margin="10,0,40,0" VerticalOptions="Center" Text="Вы ничего не добавили в избранное"/>
+                            </StackLayout>
                         </StackLayout>
-
                     </CollectionView.EmptyView>
-
+                        
                 </CollectionView>
+                    
             </ScrollView>
             </RefreshView>
                 

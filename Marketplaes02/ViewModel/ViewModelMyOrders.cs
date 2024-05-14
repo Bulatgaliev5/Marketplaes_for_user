@@ -21,49 +21,63 @@ namespace Marketplaes02.ViewModel
         public ViewModelMyOrders()
         {
             Load();
-            
+
 
         }
         public async void Load()
         {
+            VisibleCollectionViewEmptyView = false;
+            VisibleNullList = true;
             UserID = Preferences.Default.Get("UserID", 0);
             await LoadMyOrders(UserID);
 
-
-            //foreach (var order in MyOrderslist.Where(o => o.ID_order >= minID && o.ID_order <= maxID))
-            //{
-            //    await LoadMyOrder_items(UserID, order.ID_order);
-
-            //}
-            //OnPropertyChanged("MyOrder_itemslist");
-            await LoadMyOrder_items(UserID);
-
             if (MyOrderslist != null && MyOrder_itemslist != null)
             {
-                groupedResult = (from order in MyOrderslist
-                                 join orderItem in MyOrder_itemslist on order.ID_order equals orderItem.ID_order into orderGroup
-                                 select new OrderWithItems { Order = order, Items = orderGroup.ToList() })
-                    .OrderByDescending(o => o.Order.ID_order)
-                    .ToList();
+                All_MyOrderList = (from order in MyOrderslist
+                                   join orderItem in MyOrder_itemslist on order.ID_order equals orderItem.ID_order into orderGroup
+                                   select new All_MyOrder { Order = order, Items = orderGroup.ToList() })
+                   .OrderByDescending(o => o.Order.ID_order)
+                   .ToList();
             }
             else
             {
-                // Обработка ситуации, когда один из списков равен null
+                VisibleCollectionViewEmptyView = true;
             }
-
-
-
+            VisibleNullList = false;
 
 
         }
-        private IList<OrderWithItems> _groupedResult;
-        public IList<OrderWithItems> groupedResult
+        private bool _VisibleNullList;
+
+        public bool VisibleNullList
         {
-            get => _groupedResult;
+            get => _VisibleNullList;
             set
             {
-                _groupedResult = value;
-                OnPropertyChanged("groupedResult");
+                _VisibleNullList = value;
+                OnPropertyChanged("VisibleNullList");
+            }
+        }
+
+        private bool _VisibleCollectionViewEmptyView;
+
+        public bool VisibleCollectionViewEmptyView
+        {
+            get => _VisibleCollectionViewEmptyView;
+            set
+            {
+                _VisibleCollectionViewEmptyView = value;
+                OnPropertyChanged("VisibleCollectionViewEmptyView");
+            }
+        }
+        private IList<All_MyOrder> _All_MyOrderList;
+        public IList<All_MyOrder> All_MyOrderList
+        {
+            get => _All_MyOrderList;
+            set
+            {
+                _All_MyOrderList = value;
+                OnPropertyChanged("All_MyOrderList");
             }
         }
         int UserID;
@@ -92,7 +106,7 @@ namespace Marketplaes02.ViewModel
         {
 
             string
-                  sql = "SELECT o.ID_order, o.Order_date, o.Total_Count,o.Total_Price_with_discount, u.ID AS User_ID, o.Status " +
+                  sql = "SELECT o.ID_order, o.Order_date, o.Total_Count,o.Total_Price_with_discount, u.ID AS User_ID, o.Status, o.Track_number " +
                   "FROM orders o " +
                   "JOIN users u ON o.ID_user = u.ID " +
                   "WHERE ID_user = @ID_User";
@@ -131,7 +145,7 @@ namespace Marketplaes02.ViewModel
                     Order_date = Convert.ToDateTime(reader["Order_date"]),
                     Total_Price_with_discount = Convert.ToSingle(reader["Total_Price_with_discount"]),
                     Status = Convert.ToString(reader["Status"]),
-
+                    Track_number = Convert.ToString(reader["Track_number"]),
                 });
                
             }
@@ -148,7 +162,7 @@ namespace Marketplaes02.ViewModel
         {
 
             string
-                  sql = "SELECT u_i.ID_order_item AS ID_order_item, o.Status, o.ID_order, o.Order_date, u_i.Total_Count,u_i.Total_Price_with_discount, " +
+                  sql = "SELECT u_i.ID_order_item AS ID_order_item, o.Status AS Status_order, o.ID_order, o.Order_date, u_i.Total_Count,u_i.Total_Price_with_discount, " +
                   "g.Name AS Goods_Name, g.ID_goods AS Goods_ID, g.ImageGood AS Goods_Image, u.ID AS User_ID, o.Adres_Dostavki, " +
                   "u.Name AS User_Name, u.Number_phone AS User_Number_phone  " +
                   "FROM orders o " +
@@ -191,7 +205,7 @@ namespace Marketplaes02.ViewModel
                     ID_user = Convert.ToInt32(reader["User_ID"]),
                     Order_date = Convert.ToDateTime(reader["Order_date"]),
                     Total_Price_with_discount = Convert.ToSingle(reader["Total_Price_with_discount"]),
-                    Status = Convert.ToString(reader["Status"]),
+                    Status = Convert.ToString(reader["Status_order"]),
                     ID_order = Convert.ToInt32(reader["ID_order"]),
 
                 });

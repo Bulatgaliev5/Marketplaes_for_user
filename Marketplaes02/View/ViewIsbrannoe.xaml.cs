@@ -1,5 +1,6 @@
 using Marketplaes02.Model;
 using Marketplaes02.ViewModel;
+using Microsoft.Maui;
 using Microsoft.Maui.Controls;
 
 namespace Marketplaes02.View;
@@ -12,7 +13,7 @@ public partial class ViewIsbrannoe : ContentPage
 
         Update();
         InitializeComponent();
-        
+       
 
     }
 
@@ -39,8 +40,9 @@ public partial class ViewIsbrannoe : ContentPage
 
     private async void RefreshGoodsData(object sender, EventArgs e)
     {
+       
         Update();
-        await Task.Delay(1000);
+       
         RefreshView1.IsRefreshing = false;
     }
 

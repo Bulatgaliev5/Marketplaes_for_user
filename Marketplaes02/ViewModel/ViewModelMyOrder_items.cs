@@ -29,8 +29,9 @@ namespace Marketplaes02.ViewModel
         {
           ID_order = Preferences.Default.Get("ID_order", 0);
             UserID = Preferences.Default.Get("UserID", 0);
-           
-           
+            Track_number = Preferences.Default.Get("Track_number", "Null");
+            Status = Preferences.Default.Get("Status", "Null");
+
             await LoadMyOrders(UserID, ID_order);   
           
         }
@@ -91,11 +92,10 @@ namespace Marketplaes02.ViewModel
                     Total_Count = Convert.ToInt32(reader["Total_Count"]),
                     ID_user = Convert.ToInt32(reader["User_ID"]),
                     Total_Price_with_discount = Convert.ToSingle(reader["Total_Price_with_discount"]),
-                    Status = Convert.ToString(reader["Status"]),
-                    Track_number = Convert.ToString(reader["Track_number"]),
+                   // Status = Convert.ToString(reader["Status"]),
+                   // Track_number = Convert.ToString(reader["Track_number"]),
 
                 });
-                
                  Adres_Dostavki = Convert.ToString(reader["Adres_Dostavki"]);
                  User_Name = Convert.ToString(reader["User_Name"]);
                 User_Number_phone = Convert.ToString(reader["User_Number_phone"]);

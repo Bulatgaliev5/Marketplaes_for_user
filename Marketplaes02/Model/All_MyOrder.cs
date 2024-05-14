@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Marketplaes02.Model
 {
-    public class OrderWithItems :  MyOrder_items,  INotifyPropertyChanged
+    public class All_MyOrder :  MyOrder_items,  INotifyPropertyChanged
     {
 
        

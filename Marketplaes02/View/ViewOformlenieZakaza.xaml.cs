@@ -91,14 +91,8 @@ public partial class ViewOformlenieZakaza : ContentPage
 
     }
 
-    // обрабатываем завершение перехода
-    void WebView_Navigated(object sender, WebNavigatedEventArgs e)
-    {
-        if (webView.CanGoBack)
-        {
-            webView.GoBack();
-        }
-    }
+
+
 
     private async void BtdresDostavki(object sender, EventArgs e)
     {
@@ -106,15 +100,12 @@ public partial class ViewOformlenieZakaza : ContentPage
 
         this.ShowPopup(popup);
     }
-    protected override void OnAppearing()
+
+
+    private async void RefreshGoodsData(object sender, EventArgs e)
     {
-        //Подписка на сообщения
-
-        MessagingCenter.Subscribe<Page>(this, "ViewOformlenieZakaza", (sender) =>
-        {
-            Update();
-        });
+        Update();
+        await Task.Delay(1000);
+        RefreshView1.IsRefreshing = false;
     }
-
-
 }
