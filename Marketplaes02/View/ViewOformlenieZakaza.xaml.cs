@@ -16,10 +16,13 @@ public partial class ViewOformlenieZakaza : ContentPage
 {
     int Count;
     Yoomoney yoomoney = new Yoomoney();
-
+    Thread myThread1;
+    Thread myThread2;
     WebView webView;
     VewModelSostavZakaza vewModelSostavZakaza = new VewModelSostavZakaza();
     ViewModelKorzina modelKorzina = new ViewModelKorzina();
+    string label;
+    string link;
     public ViewOformlenieZakaza()
     {
         
@@ -45,20 +48,16 @@ public partial class ViewOformlenieZakaza : ContentPage
 
         if (!IsValidText(Adres_dostavki))
         {
-           
-                bool resultAddzakaz = await vewModelSostavZakaza.AddZakazi();
-                bool resultDeletekorzina = await modelKorzina.Delete_Korzina();
-                if (resultAddzakaz && resultDeletekorzina)
-                {
-                    modelKorzina.Load();
-                    await DisplayAlert("Уведомление", "Оплата прошла", "Ок");
-                }
-                else{
-                    await DisplayAlert("Уведомление", "Оплата  не прошла", "Ок");
-            
+            //myThread2 = new Thread(Pay);
+            //myThread2.Start();
 
-                }
-           
+
+           await vewModelSostavZakaza.AddZakazi();
+
+           // myThread2.Join();
+           //myThread1 = new Thread(CheckPaymentStatus);
+           //myThread1.Start();
+
         }
         else
         {
@@ -68,29 +67,58 @@ public partial class ViewOformlenieZakaza : ContentPage
 
     }
 
-    public  bool Pay()
+    public void Pay()
     {
-        var link = yoomoney.GetPayLink(
-            Convert.ToDecimal(vewModelSostavZakaza.Goods_Total_Price_with_discount),
-            vewModelSostavZakaza.SostavZakazalist.Select(s => s.Name).ToList());
-
-          webView = new WebView
+         label = Guid.NewGuid().ToString();
+        link = yoomoney.GetPayLink(
+           Convert.ToDecimal(10), label);
+       // myThread2.Join();
+        webView = new WebView
         {
             Source = link
-            
-        };
-        Content = webView;
-       
 
-        var result = yoomoney.GetStatusOperazii_and_check();
-        if (result)
+        };
+
+        webView.Navigating += (s, e) =>
         {
-            return true;
-        }
-        return false;
+            var url = e.Url;
+
+            // Проверьте, является ли URL ссылкой, на которую вы хотите реагировать
+            if (url.StartsWith("yourapp://"))
+            {
+                // Отмените навигацию
+                e.Cancel = true;
+
+                // Выполните действие в вашем приложении
+                // ...
+            }
+        };
+        //myThread2.Join();
+         this.Dispatcher.DispatchAsync(() =>
+        {
+            Content = webView;
+        });
+
+
+        
 
     }
+    private void CheckPaymentStatus()
+    {
+       
+        
+        var result = yoomoney.GetStatusOperazii_and_check(label);
+        myThread1.Join();
+        if (result)
+        {
+            DisplayAlert("Сообщение", "Ваш платеж виден", "Ок");
+        }
+        else
+        {
+            DisplayAlert("Сообщение", "Ошибка не виден", "Ок");
+        }
 
+    }
 
 
 

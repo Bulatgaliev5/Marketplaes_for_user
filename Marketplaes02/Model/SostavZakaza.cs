@@ -4,7 +4,7 @@ namespace Marketplaes02.Model
 {
     public class SostavZakaza : INotifyPropertyChanged
     {
-
+        private int _V_nalichii;
         private int _Count;
         private float _Price_with_discount;
         /// <summary>
@@ -24,7 +24,16 @@ namespace Marketplaes02.Model
         /// Поле Изображение изделия
         /// </summary>
         private string _Image;
-
+        public int _V_nalichiioods;
+         public int V_nalichiioods
+        {
+            get => _V_nalichiioods;
+            set
+            {
+                _V_nalichiioods = value;
+                OnPropertyChanged("V_nalichiioods");
+            }
+        }
         public int ID_goods
         {
             get => _ID_goods;

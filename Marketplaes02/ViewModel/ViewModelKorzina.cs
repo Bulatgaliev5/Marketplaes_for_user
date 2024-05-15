@@ -164,7 +164,8 @@ namespace Marketplaes02.ViewModel
         {
 
             string
-                  sql = "SELECT k.ID_korzina,k.Total_price,k.Total_Price_with_discount, g.Name AS Goods_Name, g.ID_goods AS Goods_ID, g.ImageGood AS Goods_Image, u.ID AS User_ID, k.Count " +
+                  sql = "SELECT k.ID_korzina,k.Total_price,k.Total_Price_with_discount, g.Name AS Goods_Name, g.ID_goods AS Goods_ID, " +
+                  "g.ImageGood AS Goods_Image, u.ID AS User_ID, k.Count, g.V_nalichii AS Goods_V_nalichii " +
                   "FROM korzina k " +
                   "JOIN goods g ON k.ID_goods = g.ID_goods " +
                   "JOIN users u ON k.ID_user = u.ID " +
@@ -206,7 +207,7 @@ namespace Marketplaes02.ViewModel
                     Image = reader["Goods_Image"].ToString(),
                     Price = Convert.ToSingle(reader["Total_price"]),
                     Price_with_discount = Convert.ToSingle(reader["Total_Price_with_discount"]),
-
+                    V_nalichiioods = Convert.ToInt32(reader["Goods_V_nalichii"]),
 
                 });
 

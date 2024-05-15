@@ -4,6 +4,7 @@ using Microsoft.Maui;
 using MySqlConnector;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Data;
 using System.Windows.Input;
 
 namespace Marketplaes02.ViewModel
@@ -234,25 +235,16 @@ namespace Marketplaes02.ViewModel
         /// <returns></returns>
         private async Task<bool> LoadGoods()
         {
-            // Строка запроса
+
             string
-                sql = "SELECT * FROM goods ORDER BY RAND()";
-
-            // Объявление переменной на основе класс подключения:
-            // >    Connector conn
-            // Инициализация переменной:
-            // >    = new Connector()
-
+                sql = "SelectGoods";
 
             ConnectBD con = new ConnectBD();
 
-            // Объявление объекта команды:
-            // >    MySqlCommand cmd
-            // Инициализация объекта команды:
-            // >    new MySqlCommand(sql, conn.GetConn());
             MySqlCommand
                 cmd = new MySqlCommand(sql, con.GetConnBD());
-
+            cmd.CommandType = CommandType.StoredProcedure;
+           // cmd.Parameters.Add(new MySqlParameter("userID", ID_user));
             // Синхронное подключение к БД
             await con.GetConnectBD();
 

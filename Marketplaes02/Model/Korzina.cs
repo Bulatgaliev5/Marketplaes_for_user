@@ -7,6 +7,16 @@ namespace Marketplaes02.Model
 {
     public class Korzina : INotifyPropertyChanged
     {
+        public int _V_nalichiioods;
+        public int V_nalichiioods
+        {
+            get => _V_nalichiioods;
+            set
+            {
+                _V_nalichiioods = value;
+                OnPropertyChanged("V_nalichiioods");
+            }
+        }
         int Kartochka_ID_goods, UserID;
         public Korzina()
         {

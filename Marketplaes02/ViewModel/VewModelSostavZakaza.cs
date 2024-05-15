@@ -5,6 +5,7 @@ using Microsoft.Maui;
 using MySqlConnector;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Data;
 using System.Text.Json;
 using System.Xml.Linq;
 
@@ -60,13 +61,12 @@ namespace Marketplaes02.ViewModel
            
 
             // int id_klienta = (Int32)Application.Current.Properties["UserID"];
-            var Status = "В обработке";
-            string sql = "INSERT INTO `orders` (`ID_user`, `Order_date`, `Status`, `Total_Count`, `Total_Price_with_discount`) VALUES (@ID_user, @Order_date, @Status, @Total_Count, @Total_Price_with_discount)";
+            
+            string sql = "INSERT INTO `orders` (`ID_user`, `Order_date`, `Total_Count`, `Total_Price_with_discount`) VALUES (@ID_user, @Order_date, @Total_Count, @Total_Price_with_discount)";
             MySqlCommand cmd = new MySqlCommand(sql, con.GetConnBD());
             cmd.Parameters.Add(new MySqlParameter("@ID_user", ID_user));
             // cmd.Parameters.Add(new MySqlParameter("@ID_goods", SostavZakazalist[i].ID_goods));
             cmd.Parameters.Add(new MySqlParameter("@Order_date", Order_date));
-            cmd.Parameters.Add(new MySqlParameter("@Status", Status));
             cmd.Parameters.Add(new MySqlParameter("@Total_Count", Goods_Total_Count));
             cmd.Parameters.Add(new MySqlParameter("@Total_Price_with_discount", Goods_Total_Price_with_discount));
             await con.GetConnectBD();
@@ -74,6 +74,7 @@ namespace Marketplaes02.ViewModel
             await con.GetCloseBD();
             return true;
         }
+
         private async Task<int> Get_ID_order(string Order_date, int ID_user)
         {
 
@@ -123,7 +124,21 @@ namespace Marketplaes02.ViewModel
             await con.GetCloseBD();
             return true;
         }
+        public async Task<bool> SQL_Upbate_V_nalichii(int i)
+        {
+            ConnectBD con = new ConnectBD();
 
+            string sql = "UpdateGoodsV_nalichii";
+            MySqlCommand cmd = new MySqlCommand(sql, con.GetConnBD());
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add(new MySqlParameter("@goodsID", SostavZakazalist[i].ID_goods));
+            cmd.Parameters.Add(new MySqlParameter("@quantity", SostavZakazalist[i].Count));
+          
+            await con.GetConnectBD();
+            cmd.ExecuteNonQuery();
+            await con.GetCloseBD();
+            return true;
+        }
         public async Task<bool> AddZakazi()
         {
             await SQL_AddOrders();
@@ -133,7 +148,8 @@ namespace Marketplaes02.ViewModel
             {
               
                 await SQL_AddOrder_items(ID_order, i);
-          
+
+                await SQL_Upbate_V_nalichii(i);
 
             }
             if (i == SostavZakazalist.Count)

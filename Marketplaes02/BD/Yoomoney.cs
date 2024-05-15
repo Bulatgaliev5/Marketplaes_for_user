@@ -1,8 +1,9 @@
-﻿using Yoomoney_API_username_Bulatgaliev5.account;
-using Yoomoney_API_username_Bulatgaliev5.authorize;
-using Yoomoney_API_username_Bulatgaliev5.quickpay;
-using Yoomoney_API_username_Bulatgaliev5.notification;
-using Yoomoney_API_username_Bulatgaliev5.operation_details;
+﻿
+using yoomoney_api.account;
+using yoomoney_api.authorize;
+using yoomoney_api.quickpay;
+using yoomoney_api.notification;
+using yoomoney_api.operation_details;
 using Microsoft.Maui;
 
 
@@ -41,22 +42,33 @@ namespace Marketplaes02.BD
         }
 
 
-        public string GetPayLink(decimal sum, List<string> comment)
+        public string GetPayLink(decimal sum, string label)
         {
-            //  string YOUR_TOKENvar = "410015744747795.24F209EDDEE737D82CF3B7A4C5D185E76F39A4427A5321B085D97AC9ECB7BC63CDCBF5A6858F59D21D4E6C4B4267673F05ED9162938B8305A2C36998A08059322AFB193B9DC4261292D7B0D38E6A64009957E43CBD8E8C56CBDDFD3CD1FF39CE3D697F9B9B3D792D57D4B9F3EBAAA9C65A9B0E34E8A11550EB8EA5A150583F3B";
-              var label = Guid.NewGuid().ToString();
-            var quickpay = new Quickpay(receiver: "410015744747795", quickpayForm: "shop", sum: sum, comment: comment.ToString(),
+            // string YOUR_TOKENvar = "410015744747795.24F209EDDEE737D82CF3B7A4C5D185E76F39A4427A5321B085D97AC9ECB7BC63CDCBF5A6858F59D21D4E6C4B4267673F05ED9162938B8305A2C36998A08059322AFB193B9DC4261292D7B0D38E6A64009957E43CBD8E8C56CBDDFD3CD1FF39CE3D697F9B9B3D792D57D4B9F3EBAAA9C65A9B0E34E8A11550EB8EA5A150583F3B";
+
+            var quickpay = new Quickpay(receiver: "410015744747795", quickpayForm: "shop", sum: sum,
                 label: label, paymentType: "AC");
             return quickpay.LinkPayment;
         }
 
-        public bool GetStatusOperazii_and_check()
+        public bool GetStatusOperazii_and_check(string LabelParam)
         {
+
             string YOUR_TOKENvar = "410015744747795.04C768471489B8989C7285F4B0DA2AA628D22A8558ACD7DB3437BF6CAE210AFD15A3A18A938FA71CA8CE9937B5352080C7A7F7C9AA4226FBBC1E72718F21F90449F0784E8D5010D87E74CAB083A9D6CE36B733129215FFEF0B05288446F4DF719CDED37031E130A30079BCB5BEDDA7AE900E1D5C46C52308698F5DB1E6B6B478";
             var client = new Client(token: YOUR_TOKENvar);
-            var operationrHistory =  client.GetAccountInfo(token: YOUR_TOKENvar);
-           
-            return true;
+            ///Для проверки платежа
+            var operationrHistory = client.GetOperationHistory(token: YOUR_TOKENvar);
+
+            foreach (var Items in operationrHistory.Operations)
+            {
+                if (Items.Label == LabelParam && Items.Status == "success")
+                {
+                    return true;
+                }
+
+            }
+            return false;
+
         }
     }   
 }
