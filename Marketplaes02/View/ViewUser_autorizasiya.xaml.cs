@@ -29,6 +29,13 @@ public partial class ViewUser_autorizasiya : ContentPage
         return true;
     }
 
+    private async void Registration(object sender, EventArgs e)
+    {
+        await Navigation.PopAsync();
+        await Navigation.PushAsync(new ViewUser_Registration());
+
+    }
+
     public async Task<bool> CheckPass()
     {
         ConnectBD con = new ConnectBD();

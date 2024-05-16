@@ -3,41 +3,46 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Marketplaes02.View.ViewGoodsKategoriya" 
              Title="{Binding NameKategoriya}"  BackgroundColor="Azure" >
-    <!--Задается цвета выдклкния при нажатии на карточку товара (код Майкрософт)-->
-    <ContentPage.Resources>
-        <Style TargetType="Grid">
-            <Setter Property="VisualStateManager.VisualStateGroups">
-                <VisualStateGroupList>
-                    <VisualStateGroup x:Name="CommonStates">
-                        <VisualState x:Name="Normal" />
-                        <VisualState x:Name="Selected">
-                            <VisualState.Setters>
-                                <Setter Property="BackgroundColor"
-                                     Value="Azure" />
-                            </VisualState.Setters>
-                        </VisualState>
-                    </VisualStateGroup>
-                </VisualStateGroupList>
-            </Setter>
-        </Style>
-    </ContentPage.Resources>
+ 
 
 
     <StackLayout>
 
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="70"/>
 
-                <RowDefinition Height="645"/>
-            </Grid.RowDefinitions>
-            <Border Margin="5" Grid.Row="0"  Style="{DynamicResource FrameSearch}">
+        <StackLayout Margin="0,10,0,10">
+                <Border  Margin="5"   Style="{DynamicResource FrameSearch}">
+                    <SearchBar x:Name="ElementSearchBar"  TextChanged="SearchBarSearch"    Placeholder="Поиск..." />
+                </Border>
+                <StackLayout Margin="10,0,10,0"  Orientation="Horizontal" HorizontalOptions="FillAndExpand" >
+                    <HorizontalStackLayout Padding="5,0,5,0" HorizontalOptions="StartAndExpand">
+                    <HorizontalStackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="ClickOpenSort"/>
+                    </HorizontalStackLayout.GestureRecognizers>
+                    <Image HorizontalOptions="StartAndExpand"  WidthRequest="30"  HeightRequest="30"  Source="sort.png">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="ClickOpenSort"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+                        <Label VerticalTextAlignment="Center"  Text="Сортировка"/>
+                    </HorizontalStackLayout>
+                    
+                    <HorizontalStackLayout Padding="5,0,5,0" HorizontalOptions="EndAndExpand">
+                    <HorizontalStackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="ClickOpenFilter"/>
+                    </HorizontalStackLayout.GestureRecognizers>
+                        <Label VerticalTextAlignment="Center" Text="Фильтры"/>
+                    <Image HorizontalOptions="StartAndExpand"  WidthRequest="30"  HeightRequest="30"  Source="filter.png">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="ClickOpenFilter"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+                       
+                    </HorizontalStackLayout>
+                    
+                </StackLayout>
+        </StackLayout>
 
-                <SearchBar x:Name="ElementSearchBar"  TextChanged="SearchBarSearch"    Placeholder="Поиск..." />
-
-            </Border>
-         
-            <RefreshView x:Name="RefreshView1"  Grid.Row="1"
+        <RefreshView x:Name="RefreshView1"  
           RefreshColor="DeepSkyBlue"
           Refreshing="RefreshGoodsData">
 
@@ -117,11 +122,19 @@
 
                     </CollectionView.ItemTemplate>
 
+                <!-- Пустое представление -->
+                <CollectionView.EmptyView>
+                    <StackLayout    VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+                        <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+                            <Image Margin="40,0,10,0"  WidthRequest="50" Source="no_zakaz.png"/>
+                            <Label HorizontalOptions="FillAndExpand" LineBreakMode="WordWrap"  FontSize="20" Margin="10,0,40,0" VerticalOptions="Center" Text="Ничего не нашлось по вашеиу запросу"/>
+                        </StackLayout>
+                    </StackLayout>
+                </CollectionView.EmptyView>
 
-
-                </CollectionView>
+            </CollectionView>
 
             </RefreshView>
-        </Grid>
+
     </StackLayout>
 </ContentPage>

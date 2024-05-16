@@ -7,40 +7,47 @@
              Shell.NavBarIsVisible="False"
              >
 
-    <!--Задается цвета выдклкния при нажатии на карточку товара (код Майкрософт)-->
-    <ContentPage.Resources>
-        <Style TargetType="Grid">
-            <Setter Property="VisualStateManager.VisualStateGroups">
-                <VisualStateGroupList>
-                    <VisualStateGroup x:Name="CommonStates">
-                        <VisualState x:Name="Normal" />
-                        <VisualState x:Name="Selected">
-                            <VisualState.Setters>
-                                <Setter Property="BackgroundColor"
-                                        Value="Azure" />
-                            </VisualState.Setters>
-                        </VisualState>
-                    </VisualStateGroup>
-                </VisualStateGroupList>
-            </Setter>
-        </Style>
-    </ContentPage.Resources>
-
 
     <StackLayout>
 
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="80"/>
-                <RowDefinition Height="700"/>
-            </Grid.RowDefinitions>
 
-            <StackLayout  Background="DeepSkyBlue" Grid.Row="0">
+        <StackLayout>
+            <StackLayout  Background="DeepSkyBlue" >
                 <Border VerticalOptions="CenterAndExpand" Padding="0"  Style="{DynamicResource FrameSearch}"  Margin="10,5,10,5" >
                     <SearchBar  TextChanged="SearchBarSearch"   x:Name="ElementSearchBar" Margin="0"   Placeholder="Поиск..." />
             </Border>
             </StackLayout>
-            <RefreshView x:Name="RefreshView1"  Grid.Row="1"
+
+            <StackLayout Margin="10,0,10,0"  Orientation="Horizontal" HorizontalOptions="FillAndExpand" >
+                <HorizontalStackLayout Padding="5,0,5,0" HorizontalOptions="StartAndExpand">
+                    <HorizontalStackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="ClickOpenSort"/>
+                    </HorizontalStackLayout.GestureRecognizers>
+                    <Image HorizontalOptions="StartAndExpand"  WidthRequest="30"  HeightRequest="30"  Source="sort.png">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="ClickOpenSort"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+                    <Label VerticalTextAlignment="Center"  Text="Сортировка"/>
+                </HorizontalStackLayout>
+
+                <HorizontalStackLayout Padding="5,0,5,0" HorizontalOptions="EndAndExpand">
+                    <HorizontalStackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="ClickOpenFilter"/>
+                    </HorizontalStackLayout.GestureRecognizers>
+                    <Label VerticalTextAlignment="Center" Text="Фильтры"/>
+                    <Image HorizontalOptions="StartAndExpand"  WidthRequest="30"  HeightRequest="30"  Source="filter.png">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="ClickOpenFilter"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+
+                </HorizontalStackLayout>
+
+            </StackLayout>
+        </StackLayout>
+
+        <RefreshView x:Name="RefreshView1" 
              RefreshColor="DeepSkyBlue"
              Refreshing="RefreshGoodsData">
 
@@ -62,7 +69,7 @@
                                         <StackLayout.GestureRecognizers >
                                             <TapGestureRecognizer Tapped="OpenKartochka"/>
                                         </StackLayout.GestureRecognizers>
-                                        <Frame Margin="5" Style="{DynamicResource FrameImageGood}">
+                                        <Border Margin="5" Style="{DynamicResource FrameImageGood}">
                                             <Grid>
                                                 <Image Source="{Binding Image}">
                                                     <Image.GestureRecognizers>
@@ -85,7 +92,7 @@
                                                     </Image>
                                                 </Border>
                                             </Grid>
-                                        </Frame>
+                                        </Border>
                                         <StackLayout Margin="5" HorizontalOptions="Start"  Orientation="Horizontal">
 
 
@@ -118,6 +125,5 @@
                 </CollectionView>
 
             </RefreshView>
-        </Grid>
     </StackLayout>
 </ContentPage>

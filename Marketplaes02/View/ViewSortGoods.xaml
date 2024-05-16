@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Mopups:PopupPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Marketplaes02.View.ViewSortGoods"
+              xmlns:Mopups="clr-namespace:Mopups.Pages;assembly=Mopups"
+             xmlns:Animations="clr-namespace:Mopups.Animations;assembly=Mopups"
+                      BackgroundClicked="PopupPage_BackgroundClicked"
+
+    CloseWhenBackgroundIsClicked="True"
+
+                  BackgroundColor="#80000000"
+             Title="ViewSortGoods">
+    <Mopups:PopupPage.Animation>
+        <Animations:MoveAnimation PositionIn="Bottom" PositionOut="Bottom" 
+                                   DurationIn="400"  
+               DurationOut="300"  
+               EasingIn="SinOut"  
+               EasingOut="SinIn"  
+               HasBackgroundAnimation="True"
+                                  />
+    </Mopups:PopupPage.Animation>
+
+    <StackLayout   
+           VerticalOptions="EndAndExpand"   
+           HorizontalOptions="FillAndExpand"   
+          >
+        <Frame CornerRadius="20"  HorizontalOptions="FillAndExpand" HeightRequest="300" >
+            <StackLayout  RadioButtonGroup.GroupName="Sort">
+
+                <Label FontSize="20" Text="Сортировка"/>
+                <Label FontSize="18" Text="Какие товары показывать сначало?"/>
+                <RadioButton Value="По умолчанию"  Content="По умолчанию"  />
+                <RadioButton Value="Дешевле"    Content="Дешевле" />
+                <RadioButton Value="Дороже"    Content="Дороже" />
+                
+                <Button Style="{DynamicResource BtZakazat}" Text="Применить" />
+                <Button  Style="{DynamicResource BtZakazat}"  Text="Сбросить" />
+            </StackLayout>
+        </Frame>
+
+    </StackLayout>
+</Mopups:PopupPage>

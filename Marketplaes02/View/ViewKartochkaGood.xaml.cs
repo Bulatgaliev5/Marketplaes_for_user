@@ -58,10 +58,7 @@ public partial class ViewKartochkaGood : ContentPage
 
     }
 
-    private async void btnpay(object sender, EventArgs e)
-    {
-        await Navigation.PushAsync(new ViewOformlenieZakaza());
-    }
+
 
     private void OpenKartochkaImage(object sender, TappedEventArgs e)
     {

@@ -45,7 +45,6 @@ public partial class ViewSearchGoodsList : ContentPage
     private async void RefreshGoodsData(object sender, EventArgs e)
     {
         Update();
-        await Task.Delay(1000);
         RefreshView1.IsRefreshing = false;
     }
 
@@ -94,5 +93,15 @@ public partial class ViewSearchGoodsList : ContentPage
                 }
             }
         };
+    }
+
+    private void ClickOpenSort(object sender, TappedEventArgs e)
+    {
+
+    }
+
+    private void ClickOpenFilter(object sender, TappedEventArgs e)
+    {
+
     }
 }

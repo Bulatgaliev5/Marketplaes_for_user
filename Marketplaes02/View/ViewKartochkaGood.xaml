@@ -11,7 +11,7 @@
         </Grid.RowDefinitions>
         <ScrollView Grid.Row="0">
             <StackLayout >
-                <Frame Padding="5"  Style="{DynamicResource FrameGlavnaya}">
+                <Border Padding="5"  Style="{DynamicResource BorderGlavnaya}">
                     <VerticalStackLayout  Padding="0" >
 
                     <Grid Padding="0" Margin="5" HeightRequest="400">
@@ -19,13 +19,12 @@
                     <CarouselView  ItemsSource="{Binding ImagesGoodsList}" IndicatorView="indicatorView">
                         <CarouselView.ItemTemplate>
                             <DataTemplate>
-                                    <Frame>
-                                    <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center">
+                                        <Border Background="Snow" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"  >
 
-                                        <Image HorizontalOptions="CenterAndExpand" Aspect="AspectFill" Source="{Binding ImageGoods}" />
-                                        
-                                    </VerticalStackLayout>
-                                </Frame>
+
+                                            <Image VerticalOptions="CenterAndExpand"  HorizontalOptions="CenterAndExpand" Aspect="AspectFit" Source="{Binding ImageGoods}" />
+
+                                         </Border>
                             </DataTemplate>
                         </CarouselView.ItemTemplate>
                     </CarouselView>
@@ -36,20 +35,20 @@
                    HorizontalOptions="Center" />
                    
                 </VerticalStackLayout>
-                </Frame>
+                </Border>
 
-                <Frame  Style="{DynamicResource FrameGlavnaya}">
+                <Border Padding="15"   Style="{DynamicResource BorderGlavnaya}">
                     <StackLayout HorizontalOptions="Start"  Orientation="Horizontal">
                         <Label Style="{DynamicResource LabSale}" Text="{Binding Price_with_discount,StringFormat='{0} ₽'}"/>
                         <Label Style="{DynamicResource LabPrice}" Text="{Binding Price,StringFormat='{0} ₽'}"/>
                             
                     </StackLayout>
-                </Frame>
-                <Frame  Style="{DynamicResource FrameGlavnaya}">
+                </Border>
+                <Border Padding="15"  Style="{DynamicResource BorderGlavnaya}">
 
                     <Label  Text="{Binding Description,StringFormat='Описание: {0}'}"/>
                   
-                </Frame>
+                </Border>
 
 
             </StackLayout>
@@ -64,8 +63,6 @@
 
         <StackLayout   Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center" Orientation="Horizontal">
 
-                <Button  Clicked="btnpay"
-               Style="{DynamicResource BtBuySichas}"  Text="Купить сейчас" />
             <Button Command="{Binding UpdatePlusCountCommand}" CommandParameter="{Binding ID_goods}" VerticalOptions="End"  Style="{DynamicResource BtKorzina}" Clicked="btkotzina"
                 Text="{Binding Count,StringFormat='В корзину {0} шт. корзине'}"/>
         </StackLayout>

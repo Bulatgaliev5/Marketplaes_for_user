@@ -1,5 +1,8 @@
 using Marketplaes02.Model;
 using Marketplaes02.ViewModel;
+using Mopups.PreBaked.PopupPages.SingleResponse;
+using Mopups.Services;
+
 
 namespace Marketplaes02.View;
 
@@ -79,5 +82,15 @@ public partial class ViewGoodsKategoriya : ContentPage
                 }
             }
         };
+    }
+
+    private async void ClickOpenFilter(object sender, TappedEventArgs e)
+    {
+         await SingleResponseViewModel.AutoGenerateBasicPopup(Color.FromRgb(255, 105, 180), Color.FromRgb(255, 105, 255), "I Accept", Color.FromRgb(135, 105, 180), "Good Job, enjoy this single response example", "thumbsup.png");
+    }
+
+    private async void ClickOpenSort(object sender, TappedEventArgs e)
+    {
+        await MopupService.Instance.PushAsync(new ViewSortGoods());
     }
 }

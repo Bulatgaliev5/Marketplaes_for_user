@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Marketplaes02.View.ViewUser_Registration"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             Title="ViewUser_Registration">
+    <VerticalStackLayout VerticalOptions="CenterAndExpand"  Padding="5">
+        <Label Text="Заполните данные для входа" Style="{DynamicResource LabZapol}"/>
+        <Label Text="Введите свое имя"/>
+        <Entry x:Name="entryName"/>
+        <Label Text="Придумайте логин"/>
+        <Entry x:Name="entryLog"/>
+        <Label Text="Введите номер телефона без +7"/>
+        <Entry x:Name="entryNumber" Keyboard="Telephone">
+            <Entry.Behaviors>
+                <toolkit:MaskedBehavior UnmaskedCharacter="X"   Mask="XXXX XXXX XXXX XXXX" />
+            </Entry.Behaviors>
+        </Entry>
+        <Label Text="Придумайте пароль"/>
+        <Entry x:Name="entryPas"/>
+        <Button Text="Зарегистрироваться" Clicked="BtnRegister"/>
+    </VerticalStackLayout>
+</ContentPage>
