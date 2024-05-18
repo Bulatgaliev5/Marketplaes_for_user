@@ -1,6 +1,8 @@
 using Marketplaes02.BD;
 using Marketplaes02.ViewModel;
+using Mopups.PreBaked.Services;
 using MySqlConnector;
+using System.Linq;
 
 namespace Marketplaes02.View;
 
@@ -49,6 +51,8 @@ public partial class ViewUser_autorizasiya : ContentPage
         await con.GetConnectBD();
 
         MySqlDataReader readed = await cmd.ExecuteReaderAsync();
+        List<string> message = ["Ещё чуть чуть"];
+        await PreBakedMopupService.GetInstance().WrapTaskInLoader(Task.Delay(2000), Color.FromRgb(0, 127, 255), Color.FromRgb(255, 255, 250), message, Color.FromRgb(0, 0, 0));
         if (!readed.HasRows)
         {
             await con.GetCloseBD();
@@ -82,19 +86,20 @@ public partial class ViewUser_autorizasiya : ContentPage
     {
 
         bool stateinternet = CheckInternet();
+        List<string> message = ["Выполняется вход"];
+        await PreBakedMopupService.GetInstance().WrapTaskInLoader(Task.Delay(3000), Color.FromRgb(0, 127, 255), Color.FromRgb(255, 255, 250), message, Color.FromRgb(0, 0, 0));
 
         if (stateinternet)
         {
+            
             bool state = await CheckPass();
+            
             if (state)
             {
                 Navigation.RemovePage(this);
-                //  Navigation.RemovePage(new Okno_avtoriazii());
 
-                await DisplayAlert("Уведомление", "Вы вошли как: ", "Ок");
                 await Shell.Current.GoToAsync("//glavnaya");
 
-                // MainPage main = new MainPage(2);
             }
             return;
         }

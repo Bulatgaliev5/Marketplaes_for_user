@@ -59,7 +59,7 @@
                                     <StackLayout.GestureRecognizers >
                                         <TapGestureRecognizer Tapped="OpenKartochka"/>
                                     </StackLayout.GestureRecognizers>
-                                    <Border Margin="5" Style="{DynamicResource FrameImageGood}">
+                                    <Border Background="Snow" Margin="5" Style="{DynamicResource FrameImageGood}">
                                         <Grid>
                                             <Image Source="{Binding Image}">
                                                 <Image.GestureRecognizers>
@@ -71,7 +71,7 @@
                                                <Label  Style="{DynamicResource LabelDiscount}" Text="{Binding Discount,StringFormat='- {0} %'}"  />
                                             </Border>
 
-                                                    <Border  Padding="0"   HorizontalOptions="End" VerticalOptions="Start" >
+                                                <Border  Background="White"  Padding="0"   HorizontalOptions="End" VerticalOptions="Start" >
                                                     <Border.StrokeShape>
                                                         <RoundRectangle CornerRadius="15" />
                                                     </Border.StrokeShape>

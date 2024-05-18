@@ -69,6 +69,7 @@
 		<PackageReference Include="AlohaKit.Animations" Version="1.1.0" />
 		<PackageReference Include="Azure.Storage.Blobs" Version="12.19.1" />
 		<PackageReference Include="CommunityToolkit.Maui" Version="9.0.0" />
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
 		<PackageReference Include="ContextMenuContainer" Version="1.2.3" />
 		<PackageReference Include="Dadata" Version="23.6.1" />
 		<PackageReference Include="Extended.Wpf.Toolkit" Version="4.6.0" />
@@ -96,6 +97,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="View\ViewAddAdres_dostavki.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\ViewFillterGoods.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="View\ViewIsbrannoe.xaml">

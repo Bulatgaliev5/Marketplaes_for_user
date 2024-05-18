@@ -8,10 +8,10 @@
             <StackLayout Margin="20">
                 <Label Text="Добро пожаловать" Style="{DynamicResource LabDobr}"/>
                 <Label Text="Заполните данные для входа" Style="{DynamicResource LabZapol}"/>
-                <Entry  x:FieldModifier="public" x:Name="entryLogin" Style="{DynamicResource EntryLogin}">
+                <Entry   x:Name="entryLogin" Style="{DynamicResource EntryLogin}">
 
                 </Entry>
-                <Entry x:FieldModifier="public" x:Name="entryPass" IsPassword="True" Style="{DynamicResource EntryPass}"/>
+                <Entry  x:Name="entryPass" IsPassword="True" Style="{DynamicResource EntryPass}"/>
 
                 <Button Text="Войти в аккаунт" Style="{DynamicResource BtVoiti}" Clicked="Voiti"/>
             </StackLayout>

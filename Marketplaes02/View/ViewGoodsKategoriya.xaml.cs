@@ -2,6 +2,7 @@ using Marketplaes02.Model;
 using Marketplaes02.ViewModel;
 using Mopups.PreBaked.PopupPages.SingleResponse;
 using Mopups.Services;
+using CommunityToolkit.Mvvm.Messaging;
 
 
 namespace Marketplaes02.View;
@@ -19,10 +20,11 @@ public partial class ViewGoodsKategoriya : ContentPage
     {
 
         BindingContext = new ViewModelGoodsKategoriya();
-        // base.OnAppearing();
+
 
 
     }
+
     private async void RefreshGoodsData(object sender, EventArgs e)
     {
         Update();
@@ -56,7 +58,7 @@ public partial class ViewGoodsKategoriya : ContentPage
 
             Preferences.Default.Set("Kartochka_ID_goods", g.ID_goods);
         };
-        await Navigation.PushAsync(new ViewKartochkaGood());
+        await Navigation.PushAsync(new ViewKartochkaGood()); 
     }
 
     private async void Add_isbrannoe(object sender, TappedEventArgs e)
@@ -86,11 +88,11 @@ public partial class ViewGoodsKategoriya : ContentPage
 
     private async void ClickOpenFilter(object sender, TappedEventArgs e)
     {
-         await SingleResponseViewModel.AutoGenerateBasicPopup(Color.FromRgb(255, 105, 180), Color.FromRgb(255, 105, 255), "I Accept", Color.FromRgb(135, 105, 180), "Good Job, enjoy this single response example", "thumbsup.png");
+        await MopupService.Instance.PushAsync(new ViewFillterGoods());
     }
 
-    private async void ClickOpenSort(object sender, TappedEventArgs e)
-    {
-        await MopupService.Instance.PushAsync(new ViewSortGoods());
-    }
+
+
+
+
 }

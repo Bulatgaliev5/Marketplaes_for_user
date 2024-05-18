@@ -4,7 +4,7 @@
              x:Class="Marketplaes02.View.ViewSortGoods"
               xmlns:Mopups="clr-namespace:Mopups.Pages;assembly=Mopups"
              xmlns:Animations="clr-namespace:Mopups.Animations;assembly=Mopups"
-                      BackgroundClicked="PopupPage_BackgroundClicked"
+           
 
     CloseWhenBackgroundIsClicked="True"
 
@@ -25,16 +25,16 @@
            HorizontalOptions="FillAndExpand"   
           >
         <Frame CornerRadius="20"  HorizontalOptions="FillAndExpand" HeightRequest="300" >
-            <StackLayout  RadioButtonGroup.GroupName="Sort">
-
+            <StackLayout RadioButtonGroup.GroupName="Sort" RadioButtonGroup.SelectedValue="{Binding SelectedSortOption}">
                 <Label FontSize="20" Text="Сортировка"/>
                 <Label FontSize="18" Text="Какие товары показывать сначало?"/>
-                <RadioButton Value="По умолчанию"  Content="По умолчанию"  />
-                <RadioButton Value="Дешевле"    Content="Дешевле" />
-                <RadioButton Value="Дороже"    Content="Дороже" />
+                <RadioButton IsChecked="{Binding BoolRadioButton[0]}" Value="По умолчанию" Content="По умолчанию" />
+                <RadioButton IsChecked="{Binding BoolRadioButton[1]}" Value="Дешевле" Content="Дешевле" />
+                <RadioButton IsChecked="{Binding BoolRadioButton[2]}" Value="Дороже"  Content="Дороже" />
+
+                <Button Clicked="Close" Command="{Binding SortGoodsPriceCommand}" CommandParameter="{Binding SelectedSortOption}" Style="{DynamicResource BtZakazat}" Text="Применить" />
+
                 
-                <Button Style="{DynamicResource BtZakazat}" Text="Применить" />
-                <Button  Style="{DynamicResource BtZakazat}"  Text="Сбросить" />
             </StackLayout>
         </Frame>
 

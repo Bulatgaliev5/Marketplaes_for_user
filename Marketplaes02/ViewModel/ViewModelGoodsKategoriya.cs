@@ -1,8 +1,13 @@
-﻿using Marketplaes02.BD;
+﻿using CommunityToolkit.Mvvm.Messaging;
+using Marketplaes02.BD;
+using Marketplaes02.Class;
 using Marketplaes02.Model;
+using Marketplaes02.View;
+using Mopups.Services;
 using MySqlConnector;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Windows.Input;
 
 
 namespace Marketplaes02.ViewModel
@@ -29,7 +34,7 @@ namespace Marketplaes02.ViewModel
         {
             get => _GoodsKategoriyalist;
             set
-            {
+            {   
                 _GoodsKategoriyalist = value;
                 OnPropertyChanged("GoodsKategoriyalist");
             }
@@ -48,10 +53,78 @@ namespace Marketplaes02.ViewModel
 
 
         }
+        public ICommand ClickOpenSortCommand { get; set; }
+
+        private IList<bool> _boolRadioButton;
+        public IList<bool> BoolRadioButton
+        {
+            get => _boolRadioButton;
+            set
+            {
+                _boolRadioButton = value;
+                OnPropertyChanged("BoolRadioButton");
+            }
+        }
+
         public ViewModelGoodsKategoriya()
         {
             Load();
-        
+            BoolRadioButton = new List<bool> { true, false, false };
+
+            // Регистрируемся для получения сообщений о сортировке по цене
+            WeakReferenceMessenger.Default.Register<UpdateSort>(this, (r, m) =>
+            {
+                SortGoodsPrice(m.SelectParam);
+              
+
+            });
+            ClickOpenSortCommand = new Command(ListboolRadioButton);
+
+            WeakReferenceMessenger.Default.Register<UpdateFillter>(this, (r, m) =>
+            {
+                FillterGoodsPrice(m.OtPrice, m.DoPrice);
+
+            });
+
+
+        }
+        private void FillterGoodsPrice(int OtPrice, int DoPrice)
+        {
+            GoodsKategoriyalist = new ObservableCollection<GoodsKategoriya>(GoodsKategoriyalist.Where(goods => goods.Price_with_discount >= OtPrice 
+            && goods.Price_with_discount <= DoPrice).ToList());
+
+            OnPropertyChanged("GoodsKategoriyalist");
+        }
+
+        public async void ListboolRadioButton()
+        {
+            await MopupService.Instance.PushAsync(new ViewSortGoods(BoolRadioButton));
+        }
+        private void SortGoodsPrice(string sortOption)
+        {
+            switch (sortOption)
+            {
+                case "Дешевле":
+                    GoodsKategoriyalist = new ObservableCollection<GoodsKategoriya>(GoodsKategoriyalist.OrderBy(goods => goods.Price_with_discount));
+                    BoolRadioButton[1] = true;
+                    BoolRadioButton[0] = false;
+                    BoolRadioButton[2] = false;
+                    break;
+                case "Дороже":
+                    GoodsKategoriyalist = new ObservableCollection<GoodsKategoriya>(GoodsKategoriyalist.OrderByDescending(goods => goods.Price_with_discount));
+                    BoolRadioButton[2] = true;
+                    BoolRadioButton[0] = false;
+                    BoolRadioButton[1] = false;
+                    break;
+                default:
+                    // Сортировка по умолчанию
+                    GoodsKategoriyalist = new ObservableCollection<GoodsKategoriya>(GoodsKategoriyalist);
+                    BoolRadioButton[0] = true;
+                    BoolRadioButton[2] = false;
+                    BoolRadioButton[1] = false;
+                    break;
+            }
+            OnPropertyChanged("GoodsKategoriyalist");
         }
 
 

@@ -53,7 +53,7 @@ public partial class ViewOformlenieZakaza : ContentPage
 
 
            await vewModelSostavZakaza.AddZakazi();
-
+           await modelKorzina.Delete_Korzina();
            // myThread2.Join();
            //myThread1 = new Thread(CheckPaymentStatus);
            //myThread1.Start();

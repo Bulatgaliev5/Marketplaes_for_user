@@ -16,11 +16,11 @@
                 <StackLayout Margin="10,0,10,0"  Orientation="Horizontal" HorizontalOptions="FillAndExpand" >
                     <HorizontalStackLayout Padding="5,0,5,0" HorizontalOptions="StartAndExpand">
                     <HorizontalStackLayout.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="ClickOpenSort"/>
+                        <TapGestureRecognizer Command="{Binding ClickOpenSortCommand}"/>
                     </HorizontalStackLayout.GestureRecognizers>
                     <Image HorizontalOptions="StartAndExpand"  WidthRequest="30"  HeightRequest="30"  Source="sort.png">
                         <Image.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="ClickOpenSort"/>
+                            <TapGestureRecognizer Command="{Binding ClickOpenSortCommand}"/>
                         </Image.GestureRecognizers>
                     </Image>
                         <Label VerticalTextAlignment="Center"  Text="Сортировка"/>
