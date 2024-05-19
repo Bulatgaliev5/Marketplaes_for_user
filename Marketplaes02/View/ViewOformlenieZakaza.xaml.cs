@@ -8,6 +8,7 @@ using System.Linq;
 using Geocoding;
 using CommunityToolkit.Maui.Views;
 using System.Net;
+using Mopups.Services;
 
 
 namespace Marketplaes02.View;
@@ -124,9 +125,9 @@ public partial class ViewOformlenieZakaza : ContentPage
 
     private async void BtdresDostavki(object sender, EventArgs e)
     {
-        var popup = new ViewAddAdres_dostavki();
 
-        this.ShowPopup(popup);
+        await MopupService.Instance.PushAsync(new ViewAddAdres_dostavki());
+
     }
 
 

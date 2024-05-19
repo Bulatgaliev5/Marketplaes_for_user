@@ -46,6 +46,7 @@
                     </HorizontalStackLayout>
                 </Grid>
                 <Button Command="{Binding FillterGoodsPriceCommand}" Clicked="Close"  Style="{DynamicResource BtZakazat}" Text="Применить" />
+                <Button Command="{Binding SbrosCommand}" Clicked="Close"  Style="{DynamicResource BtZakazat}" Text="Сбросить" />
             </StackLayout>
             
         </Frame>

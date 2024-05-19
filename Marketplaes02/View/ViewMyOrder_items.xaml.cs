@@ -34,10 +34,6 @@ public partial class ViewMyOrder_items : ContentPage
         }
     }
 
-    private void RefreshGoodsData(object sender, EventArgs e)
-    {
-
-    }
 
     private async void ClickCopy_Track_number(object sender, EventArgs e)
     {

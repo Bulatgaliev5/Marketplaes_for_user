@@ -20,7 +20,12 @@ public partial class ViewKategoriya : ContentPage
 
             Preferences.Default.Set("id_kategoriya", g.ID_katehorii);
         };
-        await Navigation.PushAsync(new ViewGoodsKategoriya());
+        var currentPage = Navigation.NavigationStack.LastOrDefault();
+        if (!(currentPage is ViewGoodsKategoriya))
+        {
+            await Navigation.PushAsync(new ViewGoodsKategoriya());
+
+        }
     }
 
     private async void OpenKartochkaImage(object sender, TappedEventArgs e)
@@ -29,20 +34,29 @@ public partial class ViewKategoriya : ContentPage
         {
 
             Preferences.Default.Set("id_kategoriya", g.ID_katehorii);
+            var currentPage = Navigation.NavigationStack.LastOrDefault();
+            if (!(currentPage is ViewGoodsKategoriya))
+            {
+                await Navigation.PushAsync(new ViewGoodsKategoriya());
+            }
         };
-        await Navigation.PushAsync(new ViewGoodsKategoriya());
-    }
-
-    private void SearchBarSearch(object sender, TextChangedEventArgs e)
-    {
 
     }
+
+
 
     private async void FocusedSearchBar(object sender, FocusEventArgs e)
     {
         ElementSearchBar.Unfocus();
-        await Navigation.PushAsync(new ViewSearchGoodsList());
+        var currentPage = Navigation.NavigationStack.LastOrDefault();
+        if (!(currentPage is ViewSearchGoodsList))
+        {
+            await Navigation.PushAsync(new ViewSearchGoodsList());
+        }
+
        
 
     }
+
+
 }

@@ -42,42 +42,22 @@ public partial class ViewKorzina : ContentPage
 
     }
 
-    private void CountGoods(object sender, ValueChangedEventArgs e)
-    {
 
-
-
-
-    }
 
     private async void btnpay(object sender, EventArgs e)
     {
-      
+
         Update();
-       await Navigation.PushAsync(new ViewOformlenieZakaza());
+        var currentPage = Navigation.NavigationStack.LastOrDefault();
+        if (!(currentPage is ViewOformlenieZakaza))
+        {
+            await Navigation.PushAsync(new ViewOformlenieZakaza());
+
+        }
+    
     }
 
-    private void OnFavoriteSwipeItemInvoked(object sender, EventArgs e)
-    {
 
-    }
-
-    private void OnDeleteSwipeItemInvoked(object sender, EventArgs e)
-    {
-
-    }
-
-    private void btnclick(object sender, EventArgs e)
-    {
-        var popup = new PopupView();
-
-        this.ShowPopup(popup);
-    }
-
-    private void SelectionChangedKorzinaGoods(object sender, SelectionChangedEventArgs e)
-    {
-      
-    }
 
     private async void BtnDeleteGoodKorzina(object sender, EventArgs e)
     {

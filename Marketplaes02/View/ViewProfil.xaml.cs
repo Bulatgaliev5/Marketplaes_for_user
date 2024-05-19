@@ -29,7 +29,13 @@ public partial class ViewProfil : ContentPage
         {
             await AnimateButton(frame);
         }
-        await Navigation.PushAsync(new ViewMyOrders());
+        var currentPage = Navigation.NavigationStack.LastOrDefault();
+        if (!(currentPage is ViewMyOrders))
+        {
+            await Navigation.PushAsync(new ViewMyOrders());
+
+        }
+
     }
 
     private async void ClickStackLayout_isbrannoe(object sender, TappedEventArgs e)
@@ -38,7 +44,13 @@ public partial class ViewProfil : ContentPage
         {
             await AnimateButton(frame);
         }
-        await Navigation.PushAsync(new ViewIsbrannoe());
+        var currentPage = Navigation.NavigationStack.LastOrDefault();
+        if (!(currentPage is ViewIsbrannoe))
+        {
+            await Navigation.PushAsync(new ViewIsbrannoe());
+
+        }
+
     }
 
     private async void ClickStackLayout_Exit(object sender, TappedEventArgs e)

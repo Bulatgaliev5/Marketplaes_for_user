@@ -1,15 +1,21 @@
 using CommunityToolkit.Maui.Views;
+using CommunityToolkit.Mvvm.Messaging;
 using Dadata;
 using Dadata.Model;
 using Marketplaes02.BD;
+using Marketplaes02.Class;
+using Mopups.Pages;
+using Mopups.Services;
 using MySqlConnector;
 using Newtonsoft.Json.Linq;
 namespace Marketplaes02.View;
 
-public partial class ViewAddAdres_dostavki : Popup
+public partial class ViewAddAdres_dostavki : PopupPage
 {
     SuggestResponse<Address> result;
-    bool ValidBool=false;
+    bool ValidBool =false;
+
+
     public ViewAddAdres_dostavki()
 	{
 		InitializeComponent();
@@ -76,15 +82,25 @@ public partial class ViewAddAdres_dostavki : Popup
 
     private async void Save(object sender, EventArgs e)
     {
-       bool result = await AddAdres_dostavki();
+        bool result = await AddAdres_dostavki();
         if (result)
         {
-            MessagingCenter.Send<Popup>(this, "ViewOformlenieZakaza");
+            MetodUpdaateAdres(addressEntry.Text);
             await Application.Current.MainPage.DisplayAlert("Уведомление", "Данные успешно сохранены", "Ок");
 
-            await CloseAsync();
         }
 
+
+    }
+    public async void MetodUpdaateAdres(string _adreresdostavki)
+    {
+        // Отправляем сообщение, что нужно отсортировать список по цене
+        WeakReferenceMessenger.Default.Send(new UpdateAdresDostavki(_adreresdostavki));
+        await MopupService.Instance.PopAsync();
     }
 
+    private async void Close(object sender, EventArgs e)
+    {
+        await MopupService.Instance.PopAsync();
+    }
 }

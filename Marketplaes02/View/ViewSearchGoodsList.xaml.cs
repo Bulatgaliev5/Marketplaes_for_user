@@ -30,15 +30,7 @@ public partial class ViewSearchGoodsList : ContentPage
 
 
     }
-    private void SearchBarSearch(object sender, TextChangedEventArgs e)
-    {
 
-            GoodsData.ItemsSource = viewModelSearchGoodsList.Goods
-                .Where(a => a.Name.IndexOf(ElementSearchBar.Text, StringComparison.OrdinalIgnoreCase) >= 0
-                || a.Description.IndexOf(ElementSearchBar.Text, StringComparison.OrdinalIgnoreCase) >= 0)
-                .ToList();
-
-    }
 
 
 
@@ -54,8 +46,14 @@ public partial class ViewSearchGoodsList : ContentPage
         {
 
             Preferences.Default.Set("Kartochka_ID_goods", g.ID_goods);
+            var currentPage = Navigation.NavigationStack.LastOrDefault();
+            if (!(currentPage is ViewKartochkaGood))
+            {
+                await Navigation.PushAsync(new ViewKartochkaGood());
+
+            }
         };
-        await Navigation.PushAsync(new ViewKartochkaGood());
+
      
     }
 
@@ -65,8 +63,14 @@ public partial class ViewSearchGoodsList : ContentPage
         {
 
             Preferences.Default.Set("Kartochka_ID_goods", g.ID_goods);
+            var currentPage = Navigation.NavigationStack.LastOrDefault();
+            if (!(currentPage is ViewKartochkaGood))
+            {
+                await Navigation.PushAsync(new ViewKartochkaGood());
+
+            }
         };
-        await Navigation.PushAsync(new ViewKartochkaGood());
+
 
     }
 
@@ -95,13 +99,5 @@ public partial class ViewSearchGoodsList : ContentPage
         };
     }
 
-    private void ClickOpenSort(object sender, TappedEventArgs e)
-    {
 
-    }
-
-    private void ClickOpenFilter(object sender, TappedEventArgs e)
-    {
-
-    }
 }

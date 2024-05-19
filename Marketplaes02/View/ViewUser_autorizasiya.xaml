@@ -13,7 +13,7 @@
                 </Entry>
                 <Entry  x:Name="entryPass" IsPassword="True" Style="{DynamicResource EntryPass}"/>
 
-                <Button Text="Войти в аккаунт" Style="{DynamicResource BtVoiti}" Clicked="Voiti"/>
+                <Button x:Name="BtnVoiti" Text="Войти в аккаунт" Style="{DynamicResource BtVoiti}" Clicked="Voiti"/>
             </StackLayout>
             <StackLayout Margin="20">
                 <Label HorizontalOptions="Start" Margin="5" Text="Нет аккаунта?" Style="{DynamicResource LabDobr}"/>

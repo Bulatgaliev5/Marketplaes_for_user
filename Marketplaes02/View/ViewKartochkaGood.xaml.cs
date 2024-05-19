@@ -33,11 +33,7 @@ public partial class ViewKartochkaGood : ContentPage
         });
     }
 
-    private void btzakazat(object sender, EventArgs e)
-    {
 
-
-    }
 
     public void btkotzina(object sender, EventArgs e)
     {
@@ -60,8 +56,4 @@ public partial class ViewKartochkaGood : ContentPage
 
 
 
-    private void OpenKartochkaImage(object sender, TappedEventArgs e)
-    {
-
-    }
 }

@@ -13,19 +13,20 @@
 
         <StackLayout>
             <StackLayout  Background="DeepSkyBlue" >
-                <Border VerticalOptions="CenterAndExpand" Padding="0"  Style="{DynamicResource FrameSearch}"  Margin="10,5,10,5" >
-                    <SearchBar  TextChanged="SearchBarSearch"   x:Name="ElementSearchBar" Margin="0"   Placeholder="Поиск..." />
-            </Border>
+                <Border VerticalOptions="CenterAndExpand" Padding="0"  Style="{DynamicResource FrameSearch}"  Margin="10,15,10,15" >
+                    <SearchBar x:Name="ElementSearchBar"   SearchCommand="{Binding SearchCommand}" 
+                   SearchCommandParameter="{Binding Text, Source={x:Reference ElementSearchBar}}"   Placeholder="Поиск..." />
+                </Border>
             </StackLayout>
 
-            <StackLayout Margin="10,0,10,0"  Orientation="Horizontal" HorizontalOptions="FillAndExpand" >
+            <StackLayout Margin="10,10,10,10"  Orientation="Horizontal" HorizontalOptions="FillAndExpand" >
                 <HorizontalStackLayout Padding="5,0,5,0" HorizontalOptions="StartAndExpand">
                     <HorizontalStackLayout.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="ClickOpenSort"/>
+                        <TapGestureRecognizer Command="{Binding ClickOpenSortCommand}"/>
                     </HorizontalStackLayout.GestureRecognizers>
                     <Image HorizontalOptions="StartAndExpand"  WidthRequest="30"  HeightRequest="30"  Source="sort.png">
                         <Image.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="ClickOpenSort"/>
+                            <TapGestureRecognizer Command="{Binding ClickOpenSortCommand}"/>
                         </Image.GestureRecognizers>
                     </Image>
                     <Label VerticalTextAlignment="Center"  Text="Сортировка"/>
@@ -33,12 +34,12 @@
 
                 <HorizontalStackLayout Padding="5,0,5,0" HorizontalOptions="EndAndExpand">
                     <HorizontalStackLayout.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="ClickOpenFilter"/>
+                        <TapGestureRecognizer Command="{Binding ClickOpenFilterCommand}"/>
                     </HorizontalStackLayout.GestureRecognizers>
                     <Label VerticalTextAlignment="Center" Text="Фильтры"/>
                     <Image HorizontalOptions="StartAndExpand"  WidthRequest="30"  HeightRequest="30"  Source="filter.png">
                         <Image.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="ClickOpenFilter"/>
+                            <TapGestureRecognizer Command="{Binding ClickOpenFilterCommand}"/>
                         </Image.GestureRecognizers>
                     </Image>
 
@@ -81,7 +82,7 @@
                                                     <Label  Style="{DynamicResource LabelDiscount}" Text="{Binding Discount,StringFormat='- {0} %'}"  />
 
                                                 </Border>
-                                                <Border  Padding="0"   HorizontalOptions="End" VerticalOptions="Start" >
+                                            <Border  Background="White"  Padding="0"   HorizontalOptions="End" VerticalOptions="Start" >
                                                     <Border.StrokeShape>
                                                         <RoundRectangle CornerRadius="15" />
                                                     </Border.StrokeShape>

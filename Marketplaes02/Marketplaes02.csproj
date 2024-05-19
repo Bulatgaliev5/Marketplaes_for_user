@@ -93,9 +93,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="View\PopupView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
 	  <MauiXaml Update="View\ViewAddAdres_dostavki.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

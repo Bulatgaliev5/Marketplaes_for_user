@@ -17,10 +17,7 @@ public partial class ViewMyOrders : ContentPage
         BindingContext = new ViewModelMyOrders();
     }
 
-    private void BtFilter(object sender, EventArgs e)
-    {
 
-    }
 
     private async void RefreshGoodsData(object sender, EventArgs e)
     {
@@ -42,10 +39,15 @@ public partial class ViewMyOrders : ContentPage
             Preferences.Default.Set("Total_Order_Price_with_discount", all_MyOrderListt.Order.Total_Price_with_discount);
             Preferences.Default.Set("Track_number", all_MyOrderListt.Order.Track_number);
             Preferences.Default.Set("Status", all_MyOrderListt.Order.Status);
+            var currentPage = Navigation.NavigationStack.LastOrDefault();
+            if (!(currentPage is ViewMyOrders))
+            {
+
+                await Navigation.PushAsync(new ViewMyOrder_items());
+            }
 
         }
 
-        await Navigation.PushAsync(new ViewMyOrder_items());
     }
 
     private async Task AnimateButton(Grid grid)

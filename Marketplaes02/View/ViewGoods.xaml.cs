@@ -33,8 +33,13 @@ public partial class ViewGoods : ContentPage
         {
 
             Preferences.Default.Set("Kartochka_ID_goods", g.ID_goods);
+            var currentPage = Navigation.NavigationStack.LastOrDefault();
+            if (!(currentPage is ViewKartochkaGood))
+            {
+                await Navigation.PushAsync(new ViewKartochkaGood());
+            }
         };
-        await Navigation.PushAsync(new ViewKartochkaGood());
+
     }
 
     private async void RefreshGoodsData(object sender, EventArgs e)
@@ -58,8 +63,13 @@ public partial class ViewGoods : ContentPage
         {
 
             Preferences.Default.Set("Kartochka_ID_goods", g.ID_goods);
+            var currentPage = Navigation.NavigationStack.LastOrDefault();
+            if (!(currentPage is ViewKartochkaGood))
+            {
+                await Navigation.PushAsync(new ViewKartochkaGood());
+            }
         };
-        await Navigation.PushAsync(new ViewKartochkaGood());
+
     }
 
     private async void Add_isbrannoe(object sender, TappedEventArgs e)

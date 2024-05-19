@@ -13,7 +13,7 @@
             </Grid.RowDefinitions>
             <Border Margin="5" Grid.Row="0" Style="{DynamicResource FrameSearch}">
 
-                <SearchBar Focused="FocusedSearchBar" TextChanged="SearchBarSearch" x:Name="ElementSearchBar"  Placeholder="Поиск..." />
+                <SearchBar Focused="FocusedSearchBar"  x:Name="ElementSearchBar"  Placeholder="Поиск..." />
 
             </Border>
             <CollectionView   ItemsLayout="VerticalGrid, 2" Grid.Row="1"

@@ -51,7 +51,7 @@ namespace Marketplaes02.ViewModel
         {
 
             string
-                  sql = "SELECT u_i.ID_order_item AS ID_order_item, u_i.Track_number, u_i.Status, o.ID_order, o.Order_date, u_i.Total_Count,u_i.Total_Price_with_discount, " +
+                  sql = "SELECT u_i.ID_order_item AS ID_order_item, o.Track_number, o.Status, o.ID_order, o.Order_date, u_i.Total_Count,u_i.Total_Price_with_discount, " +
                   "g.Name AS Goods_Name, g.ID_goods AS Goods_ID, g.ImageGood AS Goods_Image, u.ID AS User_ID, o.Adres_Dostavki, " +
                   "u.Name AS User_Name, u.Number_phone AS User_Number_phone, o.Total_Price_with_discount AS Total_Order_Price_with_discount  " +
                   "FROM orders o " +

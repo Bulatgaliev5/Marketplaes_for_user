@@ -1,5 +1,7 @@
 ﻿
+using CommunityToolkit.Mvvm.Messaging;
 using Marketplaes02.BD;
+using Marketplaes02.Class;
 using Marketplaes02.Model;
 using Microsoft.Maui;
 using MySqlConnector;
@@ -32,7 +34,13 @@ namespace Marketplaes02.ViewModel
         {
 
             Load();
+            // Регистрируемся для получения сообщений о сортировке по цене
+            WeakReferenceMessenger.Default.Register<UpdateAdresDostavki>(this, (r, m) =>
+            {
+                User_Adres_Dostavki = m.SelectAdresDostavki;
 
+
+            });
         }
 
 
@@ -62,10 +70,10 @@ namespace Marketplaes02.ViewModel
 
             // int id_klienta = (Int32)Application.Current.Properties["UserID"];
             
-            string sql = "INSERT INTO `orders` (`ID_user`, `Order_date`, `Total_Count`, `Total_Price_with_discount`) VALUES (@ID_user, @Order_date, @Total_Count, @Total_Price_with_discount)";
+            string sql = "INSERT INTO `orders` (`ID_user`, `Order_date`, `Total_Count`, `Total_Price_with_discount`, Adres_Dostavki) VALUES (@ID_user, @Order_date, @Total_Count, @Total_Price_with_discount, @Adres_Dostavki)";
             MySqlCommand cmd = new MySqlCommand(sql, con.GetConnBD());
             cmd.Parameters.Add(new MySqlParameter("@ID_user", ID_user));
-            // cmd.Parameters.Add(new MySqlParameter("@ID_goods", SostavZakazalist[i].ID_goods));
+            cmd.Parameters.Add(new MySqlParameter("@Adres_Dostavki", User_Adres_Dostavki));
             cmd.Parameters.Add(new MySqlParameter("@Order_date", Order_date));
             cmd.Parameters.Add(new MySqlParameter("@Total_Count", Goods_Total_Count));
             cmd.Parameters.Add(new MySqlParameter("@Total_Price_with_discount", Goods_Total_Price_with_discount));

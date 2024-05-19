@@ -34,12 +34,19 @@ public partial class ViewUser_autorizasiya : ContentPage
     private async void Registration(object sender, EventArgs e)
     {
         await Navigation.PopAsync();
-        await Navigation.PushAsync(new ViewUser_Registration());
+        var currentPage = Navigation.NavigationStack.LastOrDefault();
+        if (!(currentPage is ViewUser_autorizasiya))
+        {
+            await Navigation.PushAsync(new ViewUser_Registration());
+
+        }
+
 
     }
 
     public async Task<bool> CheckPass()
     {
+
         ConnectBD con = new ConnectBD();
 
         string sql = "SELECT * FROM users WHERE Login = @login AND Pass = @pass";
@@ -51,8 +58,7 @@ public partial class ViewUser_autorizasiya : ContentPage
         await con.GetConnectBD();
 
         MySqlDataReader readed = await cmd.ExecuteReaderAsync();
-        List<string> message = ["Ещё чуть чуть"];
-        await PreBakedMopupService.GetInstance().WrapTaskInLoader(Task.Delay(2000), Color.FromRgb(0, 127, 255), Color.FromRgb(255, 255, 250), message, Color.FromRgb(0, 0, 0));
+     
         if (!readed.HasRows)
         {
             await con.GetCloseBD();
@@ -75,6 +81,11 @@ public partial class ViewUser_autorizasiya : ContentPage
             break;
 
         }
+        await Task.Run(() =>
+        {
+            List<string> message = ["Выполняется вход..."];
+            PreBakedMopupService.GetInstance().WrapTaskInLoader(Task.Delay(1000), Color.FromRgb(0, 127, 255), Color.FromRgb(255, 255, 250), message, Color.FromRgb(0, 0, 0));
+        });
 
 
         await con.GetCloseBD();
@@ -86,8 +97,8 @@ public partial class ViewUser_autorizasiya : ContentPage
     {
 
         bool stateinternet = CheckInternet();
-        List<string> message = ["Выполняется вход"];
-        await PreBakedMopupService.GetInstance().WrapTaskInLoader(Task.Delay(3000), Color.FromRgb(0, 127, 255), Color.FromRgb(255, 255, 250), message, Color.FromRgb(0, 0, 0));
+        //List<string> message = ["Выполняется вход"];
+        //await PreBakedMopupService.GetInstance().WrapTaskInLoader(Task.Delay(3000), Color.FromRgb(0, 127, 255), Color.FromRgb(255, 255, 250), message, Color.FromRgb(0, 0, 0));
 
         if (stateinternet)
         {

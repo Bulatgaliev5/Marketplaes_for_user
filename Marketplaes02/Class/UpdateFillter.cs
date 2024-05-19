@@ -8,9 +8,9 @@ namespace Marketplaes02.Class
 {
     public class UpdateFillter
     {
-        public int OtPrice { get; }
-        public int DoPrice { get; }
-        public UpdateFillter(int otPrice, int doPrice)
+        public float OtPrice { get; }
+        public float DoPrice { get; }
+        public UpdateFillter(float otPrice, float doPrice)
         {
             OtPrice = otPrice;
             DoPrice = doPrice;

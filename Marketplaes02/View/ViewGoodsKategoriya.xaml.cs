@@ -32,14 +32,7 @@ public partial class ViewGoodsKategoriya : ContentPage
         RefreshView1.IsRefreshing = false;
     }
 
-    private void SearchBarSearch(object sender, TextChangedEventArgs e)
-    {
-        GoodsData.ItemsSource = viewModelGoodsKategoriya.GoodsKategoriyalist
-     .Where(a => a.Name.IndexOf(ElementSearchBar.Text, StringComparison.OrdinalIgnoreCase) >= 0
-     || a.Description.IndexOf(ElementSearchBar.Text, StringComparison.OrdinalIgnoreCase) >= 0)
-     .ToList();
 
-    }
 
     private async void OpenKartochka(object sender, TappedEventArgs e)
     {
@@ -47,8 +40,13 @@ public partial class ViewGoodsKategoriya : ContentPage
         {
 
             Preferences.Default.Set("Kartochka_ID_goods", g.ID_goods);
+            var currentPage = Navigation.NavigationStack.LastOrDefault();
+            if (!(currentPage is ViewKartochkaGood))
+            {
+                await Navigation.PushAsync(new ViewKartochkaGood());
+            }
         };
-        await Navigation.PushAsync(new ViewKartochkaGood());
+
     }
 
     private async void OpenKartochkaImage(object sender, TappedEventArgs e)
@@ -57,8 +55,13 @@ public partial class ViewGoodsKategoriya : ContentPage
         {
 
             Preferences.Default.Set("Kartochka_ID_goods", g.ID_goods);
+            var currentPage = Navigation.NavigationStack.LastOrDefault();
+            if (!(currentPage is ViewKartochkaGood))
+            {
+                await Navigation.PushAsync(new ViewKartochkaGood());
+            }
         };
-        await Navigation.PushAsync(new ViewKartochkaGood()); 
+
     }
 
     private async void Add_isbrannoe(object sender, TappedEventArgs e)
@@ -86,10 +89,7 @@ public partial class ViewGoodsKategoriya : ContentPage
         };
     }
 
-    private async void ClickOpenFilter(object sender, TappedEventArgs e)
-    {
-        await MopupService.Instance.PushAsync(new ViewFillterGoods());
-    }
+
 
 
 

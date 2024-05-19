@@ -61,10 +61,10 @@
             </StackLayout>
         </Frame>
 
-        <StackLayout   Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center" Orientation="Horizontal">
+        <StackLayout   Grid.Row="1" Margin="10,0,10,0" HorizontalOptions="FillAndExpand" VerticalOptions="Center" Orientation="Horizontal">
 
-            <Button Command="{Binding UpdatePlusCountCommand}" CommandParameter="{Binding ID_goods}" VerticalOptions="End"  Style="{DynamicResource BtKorzina}" Clicked="btkotzina"
-                Text="{Binding Count,StringFormat='В корзину {0} шт. корзине'}"/>
+            <Button WidthRequest="200" HorizontalOptions="CenterAndExpand" Command="{Binding UpdatePlusCountCommand}" CommandParameter="{Binding ID_goods}" VerticalOptions="End"  Style="{DynamicResource BtKorzina}" Clicked="btkotzina"
+                Text="{Binding Count,StringFormat='В корзину {0} шт.'}"/>
         </StackLayout>
             
        

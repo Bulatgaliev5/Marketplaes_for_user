@@ -1,8 +1,14 @@
-﻿using Marketplaes02.BD;
+﻿using CommunityToolkit.Mvvm.Messaging;
+using Marketplaes02.BD;
+using Marketplaes02.Class;
 using Marketplaes02.Model;
+using Marketplaes02.View;
+using Mopups.PreBaked.Services;
+using Mopups.Services;
 using MySqlConnector;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Windows.Input;
 
 namespace Marketplaes02.ViewModel
 {
@@ -10,7 +16,7 @@ namespace Marketplaes02.ViewModel
     {
         int ID_user;
         /// <summary>
-        /// Список Good
+        /// Список Good во время поиска 
         /// </summary>
         private IList<SearchGoodsList> _Goods;
         public IList<SearchGoodsList> Goods
@@ -22,7 +28,16 @@ namespace Marketplaes02.ViewModel
                 OnPropertyChanged("Goods");
             }
         }
-
+        private IList<SearchGoodsList> _AllGoods;
+        public IList<SearchGoodsList> AllGoods
+        {
+            get => _AllGoods;
+            set
+            {
+                _AllGoods = value;
+                OnPropertyChanged("AllGoods");
+            }
+        }
 
 
 
@@ -36,9 +51,142 @@ namespace Marketplaes02.ViewModel
 
 
         }
+        public ICommand ClickOpenSortCommand { get; set; }
+        public ICommand ClickOpenFilterCommand { get; set; }
+        public ICommand SearchCommand { get; set; }
+
+        private IList<bool> _boolRadioButton;
+        public IList<bool> BoolRadioButton
+        {
+            get => _boolRadioButton;
+            set
+            {
+                _boolRadioButton = value;
+                OnPropertyChanged("BoolRadioButton");
+            }
+        }
+        private string _searchText;
+        public string SearchText
+        {
+            get => _searchText;
+            set
+            {
+                if (_searchText != value)
+                {
+                    _searchText = value;
+                    OnPropertyChanged("SearchText");
+
+
+                }
+            }
+        }
+        public async Task Search()
+        {
+            List<string> message = ["Поиск.."];
+            await PreBakedMopupService.GetInstance().WrapTaskInLoader(Task.Delay(1000), Color.FromRgb(0, 127, 255), Color.FromRgb(255, 255, 250), message, Color.FromRgb(0, 0, 0));
+        }
+        private async void SearchBarSearch(string searchText)
+        {
+            await Search();
+            await Task.Run(() =>
+            {
+
+                Goods = AllGoods;
+                Goods = Goods.Where(a => a.Name.IndexOf(searchText, StringComparison.OrdinalIgnoreCase) >= 0
+                  || a.Description.IndexOf(searchText, StringComparison.OrdinalIgnoreCase) >= 0
+                ).ToList();
+
+                OnPropertyChanged("Goods");
+            });
+
+
+        }
         public ViewModelSearchGoodsList()
         {
             Load();
+            BoolRadioButton = new List<bool> { true, false, false };
+
+            // Регистрируемся для получения сообщений о сортировке по цене
+            WeakReferenceMessenger.Default.Register<UpdateSort>(this, (r, m) =>
+            {
+                SortGoodsPrice(m.SelectParam);
+
+
+            });
+            ClickOpenSortCommand = new Command(ListboolRadioButton);
+
+            WeakReferenceMessenger.Default.Register<UpdateFillter>(this, (r, m) =>
+            {
+                FillterGoodsPrice(m.OtPrice, m.DoPrice);
+
+            });
+            ClickOpenFilterCommand = new Command(PriceLoad);
+
+            SearchCommand = new Command<string>(SearchBarSearch);
+
+
+        }
+        public async void PriceLoad()
+        {
+            try
+            {
+                var minPrice = Goods.Min(goods => goods.Price_with_discount);
+                var maxPrice = Goods.Max(goods => goods.Price_with_discount);
+                await MopupService.Instance.PushAsync(new ViewFillterGoods(minPrice, maxPrice));
+            }
+            catch (InvalidOperationException ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("Уведомление", "У вас в результате поиска 0 товаров " + ex.Message, "Ок");
+            }
+
+        }
+        private void FillterGoodsPrice(float OtPrice, float DoPrice)
+        {
+            if (OtPrice != 0 && DoPrice != 3402823)
+            {
+                Goods = AllGoods;
+                Goods = new ObservableCollection<SearchGoodsList>(Goods.Where(goods => goods.Price_with_discount >= OtPrice
+                && goods.Price_with_discount <= DoPrice).ToList());
+                OnPropertyChanged("Goods");
+            }
+            else
+            {
+                Goods = AllGoods;
+                OnPropertyChanged("Goods");
+            }
+
+
+        }
+
+        public async void ListboolRadioButton()
+        {
+            await MopupService.Instance.PushAsync(new ViewSortGoods(BoolRadioButton));
+        }
+        private async void SortGoodsPrice(string sortOption)
+        {
+
+            switch (sortOption)
+            {
+                case "Дешевле":
+                    Goods = new ObservableCollection<SearchGoodsList>(Goods.OrderBy(goods => goods.Price_with_discount));
+                    BoolRadioButton[1] = true;
+                    BoolRadioButton[0] = false;
+                    BoolRadioButton[2] = false;
+                    break;
+                case "Дороже":
+                    Goods = new ObservableCollection<SearchGoodsList>(Goods.OrderByDescending(goods => goods.Price_with_discount));
+                    BoolRadioButton[2] = true;
+                    BoolRadioButton[0] = false;
+                    BoolRadioButton[1] = false;
+                    break;
+                default:
+                    Goods = AllGoods;
+                    BoolRadioButton[0] = true;
+                    BoolRadioButton[2] = false;
+                    BoolRadioButton[1] = false;
+                    break;
+            }
+            OnPropertyChanged("Goods");
         }
 
 
@@ -50,6 +198,7 @@ namespace Marketplaes02.ViewModel
             ID_user = Preferences.Default.Get("UserID", 0);
             await LoadGoods();
             await ImageIsbrannoeLoad();
+            AllGoods = Goods;
         }
         public async Task<bool> ImageIsbrannoeLoad()
         {

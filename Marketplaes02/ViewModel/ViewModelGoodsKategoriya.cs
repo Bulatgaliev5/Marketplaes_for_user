@@ -3,6 +3,7 @@ using Marketplaes02.BD;
 using Marketplaes02.Class;
 using Marketplaes02.Model;
 using Marketplaes02.View;
+using Mopups.PreBaked.Services;
 using Mopups.Services;
 using MySqlConnector;
 using System.Collections.ObjectModel;
@@ -34,9 +35,20 @@ namespace Marketplaes02.ViewModel
         {
             get => _GoodsKategoriyalist;
             set
-            {   
+            {
                 _GoodsKategoriyalist = value;
                 OnPropertyChanged("GoodsKategoriyalist");
+            }
+        }
+
+        private IList<GoodsKategoriya> _AllGoodsKategoriyalist;
+        public IList<GoodsKategoriya> AllGoodsKategoriyalist
+        {
+            get => _AllGoodsKategoriyalist;
+            set
+            {
+                _AllGoodsKategoriyalist = value;
+                OnPropertyChanged("AllGoodsKategoriyalist");
             }
         }
 
@@ -54,6 +66,8 @@ namespace Marketplaes02.ViewModel
 
         }
         public ICommand ClickOpenSortCommand { get; set; }
+        public ICommand ClickOpenFilterCommand { get; set; }
+        public ICommand SearchCommand { get; set; }
 
         private IList<bool> _boolRadioButton;
         public IList<bool> BoolRadioButton
@@ -65,9 +79,45 @@ namespace Marketplaes02.ViewModel
                 OnPropertyChanged("BoolRadioButton");
             }
         }
+        private string _searchText;
+        public string SearchText
+        {
+            get => _searchText;
+            set
+            {
+                if (_searchText != value)
+                {
+                    _searchText = value;
+                    OnPropertyChanged("SearchText");
+                  
 
+                }
+            }
+        }
+        public async Task Search()
+        {
+            List<string> message = ["Поиск.."];
+            await PreBakedMopupService.GetInstance().WrapTaskInLoader(Task.Delay(1000), Color.FromRgb(0, 127, 255), Color.FromRgb(255, 255, 250), message, Color.FromRgb(0, 0, 0));
+        }
+        private async void SearchBarSearch(string searchText)
+        {
+            await  Search();
+            await Task.Run(() =>
+            {
+
+                GoodsKategoriyalist = AllGoodsKategoriyalist;
+                GoodsKategoriyalist = GoodsKategoriyalist.Where(a => a.Name.IndexOf(searchText, StringComparison.OrdinalIgnoreCase) >= 0
+                  || a.Description.IndexOf(searchText, StringComparison.OrdinalIgnoreCase) >= 0
+                ).ToList();
+
+                OnPropertyChanged("GoodsKategoriyalist");
+            });
+
+           
+        }
         public ViewModelGoodsKategoriya()
         {
+            
             Load();
             BoolRadioButton = new List<bool> { true, false, false };
 
@@ -75,7 +125,7 @@ namespace Marketplaes02.ViewModel
             WeakReferenceMessenger.Default.Register<UpdateSort>(this, (r, m) =>
             {
                 SortGoodsPrice(m.SelectParam);
-              
+
 
             });
             ClickOpenSortCommand = new Command(ListboolRadioButton);
@@ -85,23 +135,49 @@ namespace Marketplaes02.ViewModel
                 FillterGoodsPrice(m.OtPrice, m.DoPrice);
 
             });
+            ClickOpenFilterCommand = new Command(PriceLoad);
 
+            SearchCommand = new Command<string>(SearchBarSearch);
+        }
+        public async void PriceLoad()
+        {
+            try
+            {
+                var minPrice = GoodsKategoriyalist.Min(goods => goods.Price_with_discount);
+                var maxPrice = GoodsKategoriyalist.Max(goods => goods.Price_with_discount);
+                await MopupService.Instance.PushAsync(new ViewFillterGoods(minPrice, maxPrice));
+            }
+            catch (InvalidOperationException ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("Уведомление","У вас в результате поиска 0 товаров " + ex.Message, "Ок");
+            }
 
         }
-        private void FillterGoodsPrice(int OtPrice, int DoPrice)
+        private async void FillterGoodsPrice(float OtPrice, float DoPrice)
         {
-            GoodsKategoriyalist = new ObservableCollection<GoodsKategoriya>(GoodsKategoriyalist.Where(goods => goods.Price_with_discount >= OtPrice 
-            && goods.Price_with_discount <= DoPrice).ToList());
+            if (OtPrice!=0 && DoPrice!= 3402823)
+            {
+                GoodsKategoriyalist = AllGoodsKategoriyalist;
+                GoodsKategoriyalist = new ObservableCollection<GoodsKategoriya>(GoodsKategoriyalist.Where(goods => goods.Price_with_discount >= OtPrice 
+                && goods.Price_with_discount <= DoPrice).ToList());
+                OnPropertyChanged("GoodsKategoriyalist");
+            }
+            else
+            {
+                GoodsKategoriyalist = AllGoodsKategoriyalist;
+                OnPropertyChanged("GoodsKategoriyalist");
+            }
 
-            OnPropertyChanged("GoodsKategoriyalist");
+
         }
 
         public async void ListboolRadioButton()
         {
             await MopupService.Instance.PushAsync(new ViewSortGoods(BoolRadioButton));
         }
-        private void SortGoodsPrice(string sortOption)
+        private async void SortGoodsPrice(string sortOption)
         {
+
             switch (sortOption)
             {
                 case "Дешевле":
@@ -117,8 +193,7 @@ namespace Marketplaes02.ViewModel
                     BoolRadioButton[1] = false;
                     break;
                 default:
-                    // Сортировка по умолчанию
-                    GoodsKategoriyalist = new ObservableCollection<GoodsKategoriya>(GoodsKategoriyalist);
+                    GoodsKategoriyalist = AllGoodsKategoriyalist;
                     BoolRadioButton[0] = true;
                     BoolRadioButton[2] = false;
                     BoolRadioButton[1] = false;
@@ -137,6 +212,7 @@ namespace Marketplaes02.ViewModel
             id_kategoriya = Preferences.Default.Get("id_kategoriya", 0);
             await LoadGoods(id_kategoriya);
             await ImageIsbrannoeLoad();
+            AllGoodsKategoriyalist = GoodsKategoriyalist;
         }
         /// <summary>
         /// Метод Получения изделий из БД
@@ -205,7 +281,7 @@ namespace Marketplaes02.ViewModel
             
             OnPropertyChanged("NameKategoriya");
             OnPropertyChanged("GoodsKategoriyalist");
-
+           
             // Синхронное отключение от БД
             await con.GetCloseBD();
             // Возращение true

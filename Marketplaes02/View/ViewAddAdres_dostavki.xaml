@@ -1,26 +1,40 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+<Mopups:PopupPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Marketplaes02.View.ViewAddAdres_dostavki" 
-               xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:Mopups="clr-namespace:Mopups.Pages;assembly=Mopups"
+             xmlns:Animations="clr-namespace:Mopups.Animations;assembly=Mopups"
+             CloseWhenBackgroundIsClicked="True"
+             BackgroundColor="#80000000"
              >
-    <VerticalStackLayout>
-        <Frame Style="{DynamicResource FrameAdressDostavki}">
-    <VerticalStackLayout  Padding="5" VerticalOptions="Center">
-        <Editor HeightRequest="100" Placeholder="Введите адрес доставки" TextChanged="addressEntry_TextChanged" x:Name="addressEntry"/>
-        <ListView HeightRequest="230" BackgroundColor="White" SeparatorColor="Black" RefreshControlColor="Black" x:Name="addressDataList" ItemSelected="SelectAdres">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <StackLayout>
-                            <Label Text="{Binding .}" LineBreakMode="WordWrap"/>
-                        </StackLayout>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-            </ListView>
-            <Button Margin="20" Clicked="Save" Text="Сохранить" Style="{DynamicResource BtEditAdressDostavki}"/>
+    <VerticalStackLayout  Margin="0,10,0,0"   VerticalOptions="StartAndExpand"   
+           HorizontalOptions="FillAndExpand" >
+        <Frame CornerRadius="20"  HorizontalOptions="FillAndExpand" >
+            <StackLayout>
+               
+                <Grid >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" HorizontalOptions="StartAndExpand" FontSize="20" Text="Адрес доставки"/>
+                    <ImageButton Grid.Column="1" WidthRequest="50" HeightRequest="50" Clicked="Close" HorizontalOptions="EndAndExpand"  Source="close.png"/>
+                </Grid>
+                <Editor  HeightRequest="100" Placeholder="Введите адрес доставки" TextChanged="addressEntry_TextChanged" x:Name="addressEntry"/>
+                <ListView HeightRequest="230" BackgroundColor="White" SeparatorColor="Black" 
+                          RefreshControlColor="Black" x:Name="addressDataList" ItemSelected="SelectAdres">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout>
+                                    <Label Text="{Binding .}" LineBreakMode="WordWrap"/>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <Button Margin="20" Clicked="Save" Text="Сохранить" Style="{DynamicResource BtEditAdressDostavki}"/>
+            </StackLayout>
+        </Frame>
     </VerticalStackLayout>
-    </Frame>
-    </VerticalStackLayout>
-</toolkit:Popup>
+</Mopups:PopupPage>
