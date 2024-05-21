@@ -15,12 +15,12 @@ namespace Marketplaes02.ViewModel
         public ViewModelKorzina()
         {
             VisibleCollectionViewEmptyView = false;
-            VisibleNullList = true; 
+            VisibleNullList = true;
             Load();
-           
+
 
         }
-       
+
         private bool _btnbuy;
         public bool btnbuy
         {
@@ -185,7 +185,7 @@ namespace Marketplaes02.ViewModel
 
             if (!reader.HasRows)
             {
-                
+
                 await con.GetCloseBD();
 
                 return false;
@@ -212,15 +212,16 @@ namespace Marketplaes02.ViewModel
                 });
 
             }
-           UpdateCount();
+            UpdateCount();
             OnPropertyChanged("Korzinalist");
             await con.GetCloseBD();
-           // Preferences.Default.Set("Sostavzakazalist", Korzinalist.ToList<Korzina>);
-          ///  UpdateCount();
+            // Preferences.Default.Set("Sostavzakazalist", Korzinalist.ToList<Korzina>);
+            ///  UpdateCount();
             return true;
 
 
         }
+
         //Для загрузки списка в словарь лист в состав заказа
         public static void SaveList(string key, IList<Korzina> list)
         {

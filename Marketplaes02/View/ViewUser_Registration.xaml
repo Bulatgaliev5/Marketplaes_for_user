@@ -4,20 +4,18 @@
              x:Class="Marketplaes02.View.ViewUser_Registration"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              Title="ViewUser_Registration">
-    <VerticalStackLayout VerticalOptions="CenterAndExpand"  Padding="5">
+    <VerticalStackLayout VerticalOptions="StartAndExpand"  Padding="5">
         <Label Text="Заполните данные для входа" Style="{DynamicResource LabZapol}"/>
         <Label Text="Введите свое имя"/>
         <Entry x:Name="entryName"/>
         <Label Text="Придумайте логин"/>
         <Entry x:Name="entryLog"/>
-        <Label Text="Введите номер телефона без +7"/>
-        <Entry x:Name="entryNumber" Keyboard="Telephone">
-            <Entry.Behaviors>
-                <toolkit:MaskedBehavior UnmaskedCharacter="X"   Mask="XXXX XXXX XXXX XXXX" />
-            </Entry.Behaviors>
-        </Entry>
+        <Label Text="Введите номер телефона в формате +79000000000"/>
+        <Entry x:Name="entryNumber" Keyboard="Telephone"/>
         <Label Text="Придумайте пароль"/>
-        <Entry x:Name="entryPas"/>
-        <Button Text="Зарегистрироваться" Clicked="BtnRegister"/>
+        <Entry IsPassword="True" x:Name="entryPas"/>
+        <Label Text="Повторите пароль"/>
+        <Entry IsPassword="True" x:Name="entryPasCopy"/>
+        <Button Text="Зарегистрироваться" Style="{DynamicResource BtVoiti}" Clicked="BtnRegister"/>
     </VerticalStackLayout>
 </ContentPage>

@@ -40,7 +40,7 @@ public partial class ViewMyOrders : ContentPage
             Preferences.Default.Set("Track_number", all_MyOrderListt.Order.Track_number);
             Preferences.Default.Set("Status", all_MyOrderListt.Order.Status);
             var currentPage = Navigation.NavigationStack.LastOrDefault();
-            if (!(currentPage is ViewMyOrders))
+            if (!(currentPage is ViewMyOrder_items))
             {
 
                 await Navigation.PushAsync(new ViewMyOrder_items());

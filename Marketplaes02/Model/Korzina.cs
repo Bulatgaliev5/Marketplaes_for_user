@@ -228,7 +228,6 @@ namespace Marketplaes02.Model
         public void OnPropertyChanged(string property)
         {
             if (property == null)
-                return;
 
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
 
