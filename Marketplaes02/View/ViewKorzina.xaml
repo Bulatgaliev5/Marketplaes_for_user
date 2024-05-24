@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Marketplaes02.View.ViewKorzina"
            xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             Title="Корзина"
+             Title="Корзина"  
              BackgroundColor="Azure" 
              >
     
@@ -21,62 +21,44 @@
             <RefreshView x:Name="RefreshView1"
                RefreshColor="DeepSkyBlue"
                Refreshing="RefreshGoodsData">
-               
 
-                    <CollectionView    x:Name="KorzinaData" ItemsLayout="VerticalGrid, 1"
+
+                <CollectionView    x:Name="KorzinaData" ItemsLayout="VerticalGrid, 1"
           ItemsSource="{Binding Korzinalist}" 
-         
          >
-
-                <CollectionView.ItemTemplate>
-
-                    <DataTemplate   >
-
-                        <Grid Padding="1"  
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate   >
+                            <Grid Padding="1"  
                         >
-
-                                    <Border  x:FieldModifier="public"   Style="{DynamicResource BorderGlavnaya}" >
+                                <Border  x:FieldModifier="public"   Style="{DynamicResource BorderGlavnaya}" >
                                     <StackLayout  Orientation="Horizontal">
-
-                                      
                                         <Border   Style="{DynamicResource Fram_My_zakazi}">
                                             <Image 
                                      Source="{Binding Image}" Style="{DynamicResource ImageGlavGoods}"/>
-                                    </Border>
-
-                                       
-
-                                            <StackLayout Padding="20,0,0,0">
-
+                                        </Border>
+                                        <StackLayout Padding="20,0,0,0">
                                             <Label LineBreakMode="TailTruncation"  Text="{Binding Name}"  
                                  FontAttributes="Bold"/>
-                                          
                                             <StackLayout Margin="0,5,0,5" HorizontalOptions="Start"  Orientation="Horizontal">
-                                            <Label Margin="0" Style="{DynamicResource LabSale}" Text="{Binding Price_with_discount,StringFormat='{0} ₽'}"/>
-                                            <Label Style="{DynamicResource LabPrice}" Text="{Binding Price,StringFormat='{0} ₽'}"/>
-                                        </StackLayout>
-
+                                                <Label Margin="0" Style="{DynamicResource LabSale}" Text="{Binding Price_with_discount,StringFormat='{0} ₽'}"/>
+                                                <Label Style="{DynamicResource LabPrice}" Text="{Binding Price,StringFormat='{0} ₽'}"/>
+                                            </StackLayout>
                                             <HorizontalStackLayout>
-                                        <Frame HorizontalOptions="Start" Style="{DynamicResource FrameChetchik}">
-                                        <StackLayout HorizontalOptions="Center" VerticalOptions="Center" Orientation="Horizontal">
-                                                <Button Command="{Binding UpdateMinusCountCommand}" CommandParameter="{Binding ID_goods}"  Text="-"/>
-                                            <Label Margin="20,0,20,0"  FontSize="Medium" VerticalTextAlignment="Center"  Text="{Binding Count}"/>
-                                                <Button Command="{Binding UpdatePlusCountCommand}" CommandParameter="{Binding ID_goods}" Text="+"/>
-                                                  
-                                                </StackLayout>
-                                            
-                                        </Frame>
+                                                <Frame HorizontalOptions="Start" Style="{DynamicResource FrameChetchik}">
+                                                    <StackLayout HorizontalOptions="Center" VerticalOptions="Center" Orientation="Horizontal">
+                                                        <Button Command="{Binding UpdateMinusCountCommand}" CommandParameter="{Binding ID_goods}"  Text="-"/>
+                                                        <Label Margin="20,0,20,0"  FontSize="Medium" VerticalTextAlignment="Center"  Text="{Binding Count,UpdateSourceEventName=PropertyChanged}"/>
+                                                        <Button Command="{Binding Path=BindingContext.UpdatePlusCountCommand, Source={x:Reference Name=KorzinaData}}"  CommandParameter="{Binding ID_goods}"   Text="+"/>
+
+                                                    </StackLayout>
+                                                </Frame>
                                                 <ImageButton Clicked="BtnDeleteGoodKorzina"  Margin="25,0,0,0" HeightRequest="30"  WidthRequest="30" Source="delete_korzina.png"/>
                                             </HorizontalStackLayout>
                                         </StackLayout>
-                                    
-
-
-
                                     </StackLayout>
 
                             </Border>
-               
+
     </Grid>
 
                     </DataTemplate>

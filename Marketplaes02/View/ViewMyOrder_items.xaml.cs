@@ -24,7 +24,7 @@ public partial class ViewMyOrder_items : ContentPage
     {
         if (BindingContext is MyOrders g)
         {
-            if (g.Track_number != "После обработки заказа, здесь появится трек номер ")
+            if (g.Track_number != "")
             {
                 BtnCopy.IsVisible = true;
                 return;
@@ -40,7 +40,7 @@ public partial class ViewMyOrder_items : ContentPage
 
         if (BindingContext is MyOrders g)
         {
-            if (g.Track_number!= "После обработки заказа, здесь появится трек номер ")
+            if (g.Track_number!= "")
             {
                 await Clipboard.SetTextAsync(g.Track_number);
                 await DisplayAlert("Уведомление", "Трек номер заказа скопирован в буфер обмена ", "OK");

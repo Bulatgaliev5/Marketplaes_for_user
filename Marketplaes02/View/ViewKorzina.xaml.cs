@@ -12,17 +12,16 @@ public partial class ViewKorzina : ContentPage
     ViewModelKorzina viewModelKorzina = new ViewModelKorzina();
     public ViewKorzina()
     {
-        Update();
+       
         InitializeComponent();
-      
-        
+
+        Update();
     }
 
     public async void Update()
     {
       
         BindingContext = new ViewModelKorzina();
-   
 
     }
    

@@ -78,7 +78,7 @@ namespace Marketplaes02.ViewModel
             cmd.Parameters.Add(new MySqlParameter("@Total_Count", Goods_Total_Count));
             cmd.Parameters.Add(new MySqlParameter("@Total_Price_with_discount", Goods_Total_Price_with_discount));
             await con.GetConnectBD();
-            cmd.ExecuteNonQuery();
+            await cmd.ExecuteNonQueryAsync();
             await con.GetCloseBD();
             return true;
         }
@@ -100,7 +100,7 @@ namespace Marketplaes02.ViewModel
 
             // Объявление и инициалзиация метода асинрхонного чтения данных из бд
             MySqlDataReader
-                 reader = cmd.ExecuteReader();
+                 reader = await cmd.ExecuteReaderAsync();
             // Проверка, что строк нет
             if (!reader.HasRows)
             {
@@ -128,7 +128,7 @@ namespace Marketplaes02.ViewModel
             cmd.Parameters.Add(new MySqlParameter("@Total_Count", SostavZakazalist[i].Count));
             cmd.Parameters.Add(new MySqlParameter("@Total_Price_with_discount", SostavZakazalist[i].Price_with_discount));
             await con.GetConnectBD();
-            cmd.ExecuteNonQuery();
+            await cmd.ExecuteNonQueryAsync();
             await con.GetCloseBD();
             return true;
         }
@@ -143,7 +143,7 @@ namespace Marketplaes02.ViewModel
             cmd.Parameters.Add(new MySqlParameter("@quantity", SostavZakazalist[i].Count));
           
             await con.GetConnectBD();
-            cmd.ExecuteNonQuery();
+            await cmd.ExecuteNonQueryAsync();
             await con.GetCloseBD();
             return true;
         }

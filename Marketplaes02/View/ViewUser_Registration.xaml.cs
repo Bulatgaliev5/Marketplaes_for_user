@@ -86,7 +86,7 @@ public partial class ViewUser_Registration : ContentPage
         cmd.Parameters.Add(new MySqlParameter("@pass", entryPas.Text));
         cmd.Parameters.Add(new MySqlParameter("@Number_phone", entryNumber.Text));
         await con.GetConnectBD();
-        cmd.ExecuteNonQuery();
+        await  cmd.ExecuteNonQueryAsync();
         await con.GetCloseBD();
         await DisplayAlert("Уведомление", "Вы зарегестрировались! Пожалуйста авторизуйтесь", "Ок");
 

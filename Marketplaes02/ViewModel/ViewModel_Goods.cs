@@ -153,7 +153,7 @@ namespace Marketplaes02.ViewModel
 
             // Объявление и инициалзиация метода асинрхонного чтения данных из бд
             MySqlDataReader
-                 reader = cmd.ExecuteReader();
+                 reader = await cmd.ExecuteReaderAsync();
 
             // Проверка, что строк нет
             if (!reader.HasRows)
@@ -192,7 +192,7 @@ namespace Marketplaes02.ViewModel
             cmd.Parameters.Add(new MySqlParameter("@ID_user", ID_user));
             cmd.Parameters.Add(new MySqlParameter("@ID_goods", ID_goods));
             await con.GetConnectBD();
-            cmd.ExecuteNonQuery();
+            await cmd.ExecuteNonQueryAsync();
             OnPropertyChanged("Goods");
             // Синхронное отключение от БД
             await con.GetCloseBD();
@@ -250,7 +250,7 @@ namespace Marketplaes02.ViewModel
 
             // Объявление и инициалзиация метода асинрхонного чтения данных из бд
             MySqlDataReader
-                 reader = cmd.ExecuteReader();
+                 reader = await cmd.ExecuteReaderAsync();
 
             // Проверка, что строк нет
             if (!reader.HasRows)

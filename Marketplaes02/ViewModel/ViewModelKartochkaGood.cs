@@ -103,7 +103,7 @@ namespace Marketplaes02.ViewModel
             cmd.Parameters.Add(new MySqlParameter("@ID_user", UserID));
             cmd.Parameters.Add(new MySqlParameter("@Count", Count));
             await con.GetConnectBD();
-            cmd.ExecuteNonQuery();
+            await cmd.ExecuteNonQueryAsync();
             await con.GetCloseBD();
             return true;
 
@@ -123,7 +123,7 @@ namespace Marketplaes02.ViewModel
             await conn.GetConnectBD();
             // Объявление и инициалзиация метода асинрхонного чтения данных из бд
             MySqlDataReader
-                 reader = cmd.ExecuteReader();
+                 reader  = await cmd.ExecuteReaderAsync();
 
             // Проверка, что строк нет
             if (!reader.HasRows)
@@ -152,7 +152,7 @@ namespace Marketplaes02.ViewModel
             await conn.GetConnectBD();
             // Объявление и инициалзиация метода асинрхонного чтения данных из бд
             MySqlDataReader
-                 reader = cmd.ExecuteReader();
+                 reader = await cmd.ExecuteReaderAsync();
 
             // Проверка, что строк нет
 
@@ -196,7 +196,7 @@ namespace Marketplaes02.ViewModel
             await conn.GetConnectBD();
             // Объявление и инициалзиация метода асинрхонного чтения данных из бд
             MySqlDataReader
-                 reader = cmd.ExecuteReader();
+                 reader = await cmd.ExecuteReaderAsync();
 
             // Проверка, что строк нет
             if (!reader.HasRows)
@@ -240,7 +240,7 @@ namespace Marketplaes02.ViewModel
             await conn.GetConnectBD();
             // Объявление и инициалзиация метода асинрхонного чтения данных из бд
             MySqlDataReader
-                 reader = cmd.ExecuteReader();
+                 reader = await cmd.ExecuteReaderAsync();
 
             // Проверка, что строк нет
             if (!reader.HasRows)
@@ -252,7 +252,7 @@ namespace Marketplaes02.ViewModel
             }
 
             // Цикл while выполняется, пока есть строки для чтения из БД
-            while (reader.Read())
+            while (await reader.ReadAsync())
             {
 
 

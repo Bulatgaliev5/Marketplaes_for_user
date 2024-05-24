@@ -68,7 +68,7 @@ namespace Marketplaes02.ViewModel
             cmd.Parameters.Add(new MySqlParameter("@ID_User", id));
             cmd.Parameters.Add(new MySqlParameter("@ID_order", ID_order));
             await con.GetConnectBD();
-            MySqlDataReader reader = cmd.ExecuteReader();
+            MySqlDataReader reader = await cmd.ExecuteReaderAsync();
 
             if (!reader.HasRows)
             {
@@ -81,7 +81,7 @@ namespace Marketplaes02.ViewModel
 
             MyOrder_itemslist = new ObservableCollection<MyOrder_items>();
 
-            while (reader.Read())
+            while (await reader.ReadAsync())
             {
 
                 MyOrder_itemslist.Add(new MyOrder_items()

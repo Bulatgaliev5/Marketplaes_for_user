@@ -30,8 +30,7 @@ public partial class ViewOformlenieZakaza : ContentPage
         InitializeComponent();
         Update();
 
-
-
+        
     }
     public async void Update()
     {
@@ -49,12 +48,13 @@ public partial class ViewOformlenieZakaza : ContentPage
 
         if (!IsValidText(Adres_dostavki))
         {
-            //myThread2 = new Thread(Pay);
-            //myThread2.Start();
+            myThread2 = new Thread(Pay);
+            myThread2.Start();
 
 
-           await vewModelSostavZakaza.AddZakazi();
-           await modelKorzina.Delete_Korzina();
+           //await vewModelSostavZakaza.AddZakazi();
+           //await modelKorzina.Delete_Korzina();
+
            // myThread2.Join();
            //myThread1 = new Thread(CheckPaymentStatus);
            //myThread1.Start();
@@ -68,42 +68,82 @@ public partial class ViewOformlenieZakaza : ContentPage
 
     }
 
-    public void Pay()
+    public async void Pay()
     {
-         label = Guid.NewGuid().ToString();
+        label = Guid.NewGuid().ToString();
         link = yoomoney.GetPayLink(
-           Convert.ToDecimal(10), label);
-       // myThread2.Join();
+              Convert.ToDecimal(10), label);
+        // myThread2.Join();
         webView = new WebView
         {
             Source = link
 
         };
+        webView.Navigated +=  WebView_Navigated;
 
-        webView.Navigating += (s, e) =>
-        {
-            var url = e.Url;
-
-            // Проверьте, является ли URL ссылкой, на которую вы хотите реагировать
-            if (url.StartsWith("yourapp://"))
-            {
-                // Отмените навигацию
-                e.Cancel = true;
-
-                // Выполните действие в вашем приложении
-                // ...
-            }
-        };
         //myThread2.Join();
-         this.Dispatcher.DispatchAsync(() =>
-        {
-            Content = webView;
-        });
 
+        await this.Dispatcher.DispatchAsync(() =>
+       {
+           
+           Content = webView;
+       });
 
-        
+       
+
+       
+
 
     }
+    protected override bool OnBackButtonPressed()
+    {
+         DisplayAlert("Уведомление", "Ошибка", "Ок");
+         return base.OnBackButtonPressed();
+    }
+
+    private async void WebView_Navigated(object sender, WebNavigatedEventArgs e)
+    {
+        if (e.Result == WebNavigationResult.Success)
+        {
+            // Обработка успешного завершения навигации
+            var s = webView;
+           // await DisplayAlert("Уведомление", "После оплаты вернитесь назад и нажмите на кнопку 'Проверить платеж' ", "Ок");
+            webView.Navigating += async (s, e) =>
+            {
+                var url = e.Url;
+                var str = "https://yoomoney.ru/transfer/process/success";
+                if (url.Contains(str)) // Замените на ваше конкретное условие
+                {
+                    await vewModelSostavZakaza.AddZakazi();
+                    await modelKorzina.Delete_Korzina();
+                    await this.Navigation.PopAsync();
+                    await MopupService.Instance.PushAsync(new ViewWebYoomoney());
+
+                }
+            };
+        }
+        else if (e.Result == WebNavigationResult.Failure)
+        {
+            // Обработка неудачной навигации
+            await DisplayAlert("Уведомление", "Ошибка", "Ок");
+        }
+
+
+
+    }
+
+    //protected override bool OnBackButtonPressed()
+    //{
+    //    if (webView.CanGoBack)
+    //    {
+    //        webView.GoBack();
+    //        return true;
+    //    }
+    //    else
+    //    {
+    //        return false;
+    //    }
+    //}
     private void CheckPaymentStatus()
     {
        

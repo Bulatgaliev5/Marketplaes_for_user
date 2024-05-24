@@ -18,47 +18,52 @@ namespace Marketplaes02.Model
             }
         }
         int Kartochka_ID_goods, UserID;
+
+
         public Korzina()
         {
             Kartochka_ID_goods = Preferences.Default.Get("Kartochka_ID_goods", 0);
             UserID = Preferences.Default.Get("UserID", 0);
             //  Price = Price * Count;
-            UpdatePlusCountCommand = new Command<int>(UpdatePlusCount);
-            UpdateMinusCountCommand = new Command<int>(UpdateMinusCount);
-           
+
         }
-        private async void UpdatePlusCount(int id_goods)
+
+        private bool _btnbuy;
+        public bool btnbuy
         {
+            get => _btnbuy;
+            set
+            {
+                _btnbuy = value;
+                OnPropertyChanged("btnbuy");
 
-            Count++;
-            await UpdateCountKorzinaGood(id_goods, UserID);
-            await LoadKorzinaGoodPrice(id_goods, UserID);
-
-
-            // Price = Price * Count;
-            // Price_with_discount = Price_with_discount * Count;
+            }
         }
+        private bool _VisibleNullList;
 
-
-
-
-
-
-
-        private async void UpdateMinusCount(int id_goods)
+        public bool VisibleNullList
         {
-            Count--;
+            get => _VisibleNullList;
+            set
+            {
+                _VisibleNullList = value;
+                OnPropertyChanged("VisibleNullList");
+            }
+        }
 
-            await UpdateCountKorzinaGood(id_goods, UserID);
-            await LoadKorzinaGoodPrice(id_goods, UserID);
+        private bool _VisibleCollectionViewEmptyView;
 
-            // Price = Price * Count;
-            //Price_with_discount = Price_with_discount * Count;
+        public bool VisibleCollectionViewEmptyView
+        {
+            get => _VisibleCollectionViewEmptyView;
+            set
+            {
+                _VisibleCollectionViewEmptyView = value;
+                OnPropertyChanged("VisibleCollectionViewEmptyView");
+            }
         }
 
 
-        public ICommand UpdatePlusCountCommand { get; set; }
-        public ICommand UpdateMinusCountCommand { get; set; }
 
         private int _ID_korzina;
         private int _ID_goods;
@@ -149,80 +154,7 @@ namespace Marketplaes02.Model
             }
         }
 
-        public async Task<bool> LoadKorzinaGoodPrice(int id_good, int ID_user)
-        {
-            string
-             sql = "SELECT k.Total_price,k.ID_goods, k.Total_Price_with_discount, u.ID AS User_ID " +
-             "FROM korzina k " +
-             "JOIN users u ON k.ID_user = u.ID " +
-             "WHERE ID_user = @ID_user and k.ID_goods =@id_good";
-            ConnectBD
-             conn = new ConnectBD();
-            MySqlCommand
-              cmd = new MySqlCommand(sql, conn.GetConnBD());
-            cmd.Parameters.Add(new MySqlParameter("@id_good", id_good));
 
-            cmd.Parameters.Add(new MySqlParameter("@ID_user", ID_user));
-            await conn.GetConnectBD();
-            // Объявление и инициалзиация метода асинрхонного чтения данных из бд
-            MySqlDataReader
-                 reader = cmd.ExecuteReader();
-
-            // Проверка, что строк нет
-            if (!reader.HasRows)
-            {
-                // Синхронное отключение от БД
-                await conn.GetCloseBD();
-                // Возращение false
-                return false;
-            }
-            while (await reader.ReadAsync())
-            {
-
-
-                Price = Convert.ToSingle(reader["Total_price"]);
-                Price_with_discount = Convert.ToSingle(reader["Total_Price_with_discount"]);
-                // await Task.Delay(1000);
-            }
-
-            await conn.GetCloseBD();
-            OnPropertyChanged("Price");
-            OnPropertyChanged("Price_with_discount");
-            return true;
-
-        }
-
-        public async Task<bool> UpdateCountKorzinaGood(int id_good, int ID_user)
-        {
-            string
-             sql = "UPDATE korzina SET Count=@Count WHERE  ID_goods=@id and ID_user=@ID_user";
-            ConnectBD
-             conn = new ConnectBD();
-            MySqlCommand
-              cmd = new MySqlCommand(sql, conn.GetConnBD());
-            cmd.Parameters.Add(new MySqlParameter("@id", id_good));
-            cmd.Parameters.Add(new MySqlParameter("@Count", Count));
-            cmd.Parameters.Add(new MySqlParameter("@ID_user", ID_user));
-            await conn.GetConnectBD();
-            // Объявление и инициалзиация метода асинрхонного чтения данных из бд
-            MySqlDataReader
-                 reader = cmd.ExecuteReader();
-
-            // Проверка, что строк нет
-            if (!reader.HasRows)
-            {
-                // Синхронное отключение от БД
-                await conn.GetCloseBD();
-                // Возращение false
-                return false;
-            }
-
-            await conn.GetCloseBD();
-            OnPropertyChanged("Price");
-            OnPropertyChanged("Price_with_discount");
-            return true;
-
-        }
 
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged(string property)

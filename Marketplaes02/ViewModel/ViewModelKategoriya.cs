@@ -70,7 +70,7 @@ namespace Marketplaes02.ViewModel
 
             // Объявление и инициалзиация метода асинрхонного чтения данных из бд
             MySqlDataReader
-                 reader = cmd.ExecuteReader();
+                 reader = await cmd.ExecuteReaderAsync();
 
             // Проверка, что строк нет
             if (!reader.HasRows)
@@ -84,7 +84,7 @@ namespace Marketplaes02.ViewModel
             }
             KategoriyaList = new ObservableCollection<Kategoriya>();
             // Цикл while выполняется, пока есть строки для чтения из БД
-            while (reader.Read())
+            while (await reader.ReadAsync())
             {
 
                 // Добавление элемента в коллекцию списка товаров на основе класса (Экземпляр класс создается - объект)
