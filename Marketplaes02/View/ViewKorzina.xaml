@@ -46,9 +46,9 @@
                                             <HorizontalStackLayout>
                                                 <Frame HorizontalOptions="Start" Style="{DynamicResource FrameChetchik}">
                                                     <StackLayout HorizontalOptions="Center" VerticalOptions="Center" Orientation="Horizontal">
-                                                        <Button Command="{Binding UpdateMinusCountCommand}" CommandParameter="{Binding ID_goods}"  Text="-"/>
-                                                        <Label Margin="20,0,20,0"  FontSize="Medium" VerticalTextAlignment="Center"  Text="{Binding Count,UpdateSourceEventName=PropertyChanged}"/>
-                                                        <Button Command="{Binding Path=BindingContext.UpdatePlusCountCommand, Source={x:Reference Name=KorzinaData}}"  CommandParameter="{Binding ID_goods}"   Text="+"/>
+                                                        <Button Command="{Binding BindingContext.UpdateMinusCountCommand, Source={RelativeSource AncestorType={x:Type ContentPage}}}"  CommandParameter="{Binding}"   Text="-"/>
+                                                        <Label Margin="20,0,20,0"  FontSize="Medium" VerticalTextAlignment="Center"  Text="{Binding Count}"/>
+                                                        <Button Command="{Binding BindingContext.UpdatePlusCountCommand, Source={RelativeSource AncestorType={x:Type ContentPage}}}"  CommandParameter="{Binding}"   Text="+"/>
 
                                                     </StackLayout>
                                                 </Frame>

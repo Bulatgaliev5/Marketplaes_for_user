@@ -1,5 +1,6 @@
 ﻿
 using Marketplaes02.BD;
+using Marketplaes02.Commands;
 using Marketplaes02.Model;
 using MySqlConnector;
 using System.Collections.ObjectModel;
@@ -8,14 +9,9 @@ using System.Windows.Input;
 
 namespace Marketplaes02.ViewModel
 {
-    public class ViewModelKartochkaGood : KartochkaGood, INotifyPropertyChanged
+    public class ViewModelKartochkaGood : KartochkaGood
     {
         int Kartochka_ID_goods, UserID;
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        /// <summary>
-        /// Список Good
-        /// </summary>
         private IList<ImagesGoods> _ImagesGoodsList;
         public IList<ImagesGoods> ImagesGoodsList
         {
@@ -26,46 +22,80 @@ namespace Marketplaes02.ViewModel
                 OnPropertyChanged("ImagesGoodsList");
             }
         }
-        public void OnPropertyChanged(string property)
-        {
-            if (property == null)
-                return;
-
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
-
-        }
         public ViewModelKartochkaGood()
         {
             Kartochka_ID_goods = Preferences.Default.Get("Kartochka_ID_goods", 0);
             UserID = Preferences.Default.Get("UserID", 0);
             Load();
             CheckAddKorzinaGood(Kartochka_ID_goods, UserID);
-            UpdatePlusCountCommand = new Command<int>(UpdatePlusCount);
-            UpdateMinusCountCommand = new Command<int>(UpdateMinusCount);
         }
         private int _Count;
-        public ICommand UpdatePlusCountCommand { get; set; }
-        public ICommand UpdateMinusCountCommand { get; set; }
-        public async void UpdatePlusCount(int id_goods)
+        private ICommand _UpdatePlusCountCommand;
+        public ICommand UpdatePlusCountCommand
         {
-            bool result = await CheckAddKorzinaGood(id_goods, UserID);
-            if (result)
+            get
+            {
+                if (_UpdatePlusCountCommand == null)
+                {
+                    _UpdatePlusCountCommand = new ActionCommand(UpdatePlusCount);
+                }
+                return _UpdatePlusCountCommand;
+            }
+        }
+
+        private ICommand _UpdateMinusCountCommand;
+        public ICommand UpdateMinusCountCommand
+        {
+            get
+            {
+                if (_UpdateMinusCountCommand == null)
+                {
+                  _UpdateMinusCountCommand = new ActionCommand(UpdateMinusCount);
+                }
+                return _UpdateMinusCountCommand;
+            }
+        }
+        public async void UpdatePlusCount(object item)
+        {
+            int ID_goods = (int)item;
+            await CheckVnalichiiGood(ID_goods);
+            bool result = await CheckAddKorzinaGood(ID_goods, UserID);
+
+            if (V_nalichii > Count)
             {
                 Count++;
-                await AddKorzinaGood(id_goods, UserID);
+                if (result)
+                {
+                    await AddKorzinaGood(ID_goods, UserID);
+                }
+                else
+                {
+                    await UpdateCountKorzinaGood(ID_goods, UserID, Count);
+                }
             }
-            else
-            {
-                Count++;
-                await UpdateCountKorzinaGood(id_goods, UserID);
-            }
+
 
 
         }
-        public async void UpdateMinusCount(int id_goods)
+        public async void UpdateMinusCount(object item)
         {
-            Count--;
-            await UpdateCountKorzinaGood(id_goods, UserID);
+            int ID_goods = (int)item;
+            bool result = await CheckAddKorzinaGood(ID_goods, UserID);
+
+
+                Count--;
+                if (result)
+                {
+                    await AddKorzinaGood(ID_goods, UserID);
+                }
+                else
+                {
+                    await UpdateCountKorzinaGood(ID_goods, UserID, Count);
+                }
+
+
+
+
         }
         public int Count
         {
@@ -80,18 +110,41 @@ namespace Marketplaes02.ViewModel
             }
 
         }
-
-
-        /// <summary>
-        /// Метод загрузки изделтй Load
-        /// </summary>
         public async void Load()
         {
             await GoodsSelectSQL(Kartochka_ID_goods);
             await ImagesGoodsSelectSQL(Kartochka_ID_goods);
 
         }
+        public async Task<bool> CheckVnalichiiGood(int id_good)
+        {
+            string
+             sql = "SELECT * FROM goods WHERE  ID_goods=@id ";
+            ConnectBD
+             conn = new ConnectBD();
+            MySqlCommand
+              cmd = new MySqlCommand(sql, conn.GetConnBD());
+            cmd.Parameters.Add(new MySqlParameter("@id", id_good));
+            await conn.GetConnectBD();
+            MySqlDataReader
+                 reader = await cmd.ExecuteReaderAsync();
+            if (!reader.HasRows)
+            {
+                // Синхронное отключение от БД
+                await conn.GetCloseBD();
+                // Возращение false
+                return false;
+            }
+            while (await reader.ReadAsync())
+            {
+                V_nalichii = Convert.ToInt32(reader["V_nalichii"]);
+            }
 
+            await conn.GetCloseBD();
+
+            return true;
+
+        }
 
         public async Task<bool> AddKorzinaGood(int id_good, int UserID)
         {
@@ -109,7 +162,7 @@ namespace Marketplaes02.ViewModel
 
         }
 
-        public async Task<bool> UpdateCountKorzinaGood(int id_good, int ID_user)
+        public async Task<bool> UpdateCountKorzinaGood(int id_good, int ID_user, int Count)
         {
             string
              sql = "UPDATE korzina SET Count=@Count WHERE  ID_goods=@id and ID_user=@ID_user";
@@ -121,16 +174,11 @@ namespace Marketplaes02.ViewModel
             cmd.Parameters.Add(new MySqlParameter("@Count", Count));
             cmd.Parameters.Add(new MySqlParameter("@ID_user", ID_user));
             await conn.GetConnectBD();
-            // Объявление и инициалзиация метода асинрхонного чтения данных из бд
             MySqlDataReader
                  reader  = await cmd.ExecuteReaderAsync();
-
-            // Проверка, что строк нет
             if (!reader.HasRows)
             {
-                // Синхронное отключение от БД
                 await conn.GetCloseBD();
-                // Возращение false
                 return false;
             }
 
@@ -179,11 +227,6 @@ namespace Marketplaes02.ViewModel
             return true;
 
         }
-        /// <summary>
-        /// Метод Получения изделий из БД
-        /// </summary>
-        /// <returns></returns>
-
         public async Task<bool> ImagesGoodsSelectSQL(int id)
         {
             string
@@ -238,42 +281,23 @@ namespace Marketplaes02.ViewModel
               cmd = new MySqlCommand(sql, conn.GetConnBD());
             cmd.Parameters.Add(new MySqlParameter("@id", id));
             await conn.GetConnectBD();
-            // Объявление и инициалзиация метода асинрхонного чтения данных из бд
             MySqlDataReader
                  reader = await cmd.ExecuteReaderAsync();
-
-            // Проверка, что строк нет
             if (!reader.HasRows)
             {
-                // Синхронное отключение от БД
                 await conn.GetCloseBD();
-                // Возращение false
                 return false;
             }
 
-            // Цикл while выполняется, пока есть строки для чтения из БД
             while (await reader.ReadAsync())
             {
-
-
                 ID_goods = Convert.ToInt32(reader["ID_goods"]);
                 Name = reader["Name"].ToString();
                 Price = Convert.ToSingle(reader["Price"]);
-                //Image = reader["Image"].ToString();
                 Description = reader["Description"].ToString();
                 Price_with_discount = Convert.ToSingle(reader["Price_with_discount"]);
 
-
-
-                // await Task.Delay(1000);
             }
-            OnPropertyChanged("ID_goods");
-            OnPropertyChanged("Name");
-            OnPropertyChanged("Price");
-            //OnPropertyChanged("Image");
-            OnPropertyChanged("Description");
-            OnPropertyChanged("Price_with_discount");
-
             await conn.GetCloseBD();
 
             return true;

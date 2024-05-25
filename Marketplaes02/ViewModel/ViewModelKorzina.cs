@@ -1,9 +1,11 @@
 ﻿using Marketplaes02.BD;
+using Marketplaes02.Commands;
 using Marketplaes02.Model;
 using Microsoft.Maui;
 using MySqlConnector;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Text.Json;
 using System.Windows.Input;
 
@@ -18,68 +20,76 @@ namespace Marketplaes02.ViewModel
             VisibleCollectionViewEmptyView = false;
             VisibleNullList = true;
             Load();
-            UpdatePlusCountCommand = new Command<int>(UpdatePlusCount);
-          //  UpdateMinusCountCommand = new Command(UpdateMinusCount);
 
         }
-        private Korzina _SelectKorzina;
-        public Korzina SelectKorzina
-        {
-            get => _SelectKorzina;
-            set
-            {
-                _SelectKorzina = value;
-                OnPropertyChanged("SelectKorzina");
 
-            }
-        }
-        public async void UpdatePlusCount(int id_goods)
+        private ICommand _UpdatePlusCountCommand;
+        public ICommand UpdatePlusCountCommand
         {
-
-            SelectKorzina = Korzinalist.FirstOrDefault(g => g.ID_goods == id_goods);
-            
-            if (SelectKorzina != null)
+            get
             {
-                if (SelectKorzina.V_nalichiioods > SelectKorzina.Count)
+                if (_UpdatePlusCountCommand == null)
                 {
-                    SelectKorzina.Count++;
-
-                    await UpdateCountKorzinaGood(id_goods, UserID);
-                    await LoadKorzinaGoodPrice(id_goods, UserID);
+                    _UpdatePlusCountCommand = new ActionCommand(UpdatePlusCount);
                 }
+                return _UpdatePlusCountCommand;
+            }
+        }
 
+        private ICommand _UpdateMinusCountCommand;
+        public ICommand UpdateMinusCountCommand
+        {
+            get
+            {
+                if (_UpdateMinusCountCommand == null)
+                {
+                    _UpdateMinusCountCommand = new ActionCommand(UpdateMinusCount);
+                }
+                return _UpdateMinusCountCommand;
             }
 
-
-
-            // Price = Price * Count;
-            // Price_with_discount = Price_with_discount * Count;
         }
 
-
-        public async void UpdateMinusCount(int id_goods)
+        public async void UpdatePlusCount(object item)
         {
-//Count--;
+            Korzina
+                 korzina = (Korzina)item;
+            await LoadKorzinaGoodPrice(korzina.ID_goods, UserID, korzina);
+            if (korzina.V_nalichiioods > korzina.Count)
+            {
+                korzina.Count++;
 
-            await UpdateCountKorzinaGood(id_goods, UserID);
-            await LoadKorzinaGoodPrice(id_goods, UserID);
+                await UpdateCountKorzinaGood(korzina.ID_goods, UserID, korzina.Count);
 
-            // Price = Price * Count;
-            //Price_with_discount = Price_with_discount * Count;
+            }
+            Update();
         }
-        public async Task<bool> LoadKorzinaGoodPrice(int id_good, int ID_user)
+
+
+        public async void UpdateMinusCount(object item)
+        {
+            Korzina
+                   korzina = (Korzina)item;
+
+                korzina.Count--;
+
+                await UpdateCountKorzinaGood(korzina.ID_goods, UserID, korzina.Count);
+            await LoadKorzinaGoodPrice(korzina.ID_goods, UserID, korzina);
+            Update();
+        }
+        public async Task<bool> LoadKorzinaGoodPrice(int id_good, int ID_user, Korzina korzina)
         {
             string
-             sql = "SELECT k.Total_price,k.ID_goods, k.Total_Price_with_discount, u.ID AS User_ID " +
+             sql = "SELECT k.Total_price, k.ID_goods, k.Total_Price_with_discount, u.ID AS User_ID, g.V_nalichii AS Goods_V_nalichii " +
              "FROM korzina k " +
              "JOIN users u ON k.ID_user = u.ID " +
+             "JOIN goods g ON k.ID_goods = g.ID_goods " +
              "WHERE ID_user = @ID_user and k.ID_goods =@id_good";
             ConnectBD
              conn = new ConnectBD();
             MySqlCommand
               cmd = new MySqlCommand(sql, conn.GetConnBD());
             cmd.Parameters.Add(new MySqlParameter("@id_good", id_good));
-
             cmd.Parameters.Add(new MySqlParameter("@ID_user", ID_user));
             await conn.GetConnectBD();
             // Объявление и инициалзиация метода асинрхонного чтения данных из бд
@@ -97,10 +107,9 @@ namespace Marketplaes02.ViewModel
             while (await reader.ReadAsync())
             {
 
-
-             //   Price = Convert.ToSingle(reader["Total_price"]);
-               // Price_with_discount = Convert.ToSingle(reader["Total_Price_with_discount"]);
-                // await Task.Delay(1000);
+                korzina.Price = Convert.ToSingle(reader["Total_price"]);
+                korzina.Price_with_discount = Convert.ToSingle(reader["Total_Price_with_discount"]);
+                korzina.V_nalichiioods = Convert.ToInt32(reader["Goods_V_nalichii"]);
             }
 
             await conn.GetCloseBD();
@@ -110,7 +119,7 @@ namespace Marketplaes02.ViewModel
 
         }
 
-        public async Task<bool> UpdateCountKorzinaGood(int id_good, int ID_user)
+        public async Task<bool> UpdateCountKorzinaGood(int id_good, int ID_user, int count)
         {
             string
              sql = "UPDATE korzina SET Count=@Count WHERE  ID_goods=@id and ID_user=@ID_user";
@@ -119,25 +128,15 @@ namespace Marketplaes02.ViewModel
             MySqlCommand
               cmd = new MySqlCommand(sql, conn.GetConnBD());
             cmd.Parameters.Add(new MySqlParameter("@id", id_good));
-            cmd.Parameters.Add(new MySqlParameter("@Count", SelectKorzina.Count));
+            cmd.Parameters.Add(new MySqlParameter("@Count", count));
             cmd.Parameters.Add(new MySqlParameter("@ID_user", ID_user));
             await conn.GetConnectBD();
-
-
             cmd.ExecuteNonQuery();
-
             await conn.GetCloseBD();
-            OnPropertyChanged("Price");
-            OnPropertyChanged("Price_with_discount");
-            OnPropertyChanged("SelectKorzina");
-            OnPropertyChanged("Count");
-            OnPropertyChanged("Korzinalist");
             return true;
 
         }
 
-        public ICommand UpdatePlusCountCommand { get; set; }
-        public ICommand UpdateMinusCountCommand { get; set; }
         private bool _btnbuy;
         public bool btnbuy
         {
@@ -244,7 +243,7 @@ namespace Marketplaes02.ViewModel
 
         }
 
-        public async void UpdateCount()
+        public async void Update()
         {
 
             SaveList("Sostavzakazalist", Korzinalist);
@@ -331,7 +330,7 @@ namespace Marketplaes02.ViewModel
                 });
 
             }
-            UpdateCount();
+            
             OnPropertyChanged("Korzinalist");
             await con.GetCloseBD();
             // Preferences.Default.Set("Sostavzakazalist", Korzinalist.ToList<Korzina>);

@@ -1,9 +1,10 @@
-﻿using System.ComponentModel;
+﻿using Marketplaes02.Class;
+using System.ComponentModel;
 
 
 namespace Marketplaes02.Model
 {
-    public class Goods : INotifyPropertyChanged
+    public class Goods : Notify
     {
         private int _Discount;
         private float _Price_with_discount;
@@ -33,7 +34,7 @@ namespace Marketplaes02.Model
             set
             {
                 _ImageIsbrannoe = value;
-                OnPropertyChanged("ImageIsbrannoe");
+                OnPropertyChanged();
 
             }
         }
@@ -47,7 +48,7 @@ namespace Marketplaes02.Model
             set
             {
                 _Discount = value;
-                OnPropertyChanged("Discount");
+                OnPropertyChanged();
             }
         }
         public int ID_goods
@@ -56,7 +57,7 @@ namespace Marketplaes02.Model
             set
             {
                 _ID_goods = value;
-                OnPropertyChanged("ID_goods");
+                OnPropertyChanged();
             }
         }
         /// <summary>
@@ -68,7 +69,7 @@ namespace Marketplaes02.Model
             set
             {
                 _Name = value;
-                OnPropertyChanged("Name");
+                OnPropertyChanged();
 
             }
         }
@@ -81,7 +82,7 @@ namespace Marketplaes02.Model
             set
             {
                 _Price = value;
-                OnPropertyChanged("Price");
+                OnPropertyChanged();
 
             }
         }
@@ -91,7 +92,7 @@ namespace Marketplaes02.Model
             set
             {
                 _Price_with_discount = value;
-                OnPropertyChanged("Price_with_discount");
+                OnPropertyChanged();
 
             }
         }
@@ -104,20 +105,12 @@ namespace Marketplaes02.Model
             set
             {
                 _Image = value;
-                OnPropertyChanged("Image");
+                OnPropertyChanged();
 
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged(string property)
-        {
-            if (property == null)
-                return;
 
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
-
-        }
 
     }
 }

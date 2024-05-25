@@ -1,38 +1,17 @@
-﻿using System.ComponentModel;
+﻿using Marketplaes02.Class;
+using System.ComponentModel;
 
 namespace Marketplaes02.Model
 {
-    public class GoodsKategoriya : INotifyPropertyChanged
+    public class GoodsKategoriya : Notify
     {
         private int _Discount;
         private float _Price_with_discount;
-        /// <summary>
-        /// Поле Описание товара
-        /// </summary>
         private string _Description;
-        /// <summary>
-        /// Поле ID_goods
-        /// </summary>
         private int _ID_goods;
-        /// <summary>
-        /// Поле Название изделия
-        /// </summary>
         private string _Name;
-        /// <summary>
-        /// Поле Цена
-        /// </summary>
-
         private float _Price;
-
-        /// <summary>
-        /// Поле Изображение изделия
-        /// </summary>
         private string _Image;
-
-        /// <summary>
-        /// Свойсва ID_goods
-        /// </summary>
-        /// 
         private string _ImageIsbrannoe;
         public string ImageIsbrannoe
         {
@@ -40,7 +19,7 @@ namespace Marketplaes02.Model
             set
             {
                 _ImageIsbrannoe = value;
-                OnPropertyChanged("ImageIsbrannoe");
+                OnPropertyChanged();
 
             }
         }
@@ -50,7 +29,7 @@ namespace Marketplaes02.Model
             set
             {
                 _Discount = value;
-                OnPropertyChanged("Discount");
+                OnPropertyChanged();
             }
         }
         /// <summary>
@@ -62,7 +41,7 @@ namespace Marketplaes02.Model
             set
             {
                 _Description = value;
-                OnPropertyChanged("Description");
+                OnPropertyChanged();
 
             }
         }
@@ -72,7 +51,7 @@ namespace Marketplaes02.Model
             set
             {
                 _ID_goods = value;
-                OnPropertyChanged("ID_goods");
+                OnPropertyChanged();
             }
         }
         /// <summary>
@@ -83,8 +62,7 @@ namespace Marketplaes02.Model
             get => _Name;
             set
             {
-                _Name = value;
-                OnPropertyChanged("Name");
+                OnPropertyChanged();
 
             }
         }
@@ -98,7 +76,7 @@ namespace Marketplaes02.Model
             set
             {
                 _Price = value;
-                OnPropertyChanged("Price");
+                OnPropertyChanged();
 
             }
         }
@@ -108,7 +86,7 @@ namespace Marketplaes02.Model
             set
             {
                 _Price_with_discount = value;
-                OnPropertyChanged("Price_with_discount");
+                OnPropertyChanged();
 
             }
         }
@@ -121,19 +99,9 @@ namespace Marketplaes02.Model
             set
             {
                 _Image = value;
-                OnPropertyChanged("Image");
+                OnPropertyChanged();
 
             }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged(string property)
-        {
-            if (property == null)
-                return;
-
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
-
         }
     }
 }

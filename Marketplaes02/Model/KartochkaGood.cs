@@ -1,14 +1,11 @@
 ﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace Marketplaes02.Model
 {
     public class KartochkaGood : INotifyPropertyChanged
     {
-        public KartochkaGood()
-        {
 
-
-        }
         /// <summary>
         /// Поле ID_goods
         /// </summary>
@@ -39,6 +36,8 @@ namespace Marketplaes02.Model
 
         private int _Count;
 
+        private int _V_nalichii;
+
         /// <summary>
         /// Свойство Описание товара
         /// </summary>
@@ -58,7 +57,15 @@ namespace Marketplaes02.Model
         /// </summary>
         /// 
 
-
+        public int V_nalichii
+        {
+            get => _V_nalichii;
+            set
+            {
+                _V_nalichii = value;
+                OnPropertyChanged("V_nalichii");
+            }
+        }
 
         public int ID_goods
         {
@@ -107,10 +114,6 @@ namespace Marketplaes02.Model
             }
         }
 
-
-        /// <summary>
-        /// Свойства Изображение изделия
-        /// </summary>
         public string Image
         {
             get => _Image;
@@ -123,13 +126,10 @@ namespace Marketplaes02.Model
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged(string property)
+
+        public void OnPropertyChanged([CallerMemberName] string propertyName = "")
         {
-            if (property == null)
-                return;
-
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
-
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

@@ -1,13 +1,6 @@
 
 using Marketplaes02.BD;
 using Marketplaes02.ViewModel;
-using Dadata;
-using Dadata.Model;
-using Newtonsoft.Json.Linq;
-using System.Linq;
-using Geocoding;
-using CommunityToolkit.Maui.Views;
-using System.Net;
 using Mopups.Services;
 
 
@@ -79,7 +72,7 @@ public partial class ViewOformlenieZakaza : ContentPage
             Source = link
 
         };
-        webView.Navigated +=  WebView_Navigated;
+        webView.Navigated += WebView_Navigated;
 
         //myThread2.Join();
 
@@ -95,14 +88,11 @@ public partial class ViewOformlenieZakaza : ContentPage
 
 
     }
-    protected override bool OnBackButtonPressed()
-    {
-         DisplayAlert("Уведомление", "Ошибка", "Ок");
-         return base.OnBackButtonPressed();
-    }
+
 
     private async void WebView_Navigated(object sender, WebNavigatedEventArgs e)
     {
+        bool status = false;
         if (e.Result == WebNavigationResult.Success)
         {
             // Обработка успешного завершения навигации
@@ -111,15 +101,30 @@ public partial class ViewOformlenieZakaza : ContentPage
             webView.Navigating += async (s, e) =>
             {
                 var url = e.Url;
-                var str = "https://yoomoney.ru/transfer/process/success";
-                if (url.Contains(str)) // Замените на ваше конкретное условие
-                {
-                    await vewModelSostavZakaza.AddZakazi();
-                    await modelKorzina.Delete_Korzina();
-                    await this.Navigation.PopAsync();
-                    await MopupService.Instance.PushAsync(new ViewWebYoomoney());
 
-                }
+
+                        var str = "https://yoomoney.ru/transfer/process/success";
+                        if (url.Contains(str)) // Замените на ваше конкретное условие
+                        {
+                              
+                           await this.Navigation.PopAsync();
+                            var currentPage = Navigation.NavigationStack.LastOrDefault();
+                            if (!(currentPage is ViewWebYoomoney))
+                            {
+                                    if (!status)
+                                    {
+                                         await vewModelSostavZakaza.AddZakazi();
+                                       
+                                              status = true;
+                                              await modelKorzina.Delete_Korzina();
+                                                await MopupService.Instance.PushAsync(new ViewWebYoomoney());
+
+
+                                     }
+
+
+                             }
+                        }
             };
         }
         else if (e.Result == WebNavigationResult.Failure)

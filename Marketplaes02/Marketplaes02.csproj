@@ -66,15 +66,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="AlohaKit.Animations" Version="1.1.0" />
-		<PackageReference Include="Azure.Storage.Blobs" Version="12.19.1" />
 		<PackageReference Include="CommunityToolkit.Maui" Version="9.0.0" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
-		<PackageReference Include="ContextMenuContainer" Version="1.2.3" />
 		<PackageReference Include="Dadata" Version="23.6.1" />
-		<PackageReference Include="Extended.Wpf.Toolkit" Version="4.6.0" />
-		<PackageReference Include="Geocoding.Core" Version="4.0.1" />
-		<PackageReference Include="Geocoding.Google" Version="4.0.1" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.14" />
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.14" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />

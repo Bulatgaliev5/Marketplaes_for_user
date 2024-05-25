@@ -1,6 +1,7 @@
 ﻿using Marketplaes02.BD;
 using MySqlConnector;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Windows.Input;
 
 namespace Marketplaes02.Model
@@ -157,12 +158,11 @@ namespace Marketplaes02.Model
 
 
         public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged(string property)
+
+        public void OnPropertyChanged([CallerMemberName] string propertyName = "")
         {
-            if (property == null)
-
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
-
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
     }
 }

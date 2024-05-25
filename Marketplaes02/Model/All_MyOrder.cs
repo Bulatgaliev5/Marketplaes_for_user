@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Marketplaes02.Class;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -7,22 +8,12 @@ using System.Threading.Tasks;
 
 namespace Marketplaes02.Model
 {
-    public class All_MyOrder :  MyOrder_items,  INotifyPropertyChanged
+    public class All_MyOrder :  MyOrder_items
     {
 
        
             public MyOrders Order { get; set; }
             public IList<MyOrder_items> Items { get; set; }
  
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged(string property)
-        {
-            if (property == null)
-                return;
-
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
-
-        }
     }
 }
