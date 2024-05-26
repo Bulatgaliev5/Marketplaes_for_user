@@ -41,17 +41,9 @@ public partial class ViewOformlenieZakaza : ContentPage
 
         if (!IsValidText(Adres_dostavki))
         {
+           await DisplayAlert("Уведомление", "После оплаты нажмите на кнопку 'Проверить платеж'", "Ок");
             myThread2 = new Thread(Pay);
             myThread2.Start();
-
-
-           //await vewModelSostavZakaza.AddZakazi();
-           //await modelKorzina.Delete_Korzina();
-
-           // myThread2.Join();
-           //myThread1 = new Thread(CheckPaymentStatus);
-           //myThread1.Start();
-
         }
         else
         {
@@ -66,106 +58,48 @@ public partial class ViewOformlenieZakaza : ContentPage
         label = Guid.NewGuid().ToString();
         link = yoomoney.GetPayLink(
               Convert.ToDecimal(10), label);
-        // myThread2.Join();
         webView = new WebView
         {
             Source = link
 
         };
-        webView.Navigated += WebView_Navigated;
-
-        //myThread2.Join();
-
-        await this.Dispatcher.DispatchAsync(() =>
+        await this.Dispatcher.DispatchAsync(async () =>
        {
-           
-           Content = webView;
+           //Content = webView;
+           await Navigation.PushAsync(new ViewPay(webView));
        });
 
-       
-
-       
-
 
     }
 
-
-    private async void WebView_Navigated(object sender, WebNavigatedEventArgs e)
-    {
-        bool status = false;
-        if (e.Result == WebNavigationResult.Success)
-        {
-            // Обработка успешного завершения навигации
-            var s = webView;
-           // await DisplayAlert("Уведомление", "После оплаты вернитесь назад и нажмите на кнопку 'Проверить платеж' ", "Ок");
-            webView.Navigating += async (s, e) =>
-            {
-                var url = e.Url;
-
-
-                        var str = "https://yoomoney.ru/transfer/process/success";
-                        if (url.Contains(str)) // Замените на ваше конкретное условие
-                        {
-                              
-                           await this.Navigation.PopAsync();
-                            var currentPage = Navigation.NavigationStack.LastOrDefault();
-                            if (!(currentPage is ViewWebYoomoney))
-                            {
-                                    if (!status)
-                                    {
-                                         await vewModelSostavZakaza.AddZakazi();
-                                       
-                                              status = true;
-                                              await modelKorzina.Delete_Korzina();
-                                                await MopupService.Instance.PushAsync(new ViewWebYoomoney());
-
-
-                                     }
-
-
-                             }
-                        }
-            };
-        }
-        else if (e.Result == WebNavigationResult.Failure)
-        {
-            // Обработка неудачной навигации
-            await DisplayAlert("Уведомление", "Ошибка", "Ок");
-        }
-
-
-
-    }
-
-    //protected override bool OnBackButtonPressed()
-    //{
-    //    if (webView.CanGoBack)
-    //    {
-    //        webView.GoBack();
-    //        return true;
-    //    }
-    //    else
-    //    {
-    //        return false;
-    //    }
-    //}
-    private void CheckPaymentStatus()
+    private async void CheckPaymentStatus()
     {
        
         
         var result = yoomoney.GetStatusOperazii_and_check(label);
-        myThread1.Join();
         if (result)
         {
-            DisplayAlert("Сообщение", "Ваш платеж виден", "Ок");
+            await this.Dispatcher.DispatchAsync(async ()  =>
+            {
+                await DisplayAlert("Сообщение", "Ваш платеж прошел! Спасибо за покупку", "Ок");
+                await vewModelSostavZakaza.AddZakazi();
+                await modelKorzina.Delete_Korzina();
+                await Navigation.PopAsync();
+
+
+            });
+
         }
         else
         {
-            DisplayAlert("Сообщение", "Ошибка не виден", "Ок");
+            await this.Dispatcher.DispatchAsync(async() =>
+            {
+                await DisplayAlert("Сообщение", "Ваш платеж не прошел", "Ок");
+            });
+           
         }
 
     }
-
 
 
     private async void BtdresDostavki(object sender, EventArgs e)
@@ -181,5 +115,11 @@ public partial class ViewOformlenieZakaza : ContentPage
         Update();
         await Task.Delay(1000);
         RefreshView1.IsRefreshing = false;
+    }
+
+    private void BtnProverit(object sender, EventArgs e)
+    {
+        myThread1 = new Thread(CheckPaymentStatus);
+        myThread1.Start();
     }
 }

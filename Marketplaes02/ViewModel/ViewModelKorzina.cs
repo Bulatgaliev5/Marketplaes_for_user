@@ -58,7 +58,8 @@ namespace Marketplaes02.ViewModel
             if (korzina.V_nalichiioods > korzina.Count)
             {
                 korzina.Count++;
-
+                korzina.Price = korzina.Price * korzina.Count;
+                korzina.Price_with_discount = korzina.Price_with_discount * korzina.Count;
                 await UpdateCountKorzinaGood(korzina.ID_goods, UserID, korzina.Count);
 
             }

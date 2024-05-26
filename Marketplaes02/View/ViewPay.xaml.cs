@@ -1,0 +1,16 @@
+namespace Marketplaes02.View;
+
+public partial class ViewPay : ContentPage
+{
+    public ViewPay(WebView webView)
+    {
+        InitializeComponent();
+
+        Content = webView;
+    }
+    protected override bool OnBackButtonPressed()
+    {
+        DisplayAlert("Уведомление", "Нажмите на кнопку 'Проверить платёж'", "Ок");
+        return base.OnBackButtonPressed();
+    }
+}

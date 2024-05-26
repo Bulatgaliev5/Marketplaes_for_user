@@ -120,6 +120,9 @@
 	  <MauiXaml Update="View\ViewOformlenieZakaza.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="View\ViewPay.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="View\ViewProfil.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

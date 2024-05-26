@@ -82,9 +82,11 @@ namespace Marketplaes02.Model
             {
                 _Price = value;
                 OnPropertyChanged("Price");
+               
 
             }
         }
+
         public float Price_with_discount
         {
             get => _Price_with_discount;
@@ -92,6 +94,7 @@ namespace Marketplaes02.Model
             {
                 _Price_with_discount = value;
                 OnPropertyChanged("Price_with_discount");
+
 
             }
         }
@@ -142,6 +145,7 @@ namespace Marketplaes02.Model
 
                 _Count = value;
                 OnPropertyChanged("Count");
+
             }
 
         }

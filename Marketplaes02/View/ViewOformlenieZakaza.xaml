@@ -128,6 +128,8 @@
                 </Border>
 
                 <Button Margin="20" Style="{DynamicResource BtZakazat}" Clicked="BtnZakazat"  Text="Заказать" />
+
+                <Button Margin="20" Style="{DynamicResource BtZakazat}" Clicked="BtnProverit"  Text="Проверить платеж" />
             </StackLayout>
         </ScrollView>
         </RefreshView>

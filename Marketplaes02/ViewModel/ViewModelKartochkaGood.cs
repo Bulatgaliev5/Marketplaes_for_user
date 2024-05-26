@@ -84,7 +84,7 @@ namespace Marketplaes02.ViewModel
 
 
                 Count--;
-                if (result)
+                if (!result)
                 {
                     await AddKorzinaGood(ID_goods, UserID);
                 }
@@ -202,25 +202,17 @@ namespace Marketplaes02.ViewModel
             MySqlDataReader
                  reader = await cmd.ExecuteReaderAsync();
 
-            // Проверка, что строк нет
-
-            int count = 0;
             while (await reader.ReadAsync())
             {
-                count++;
-                Count = Convert.ToInt32(reader["Count"]);
+                
+                if (reader.HasRows)
+                {
+                    Count = Convert.ToInt32(reader["Count"]);
+                    await conn.GetCloseBD();
+                }
 
-            }
-            OnPropertyChanged("Count");
-            if (count != 0)
-            {
-
-                // Синхронное отключение от БД
-                await conn.GetCloseBD();
-                // Возращение false
                 return false;
             }
-
 
             await conn.GetCloseBD();
 
