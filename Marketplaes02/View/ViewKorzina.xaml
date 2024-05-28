@@ -84,7 +84,7 @@
 
         <StackLayout  IsVisible="{Binding btnbuy}"  Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center" Orientation="Horizontal">
 
-            <Button  Clicked="btnpay"
+            <Button  Command="{Binding UpdateCommand}" CommandParameter="{Binding Korzinalist}"
                Style="{DynamicResource BtnOformleniu}"  Text="Перейти к оформлению" />
                
         </StackLayout>

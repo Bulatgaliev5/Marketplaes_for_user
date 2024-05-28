@@ -62,6 +62,7 @@ namespace Marketplaes02.Model
             get => _Name;
             set
             {
+                _Name = value;
                 OnPropertyChanged();
 
             }

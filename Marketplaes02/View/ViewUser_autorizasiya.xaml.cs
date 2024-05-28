@@ -95,24 +95,33 @@ public partial class ViewUser_autorizasiya : ContentPage
 
     public async void Voiti(object sender, EventArgs e)
     {
-
-        bool stateinternet = CheckInternet();
-        //List<string> message = ["Выполняется вход"];
-        //await PreBakedMopupService.GetInstance().WrapTaskInLoader(Task.Delay(3000), Color.FromRgb(0, 127, 255), Color.FromRgb(255, 255, 250), message, Color.FromRgb(0, 0, 0));
-
-        if (stateinternet)
+        BtnVoiti.IsEnabled = false;
+        try
         {
-            
-            bool state = await CheckPass();
-            
-            if (state)
+            bool stateinternet = CheckInternet();
+            //List<string> message = ["Выполняется вход"];
+            //await PreBakedMopupService.GetInstance().WrapTaskInLoader(Task.Delay(3000), Color.FromRgb(0, 127, 255), Color.FromRgb(255, 255, 250), message, Color.FromRgb(0, 0, 0));
+
+            if (stateinternet)
             {
-                Navigation.RemovePage(this);
 
-                await Shell.Current.GoToAsync("//glavnaya");
+                bool state = await CheckPass();
 
+                if (state)
+                {
+                    Navigation.RemovePage(this);
+
+                    await Shell.Current.GoToAsync("//glavnaya");
+
+                }
+                return;
             }
-            return;
         }
+        finally
+        {
+            // Разблокировка кнопки
+            BtnVoiti.IsEnabled = true;
+        }
+
     }
 }

@@ -64,7 +64,7 @@ public partial class ViewAddAdres_dostavki : PopupPage
         if (!ValidBool)
         {
             await con.GetCloseBD();
-            await Application.Current.MainPage.DisplayAlert("Сообщение", "Введите полный адрес доставки", "Ок");
+            await Application.Current.MainPage.DisplayAlert("Сообщение", "Введите полный адрес доставки до ввода номера квартиры", "Ок");
             return false;
 
         }

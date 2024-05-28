@@ -23,8 +23,9 @@ public partial class ViewKorzina : ContentPage
       
         BindingContext = new ViewModelKorzina();
 
+
     }
-   
+
     private async void OnDataUpdated(object sender, EventArgs e)
     {
         await Shell.Current.GoToAsync(nameof(ViewKorzina), false);
@@ -43,17 +44,10 @@ public partial class ViewKorzina : ContentPage
 
 
 
-    private async void btnpay(object sender, EventArgs e)
+    protected override void OnAppearing()
     {
-
+        base.OnAppearing();
         Update();
-        var currentPage = Navigation.NavigationStack.LastOrDefault();
-        if (!(currentPage is ViewOformlenieZakaza))
-        {
-            await Navigation.PushAsync(new ViewOformlenieZakaza());
-
-        }
-    
     }
 
 

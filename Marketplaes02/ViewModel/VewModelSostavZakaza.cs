@@ -18,10 +18,9 @@ namespace Marketplaes02.ViewModel
     {
         string Order_date;
         int ID_order;
-        int ID_goods;
         int ID_user;
-        private IList<SostavZakaza> _SostavZakazalist;
-        public IList<SostavZakaza> SostavZakazalist
+        private IList<Korzina> _SostavZakazalist;
+        public IList<Korzina> SostavZakazalist
         {
             get => _SostavZakazalist;
             set
@@ -30,15 +29,21 @@ namespace Marketplaes02.ViewModel
                 OnPropertyChanged("SostavZakazalist");
             }
         }
-        public VewModelSostavZakaza()
+        public VewModelSostavZakaza(IList<Korzina> Korzinalist)
         {
-
+            SostavZakazalist= Korzinalist;
             Load();
             // Регистрируемся для получения сообщений о сортировке по цене
             WeakReferenceMessenger.Default.Register<UpdateAdresDostavki>(this, (r, m) =>
             {
                 User_Adres_Dostavki = m.SelectAdresDostavki;
 
+
+            });
+            WeakReferenceMessenger.Default.Register<UpdateSostavZakaza>(this, (r, m) =>
+            {
+
+                Load();
 
             });
         }
@@ -48,7 +53,7 @@ namespace Marketplaes02.ViewModel
         {
 
             
-            SostavZakazalist = GetList<SostavZakaza>("Sostavzakazalist");
+          //  SostavZakazalist = GetList<SostavZakaza>("Sostavzakazalist");
             User_Name = Preferences.Default.Get("UserName", "NoName");
             User_Number_phone = Preferences.Default.Get("UserNumber_phone", "NoName");
             User_Adres_Dostavki = Preferences.Default.Get("UserAdres_Dostavki", "NoName");
@@ -61,7 +66,7 @@ namespace Marketplaes02.ViewModel
             //  await LoadSostavZakazalist(ID_goods);
         }
 
-        public async Task<bool> SQL_AddOrders()
+        public async Task<bool> SQL_AddOrders(string labelPay)
         {
             ConnectBD con = new ConnectBD();
 
@@ -70,13 +75,14 @@ namespace Marketplaes02.ViewModel
 
             // int id_klienta = (Int32)Application.Current.Properties["UserID"];
             
-            string sql = "INSERT INTO `orders` (`ID_user`, `Order_date`, `Total_Count`, `Total_Price_with_discount`, Adres_Dostavki) VALUES (@ID_user, @Order_date, @Total_Count, @Total_Price_with_discount, @Adres_Dostavki)";
+            string sql = "INSERT INTO `orders` (`ID_user`, `Order_date`, `Total_Count`, `Total_Price_with_discount`, Adres_Dostavki, labelPay) VALUES (@ID_user, @Order_date, @Total_Count, @Total_Price_with_discount, @Adres_Dostavki, @labelPay)";
             MySqlCommand cmd = new MySqlCommand(sql, con.GetConnBD());
             cmd.Parameters.Add(new MySqlParameter("@ID_user", ID_user));
             cmd.Parameters.Add(new MySqlParameter("@Adres_Dostavki", User_Adres_Dostavki));
             cmd.Parameters.Add(new MySqlParameter("@Order_date", Order_date));
             cmd.Parameters.Add(new MySqlParameter("@Total_Count", Goods_Total_Count));
             cmd.Parameters.Add(new MySqlParameter("@Total_Price_with_discount", Goods_Total_Price_with_discount));
+            cmd.Parameters.Add(new MySqlParameter("@labelPay", labelPay));
             await con.GetConnectBD();
             await cmd.ExecuteNonQueryAsync();
             await con.GetCloseBD();
@@ -147,9 +153,9 @@ namespace Marketplaes02.ViewModel
             await con.GetCloseBD();
             return true;
         }
-        public async Task<bool> AddZakazi()
+        public async Task<bool> AddZakazi(string labelPay)
         {
-            await SQL_AddOrders();
+            await SQL_AddOrders(labelPay);
             await Get_ID_order(Order_date, ID_user);
             int i = 0;
             for (; i < SostavZakazalist.Count; i++)

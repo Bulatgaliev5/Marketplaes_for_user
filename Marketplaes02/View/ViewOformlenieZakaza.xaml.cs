@@ -1,5 +1,8 @@
 
+using CommunityToolkit.Mvvm.Messaging;
 using Marketplaes02.BD;
+using Marketplaes02.Class;
+using Marketplaes02.Model;
 using Marketplaes02.ViewModel;
 using Mopups.Services;
 
@@ -8,29 +11,60 @@ namespace Marketplaes02.View;
 
 public partial class ViewOformlenieZakaza : ContentPage
 {
-    int Count;
     Yoomoney yoomoney = new Yoomoney();
     Thread myThread1;
     Thread myThread2;
     WebView webView;
-    VewModelSostavZakaza vewModelSostavZakaza = new VewModelSostavZakaza();
+    VewModelSostavZakaza vewModelSostavZakaza;
     ViewModelKorzina modelKorzina = new ViewModelKorzina();
     string label;
     string link;
-    public ViewOformlenieZakaza()
+    private IList<Korzina> _SostavZakazalist;
+    public IList<Korzina> SostavZakazalist
     {
-        
+        get => _SostavZakazalist;
+        set
+        {
+            _SostavZakazalist = value;
+            OnPropertyChanged("SostavZakazalist");
+        }
+    }
+    public ViewOformlenieZakaza(IList<Korzina> Korzinalist)
+    {
+
         InitializeComponent();
+        SostavZakazalist = Korzinalist;
         Update();
 
-        
+
     }
     public async void Update()
     {
 
-        BindingContext = new VewModelSostavZakaza();
+        BindingContext = new VewModelSostavZakaza(SostavZakazalist);
+        WeakReferenceMessenger.Default.Register<UpdateSostavZakaza>(this, (r, m) =>
+        {
 
+            VisiblBtnZakazat = false;
 
+        });
+
+    }
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        Update();
+    }
+    private bool _VisiblBtnZakazat;
+
+    public bool VisiblBtnZakazat
+    {
+        get => _VisiblBtnZakazat;
+        set
+        {
+            _VisiblBtnZakazat = value;
+            OnPropertyChanged("VisiblBtnZakazat");
+        }
     }
     private bool IsValidText(Label box)
     {
@@ -41,7 +75,7 @@ public partial class ViewOformlenieZakaza : ContentPage
 
         if (!IsValidText(Adres_dostavki))
         {
-           await DisplayAlert("Уведомление", "После оплаты нажмите на кнопку 'Проверить платеж'", "Ок");
+           await DisplayAlert("Уведомление", "После оплаты вернитесь назад и нажмите на кнопку 'Проверить платеж'", "Ок");
             myThread2 = new Thread(Pay);
             myThread2.Start();
         }
@@ -55,7 +89,7 @@ public partial class ViewOformlenieZakaza : ContentPage
 
     public async void Pay()
     {
-        label = Guid.NewGuid().ToString();
+        label = modelKorzina.LabelPay;
         link = yoomoney.GetPayLink(
               Convert.ToDecimal(10), label);
         webView = new WebView
@@ -66,7 +100,9 @@ public partial class ViewOformlenieZakaza : ContentPage
         await this.Dispatcher.DispatchAsync(async () =>
        {
            //Content = webView;
+           
            await Navigation.PushAsync(new ViewPay(webView));
+           
        });
 
 
@@ -79,13 +115,15 @@ public partial class ViewOformlenieZakaza : ContentPage
         var result = yoomoney.GetStatusOperazii_and_check(label);
         if (result)
         {
-            await this.Dispatcher.DispatchAsync(async ()  =>
+            await this.Dispatcher.DispatchAsync(async () =>
             {
                 await DisplayAlert("Сообщение", "Ваш платеж прошел! Спасибо за покупку", "Ок");
-                await vewModelSostavZakaza.AddZakazi();
+                WeakReferenceMessenger.Default.Send(new UpdateSostavZakaza());
+                vewModelSostavZakaza = new VewModelSostavZakaza(SostavZakazalist);
+                await vewModelSostavZakaza.AddZakazi(label);
                 await modelKorzina.Delete_Korzina();
                 await Navigation.PopAsync();
-
+                
 
             });
 
@@ -94,7 +132,7 @@ public partial class ViewOformlenieZakaza : ContentPage
         {
             await this.Dispatcher.DispatchAsync(async() =>
             {
-                await DisplayAlert("Сообщение", "Ваш платеж не прошел", "Ок");
+                await DisplayAlert("Сообщение", "Сначало оплатите заказ!", "Ок");
             });
            
         }

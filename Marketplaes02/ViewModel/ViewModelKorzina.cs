@@ -1,18 +1,22 @@
-﻿using Marketplaes02.BD;
+﻿using CommunityToolkit.Mvvm.Messaging;
+using Marketplaes02.BD;
+using Marketplaes02.Class;
 using Marketplaes02.Commands;
 using Marketplaes02.Model;
-using Microsoft.Maui;
 using MySqlConnector;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Text.Json;
 using System.Windows.Input;
+using Microsoft.Maui.Controls;
+using Marketplaes02.View;
+
+
 
 
 namespace Marketplaes02.ViewModel
 {
-    public class ViewModelKorzina :  INotifyPropertyChanged
+    public class ViewModelKorzina : INotifyPropertyChanged
     {
 
         public ViewModelKorzina()
@@ -20,7 +24,31 @@ namespace Marketplaes02.ViewModel
             VisibleCollectionViewEmptyView = false;
             VisibleNullList = true;
             Load();
+            WeakReferenceMessenger.Default.Register<UpdateSostavZakaza>(this, (r, m) =>
+            {
 
+                Load();
+
+            });
+
+        }
+        public async void LoadUpdate(object item)
+        {
+            IList<Korzina> korzian =(IList<Korzina>)item;
+             await Application.Current.MainPage.Navigation.PushAsync(new ViewOformlenieZakaza(korzian));
+
+        }
+        private ICommand _UpdateCommand;
+        public ICommand UpdateCommand
+        {
+            get
+            {
+                if (_UpdateCommand == null)
+                {
+                    _UpdateCommand = new ActionCommand(LoadUpdate);
+                }
+                return _UpdateCommand;
+            }
         }
 
         private ICommand _UpdatePlusCountCommand;
@@ -149,6 +177,17 @@ namespace Marketplaes02.ViewModel
 
             }
         }
+        private string _LabelPay;
+        public string LabelPay
+        {
+            get => _LabelPay;
+            set
+            {
+                _LabelPay = value;
+                OnPropertyChanged("LabelPay");
+
+            }
+        }
         private bool _VisibleNullList;
 
         public bool VisibleNullList
@@ -240,8 +279,6 @@ namespace Marketplaes02.ViewModel
             }
             VisibleNullList = false;
 
-
-
         }
 
         public async void Update()
@@ -330,8 +367,13 @@ namespace Marketplaes02.ViewModel
 
                 });
 
+
             }
-            
+            for (int i = 0; i < Korzinalist.Count; i++)
+            {
+                LabelPay += Convert.ToString(Korzinalist[i].ID_korzina)+",";
+            }
+           
             OnPropertyChanged("Korzinalist");
             await con.GetCloseBD();
             // Preferences.Default.Set("Sostavzakazalist", Korzinalist.ToList<Korzina>);
