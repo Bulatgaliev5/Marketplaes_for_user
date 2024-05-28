@@ -9,44 +9,24 @@ namespace Marketplaes02.Commands
 {
     public class ActionCommand : ICommand
     {
-        private Action<object> _action;
-        private bool _isExecuting;
+        Action<object> action;
+
 
         public ActionCommand(Action<object> action)
         {
-            _action = action;
+            this.action = action;
         }
 
-        public event EventHandler CanExecuteChanged;
+        public event EventHandler? CanExecuteChanged;
 
-        public bool CanExecute(object parameter)
+        public bool CanExecute(object? parameter) 
         {
-            return !_isExecuting && parameter != null;
-        }
+            return  parameter != null;
+        } 
 
-        public void Execute(object parameter)
+        public void Execute(object? parameter) 
         {
-            if (!CanExecute(parameter))
-                return;
-
-            _isExecuting = true;
-            OnCanExecuteChanged();
-
-            try
-            {
-                _action?.Invoke(parameter);
-            }
-            finally
-            {
-                _isExecuting = false;
-                OnCanExecuteChanged();
-            }
-        }
-
-        protected virtual void OnCanExecuteChanged()
-        {
-            CanExecuteChanged?.Invoke(this, EventArgs.Empty);
-        }
+            action?.Invoke(parameter);
+        } 
     }
-
 }

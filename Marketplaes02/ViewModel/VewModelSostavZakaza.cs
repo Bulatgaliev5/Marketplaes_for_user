@@ -29,9 +29,21 @@ namespace Marketplaes02.ViewModel
                 OnPropertyChanged("SostavZakazalist");
             }
         }
+        private bool _VisiblBtnZakazat;
+
+        public bool VisiblBtnZakazat
+        {
+            get => _VisiblBtnZakazat;
+            set
+            {
+                _VisiblBtnZakazat = value;
+                OnPropertyChanged("VisiblBtnZakazat");
+            }
+        }
         public VewModelSostavZakaza(IList<Korzina> Korzinalist)
         {
-            SostavZakazalist= Korzinalist;
+            SostavZakazalist = Korzinalist;
+            VisiblBtnZakazat = true;
             Load();
             // Регистрируемся для получения сообщений о сортировке по цене
             WeakReferenceMessenger.Default.Register<UpdateAdresDostavki>(this, (r, m) =>
@@ -46,6 +58,16 @@ namespace Marketplaes02.ViewModel
                 Load();
 
             });
+            WeakReferenceMessenger.Default.Register<UpdateResultPay>(this, (r, m) =>
+            {
+                if (m.Result)
+                {
+                    VisiblBtnZakazat = false;
+               
+                }
+
+            });
+
         }
 
 

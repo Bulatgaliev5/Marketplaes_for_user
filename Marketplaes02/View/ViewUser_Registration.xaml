@@ -3,19 +3,19 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Marketplaes02.View.ViewUser_Registration"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             Title="ViewUser_Registration">
-    <VerticalStackLayout VerticalOptions="StartAndExpand"  Padding="5">
-        <Label Text="Заполните данные для входа" Style="{DynamicResource LabZapol}"/>
+             Title="Регистрация">
+    <VerticalStackLayout VerticalOptions="StartAndExpand"  Padding="15" Margin="15">
+        <Label Text="Введи все данные для регистрации" Style="{DynamicResource LabZapol}"/>
         <Label Text="Введите свое имя"/>
-        <Entry x:Name="entryName"/>
+        <Entry x:Name="entryName" Placeholder="Имя"/>
         <Label Text="Придумайте логин"/>
-        <Entry x:Name="entryLog"/>
-        <Label Text="Введите номер телефона в формате +79000000000"/>
-        <Entry x:Name="entryNumber" Keyboard="Telephone"/>
-        <Label Text="Придумайте пароль"/>
-        <Entry IsPassword="True" x:Name="entryPas"/>
+        <Entry x:Name="entryLog" Placeholder="Логин"/>
+        <Label Text="Введите номер телефона в формате +79000000000" />
+        <Entry x:Name="entryNumber" Keyboard="Telephone" Placeholder="Номер телефона"/>
+        <Label Text="Придумайте пароль" />
+        <Entry IsPassword="True" x:Name="entryPas" Placeholder="Пароль"/>
         <Label Text="Повторите пароль"/>
-        <Entry IsPassword="True" x:Name="entryPasCopy"/>
+        <Entry IsPassword="True" x:Name="entryPasCopy" Placeholder="Повторите пароль"/>
         <Button Text="Зарегистрироваться" Style="{DynamicResource BtVoiti}" Clicked="BtnRegister"/>
     </VerticalStackLayout>
 </ContentPage>

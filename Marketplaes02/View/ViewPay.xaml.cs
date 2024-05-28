@@ -14,7 +14,7 @@ public partial class ViewPay : ContentPage
     protected override bool OnBackButtonPressed()
     {
         DisplayAlert("Уведомление", "Нажмите на кнопку 'Проверить платёж'", "Ок");
-        WeakReferenceMessenger.Default.Send(new UpdateSostavZakaza());
+
         return base.OnBackButtonPressed();
 
     }

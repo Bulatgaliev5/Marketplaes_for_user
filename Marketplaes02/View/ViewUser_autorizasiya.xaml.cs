@@ -125,3 +125,6 @@ public partial class ViewUser_autorizasiya : ContentPage
 
     }
 }
+
+
+

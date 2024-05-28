@@ -127,9 +127,9 @@
                     </StackLayout>
                 </Border>
 
-                <Button IsVisible="{Binding VisiblBtnZakazat}" Margin="20" Style="{DynamicResource BtZakazat}" Clicked="BtnZakazat"  Text="Заказать" />
+                <Button x:Name="ButtonZakazat" IsVisible="{Binding VisiblBtnZakazat}" Margin="20" Style="{DynamicResource BtZakazat}" Clicked="BtnZakazat"  Text="Заказать" />
 
-                <Button Margin="20" Style="{DynamicResource BtZakazat}" Clicked="BtnProverit"  Text="Проверить платеж" />
+                <Button x:Name="BtProverit" Margin="20" Style="{DynamicResource BtZakazat}" Clicked="BtnProverit"  Text="Проверить платеж" />
             </StackLayout>
         </ScrollView>
         </RefreshView>

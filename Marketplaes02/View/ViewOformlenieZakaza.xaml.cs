@@ -11,7 +11,8 @@ namespace Marketplaes02.View;
 
 public partial class ViewOformlenieZakaza : ContentPage
 {
-    Yoomoney yoomoney = new Yoomoney();
+    bool result;
+   Yoomoney yoomoney = new Yoomoney();
     Thread myThread1;
     Thread myThread2;
     WebView webView;
@@ -38,51 +39,48 @@ public partial class ViewOformlenieZakaza : ContentPage
 
 
     }
+
     public async void Update()
     {
 
+        
         BindingContext = new VewModelSostavZakaza(SostavZakazalist);
-        WeakReferenceMessenger.Default.Register<UpdateSostavZakaza>(this, (r, m) =>
-        {
-
-            VisiblBtnZakazat = false;
-
-        });
-
     }
     protected override void OnAppearing()
     {
         base.OnAppearing();
-        Update();
-    }
-    private bool _VisiblBtnZakazat;
 
-    public bool VisiblBtnZakazat
-    {
-        get => _VisiblBtnZakazat;
-        set
-        {
-            _VisiblBtnZakazat = value;
-            OnPropertyChanged("VisiblBtnZakazat");
-        }
+        WeakReferenceMessenger.Default.Send(new UpdateResultPay(result));
+
     }
+
     private bool IsValidText(Label box)
     {
         return string.IsNullOrEmpty(box.Text) || box.Text.Length < 1;
     }
     private async void BtnZakazat(object sender, EventArgs e)
     {
+        ButtonZakazat.IsEnabled = false;
+        try
+        {
+            if (!IsValidText(Adres_dostavki))
+            {
+                await DisplayAlert("Уведомление", "После оплаты вернитесь назад и нажмите на кнопку 'Проверить платеж'", "Ок");
+                myThread2 = new Thread(Pay);
+                myThread2.Start();
 
-        if (!IsValidText(Adres_dostavki))
-        {
-           await DisplayAlert("Уведомление", "После оплаты вернитесь назад и нажмите на кнопку 'Проверить платеж'", "Ок");
-            myThread2 = new Thread(Pay);
-            myThread2.Start();
+            }
+            else
+            {
+                await DisplayAlert("Уведомление", "Заполните все поля", "Ок");
+            }
         }
-        else
+        finally
         {
-            await DisplayAlert("Уведомление", "Заполните все поля", "Ок");
+            // Разблокировка кнопки
+            ButtonZakazat.IsEnabled = true;
         }
+
 
 
     }
@@ -112,7 +110,7 @@ public partial class ViewOformlenieZakaza : ContentPage
     {
        
         
-        var result = yoomoney.GetStatusOperazii_and_check(label);
+         result = yoomoney.GetStatusOperazii_and_check(label);
         if (result)
         {
             await this.Dispatcher.DispatchAsync(async () =>
@@ -157,7 +155,17 @@ public partial class ViewOformlenieZakaza : ContentPage
 
     private void BtnProverit(object sender, EventArgs e)
     {
-        myThread1 = new Thread(CheckPaymentStatus);
-        myThread1.Start();
+        BtProverit.IsEnabled = false;
+        try
+        {
+            myThread1 = new Thread(CheckPaymentStatus);
+            myThread1.Start();
+        }
+        finally
+        {
+            // Разблокировка кнопки
+            BtProverit.IsEnabled = true;
+        }
+
     }
 }

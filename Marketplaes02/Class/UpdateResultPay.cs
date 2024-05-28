@@ -6,8 +6,13 @@ using System.Threading.Tasks;
 
 namespace Marketplaes02.Class
 {
-    class UpdateSostavZakaza
+    public class UpdateResultPay
     {
+        public bool Result { get; }
+
+        public UpdateResultPay(bool result)
+        {
+            Result = result;
+        }
     }
 }
-    
