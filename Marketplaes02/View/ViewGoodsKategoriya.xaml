@@ -120,7 +120,7 @@
                                             <Label Style="{DynamicResource LabPrice}" Text="{Binding Price,StringFormat='{0} ₽'}"/>
                                         </StackLayout>
 
-                                        <Label Margin="5" LineBreakMode="WordWrap" TextColor="Black"  Text="{Binding Name}"/>
+                                        <Label Margin="5" LineBreakMode="WordWrap" TextColor="Black"  Text="{Binding Name,Mode=TwoWay}"/>
 
 
 

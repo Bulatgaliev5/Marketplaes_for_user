@@ -18,7 +18,7 @@
             <StackLayout Margin="20">
                 <Label HorizontalOptions="Start" Margin="5" Text="Нет аккаунта?" Style="{DynamicResource LabDobr}"/>
                 <Label HorizontalOptions="Start" Margin="5"  Text="Добро пожаловать к нам" Style="{DynamicResource LabZapol}"/>
-                <Button Margin="0,10,0,0" Text="Регистрация" Style="{DynamicResource BtVoiti}" Clicked="Registration"/>
+                <Button x:Name="BtnRegistr"  Margin="0,10,0,0" Text="Регистрация" Style="{DynamicResource BtVoiti}" Clicked="Registration"/>
             </StackLayout>
 
         </StackLayout>

@@ -5,7 +5,7 @@
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              Title="Регистрация">
     <VerticalStackLayout VerticalOptions="StartAndExpand"  Padding="15" Margin="15">
-        <Label Text="Введи все данные для регистрации" Style="{DynamicResource LabZapol}"/>
+        <Label Text="Введите все данные для регистрации" Style="{DynamicResource LabZapol}"/>
         <Label Text="Введите свое имя"/>
         <Entry x:Name="entryName" Placeholder="Имя"/>
         <Label Text="Придумайте логин"/>
@@ -16,6 +16,6 @@
         <Entry IsPassword="True" x:Name="entryPas" Placeholder="Пароль"/>
         <Label Text="Повторите пароль"/>
         <Entry IsPassword="True" x:Name="entryPasCopy" Placeholder="Повторите пароль"/>
-        <Button Text="Зарегистрироваться" Style="{DynamicResource BtVoiti}" Clicked="BtnRegister"/>
+        <Button x:Name="BtnRegistr" Text="Зарегистрироваться" Style="{DynamicResource BtVoiti}" Clicked="BtnRegister"/>
     </VerticalStackLayout>
 </ContentPage>

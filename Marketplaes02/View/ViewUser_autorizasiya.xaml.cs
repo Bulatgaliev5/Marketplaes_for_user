@@ -33,14 +33,17 @@ public partial class ViewUser_autorizasiya : ContentPage
 
     private async void Registration(object sender, EventArgs e)
     {
-        await Navigation.PopAsync();
-        var currentPage = Navigation.NavigationStack.LastOrDefault();
-        if (!(currentPage is ViewUser_autorizasiya))
+        BtnRegistr.IsEnabled = false;
+        try 
         {
+            await Navigation.PopAsync();
             await Navigation.PushAsync(new ViewUser_Registration());
-
         }
-
+        finally
+        {
+            // Разблокировка кнопки
+            BtnRegistr.IsEnabled = true;
+        }
 
     }
 

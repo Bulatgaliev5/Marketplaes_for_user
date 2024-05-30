@@ -54,15 +54,31 @@ public partial class ViewUser_Registration : ContentPage
 
     private async void BtnRegister(object sender, EventArgs e)
     {
-        bool res = await CheckPassCopy();
-        if (res)
+
+
+        BtnRegistr.IsEnabled = false;
+        try
         {
-            bool result = await CheckLogin();
-            if (result)
+            bool res = await CheckPassCopy();
+            if (res)
             {
-                await RegisterProfile();
-                await Navigation.PopAsync();
+                bool result = await CheckLogin();
+                if (result)
+                {
+
+                    bool res2 = await RegisterProfile();
+                    if (res2)
+                    {
+                        await Navigation.PopAsync();
+                    }
+                   
+                }
             }
+        }
+        finally
+        {
+            // Разблокировка кнопки
+            BtnRegistr.IsEnabled = true;
         }
 
 

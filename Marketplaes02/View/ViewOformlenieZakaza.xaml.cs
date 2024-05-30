@@ -12,7 +12,8 @@ namespace Marketplaes02.View;
 public partial class ViewOformlenieZakaza : ContentPage
 {
     bool result;
-   Yoomoney yoomoney = new Yoomoney();
+    bool hasKey;
+    Yoomoney yoomoney = new Yoomoney();
     Thread myThread1;
     Thread myThread2;
     WebView webView;
@@ -46,11 +47,19 @@ public partial class ViewOformlenieZakaza : ContentPage
         
         BindingContext = new VewModelSostavZakaza(SostavZakazalist);
     }
-    protected override void OnAppearing()
+    protected override void OnDisappearing()
     {
-        base.OnAppearing();
+        base.OnDisappearing();
+        // Проверка наличия ключа
+         hasKey = Preferences.Default.ContainsKey("LabelPay");
 
-        WeakReferenceMessenger.Default.Send(new UpdateResultPay(result));
+
+
+        // Очистить все ключи
+        Preferences.Default.Clear();
+
+        myThread1 = new Thread(CheckPaymentStatus);
+        myThread1.Start();
 
     }
 
@@ -113,6 +122,7 @@ public partial class ViewOformlenieZakaza : ContentPage
          result = yoomoney.GetStatusOperazii_and_check(label);
         if (result)
         {
+            Preferences.Default.Set("LabelPay", label);
             await this.Dispatcher.DispatchAsync(async () =>
             {
                 await DisplayAlert("Сообщение", "Ваш платеж прошел! Спасибо за покупку", "Ок");
@@ -121,7 +131,11 @@ public partial class ViewOformlenieZakaza : ContentPage
                 await vewModelSostavZakaza.AddZakazi(label);
                 await modelKorzina.Delete_Korzina();
                 await Navigation.PopAsync();
-                
+                // Если ключ существует, очистить его
+                if (hasKey)
+                {
+                    Preferences.Default.Remove("LabelPay");
+                }
 
             });
 
@@ -155,17 +169,7 @@ public partial class ViewOformlenieZakaza : ContentPage
 
     private void BtnProverit(object sender, EventArgs e)
     {
-        BtProverit.IsEnabled = false;
-        try
-        {
-            myThread1 = new Thread(CheckPaymentStatus);
-            myThread1.Start();
-        }
-        finally
-        {
-            // Разблокировка кнопки
-            BtProverit.IsEnabled = true;
-        }
+
 
     }
 }
