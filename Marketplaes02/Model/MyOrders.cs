@@ -113,7 +113,7 @@ namespace Marketplaes02.Model
         /// <summary>
         /// Поле Изображение изделия
         /// </summary>
-        private string _Image;
+        private StreamImageSource _Image;
 
         /// <summary>
         /// Поле Адрес доставки
@@ -185,7 +185,7 @@ namespace Marketplaes02.Model
         /// <summary>
         /// Свойства Изображение изделия
         /// </summary>
-        public string Image
+        public StreamImageSource Image
         {
             get => _Image;
             set

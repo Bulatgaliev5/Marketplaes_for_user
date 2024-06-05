@@ -11,7 +11,7 @@ namespace Marketplaes02.Model
         private int _ID_goods;
         private string _Name;
         private float _Price;
-        private string _Image;
+        private ImageSource _Image;
         private string _ImageIsbrannoe;
         public string ImageIsbrannoe
         {
@@ -94,7 +94,7 @@ namespace Marketplaes02.Model
         /// <summary>
         /// Свойства Изображение товара
         /// </summary>
-        public string Image
+        public ImageSource Image
         {
             get => _Image;
             set

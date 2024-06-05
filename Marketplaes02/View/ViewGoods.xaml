@@ -32,14 +32,14 @@
       
 
             <Label Margin="15" VerticalOptions="Center" Grid.Row="0" Text="Подобрали для вас"/>
+        <ActivityIndicator VerticalOptions="CenterAndExpand" IsRunning="{Binding VisibleNullList}" IsVisible="{Binding VisibleNullList}" Color="DeepSkyBlue" WidthRequest="200" />
 
-           
 
-                <RefreshView x:Name="RefreshView1"  Grid.Row="1" 
+        <RefreshView x:Name="RefreshView1"  Grid.Row="1"  IsVisible="{Binding VisibleCollectionViewEmptyView}"
              RefreshColor="DeepSkyBlue" IsRefreshing="{Binding IsRefreshing}"
              Command="{Binding RefreshCommand}">
-                    <ScrollView Grid.Row="1">
-                    <CollectionView    x:Name="GoodsData" ItemsLayout="VerticalGrid, 2"
+                    <ScrollView Grid.Row="1 ">
+                    <CollectionView    x:Name="GoodsData" ItemsLayout="VerticalGrid, 2" 
          ItemsSource="{Binding Goods}" 
         SelectionMode="Single"    
         >
@@ -111,8 +111,7 @@
                             <!-- Пустое представление -->
                             <CollectionView.EmptyView>
                                 <StackLayout    VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
-                                    <ActivityIndicator VerticalOptions="CenterAndExpand" IsRunning="{Binding VisibleNullList}" IsVisible="{Binding VisibleNullList}" Color="DeepSkyBlue" WidthRequest="200" />
-                                    <StackLayout  IsVisible="{Binding VisibleCollectionViewEmptyView}"   Orientation="Horizontal" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+                                    <StackLayout     Orientation="Horizontal" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
                                         <Image Margin="40,0,10,0"  WidthRequest="50" Source="no_zakaz.png"/>
                                         <Label HorizontalOptions="FillAndExpand" LineBreakMode="WordWrap"  FontSize="20" Margin="10,0,40,0" VerticalOptions="Center" Text="Ничего не нашлось по вашеиу запросу"/>
                                     </StackLayout>
@@ -121,9 +120,11 @@
 
 
                         </CollectionView>
+                        
                     </ScrollView>
                 </RefreshView>
-           
+        
+
 
     </StackLayout>
 </ContentPage>

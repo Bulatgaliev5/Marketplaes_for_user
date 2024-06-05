@@ -23,7 +23,7 @@ namespace Marketplaes02.Model
         /// <summary>
         /// Поле Изображение изделия
         /// </summary>
-        private string _Image;
+        private StreamImageSource _Image;
         public int _V_nalichiioods;
          public int V_nalichiioods
         {
@@ -96,7 +96,7 @@ namespace Marketplaes02.Model
         /// <summary>
         /// Свойства Изображение товара
         /// </summary>
-        public string Image
+        public StreamImageSource Image
         {
             get => _Image;
             set

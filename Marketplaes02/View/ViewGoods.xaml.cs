@@ -44,16 +44,8 @@ public partial class ViewGoods : ContentPage
 
     private async void RefreshGoodsData(object sender, EventArgs e)
     {
-        // Запуск анимации
-      //  RefreshView1.Opacity = 0;
-       await  RefreshView1.FadeTo(1, 3000);
-
         await Update();
-
-        // Завершение анимации
-        await RefreshView1.FadeTo(1, 3000);
         RefreshView1.IsRefreshing = false;
-      //  RefreshView1.Opacity = 1;
     }
 
 

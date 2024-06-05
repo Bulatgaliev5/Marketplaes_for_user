@@ -206,7 +206,9 @@
             <Setter Property="HorizontalOptions" Value="StartAndExpand"/>
             <Setter Property="Padding" Value="5"/>
         </Style>
-        <Style TargetType="Frame" x:Key="FrameChetchikKartochka" BasedOn="{StaticResource FrameChetchik}">
+        <Style TargetType="Border" x:Key="FrameChetchikKartochka" >
+            <Setter Property="HorizontalOptions" Value="StartAndExpand"/>
+            <Setter Property="Padding" Value="5"/>
             <Setter Property="HorizontalOptions" Value="Center"/>
             <Setter Property="HeightRequest" Value="50"/>
             <Setter Property="VerticalOptions" Value="End"/>

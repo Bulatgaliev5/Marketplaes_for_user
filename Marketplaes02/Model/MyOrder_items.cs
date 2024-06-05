@@ -85,7 +85,7 @@ namespace Marketplaes02.Model
         /// <summary>
         /// Поле Изображение изделия
         /// </summary>
-        private string _Image;
+        private ImageSource _Image;
 
         private int _ID_order;
         public int ID_order
@@ -154,7 +154,7 @@ namespace Marketplaes02.Model
         /// <summary>
         /// Свойства Изображение изделия
         /// </summary>
-        public string Image
+        public ImageSource Image
         {
             get => _Image;
             set

@@ -15,21 +15,18 @@
                     <VerticalStackLayout  Padding="0" >
 
                     <Grid Padding="0" Margin="5" HeightRequest="400">
-                        
-                    <CarouselView  ItemsSource="{Binding ImagesGoodsList}" IndicatorView="indicatorView">
-                        <CarouselView.ItemTemplate>
-                            <DataTemplate>
+                            <CarouselView  ItemsSource="{Binding ImagesGoodsList}" IndicatorView="indicatorView">
+                                <CarouselView.ItemTemplate>
+                                    <DataTemplate>
                                         <Border Background="Snow" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"  >
-
-
                                             <Image VerticalOptions="CenterAndExpand"  HorizontalOptions="CenterAndExpand" Aspect="AspectFit" Source="{Binding ImageGoods}" />
+                                        </Border>
+                                    </DataTemplate>
+                                </CarouselView.ItemTemplate>
+                            </CarouselView>
 
-                                         </Border>
-                            </DataTemplate>
-                        </CarouselView.ItemTemplate>
-                    </CarouselView>
-                    </Grid>
-                    <IndicatorView Margin="0, 0, 0, 0" x:Name="indicatorView"
+                        </Grid>
+                    <IndicatorView Margin="0" x:Name="indicatorView"
                    IndicatorColor="DeepSkyBlue"
                    SelectedIndicatorColor="Dodgerblue" 
                    HorizontalOptions="Center" />
@@ -53,13 +50,13 @@
 
             </StackLayout>
         </ScrollView>
-        <Frame IsVisible="False" x:Name="FChetchik" Style="{DynamicResource FrameChetchikKartochka}">
+        <Border IsVisible="False" x:Name="FChetchik" Style="{DynamicResource FrameChetchikKartochka}">
             <StackLayout HorizontalOptions="Center" VerticalOptions="Center" Orientation="Horizontal">
                 <Button Clicked="btnminus" Command="{Binding UpdateMinusCountCommand}" CommandParameter="{Binding ID_goods}" Text="-"/>
                 <Label TextColor="White" Margin="20,0,20,0"  FontSize="Medium" VerticalTextAlignment="Center"  Text="{Binding Count}"/>
                 <Button  Clicked="btnplus"  Command="{Binding UpdatePlusCountCommand}" CommandParameter="{Binding ID_goods}" Text="+"/>
             </StackLayout>
-        </Frame>
+        </Border>
 
         <StackLayout   Grid.Row="1" Margin="10,0,10,0" HorizontalOptions="FillAndExpand" VerticalOptions="Center" Orientation="Horizontal">
 

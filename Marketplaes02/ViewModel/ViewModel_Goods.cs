@@ -1,17 +1,19 @@
 ﻿using Marketplaes02.BD;
 using Marketplaes02.Model;
-using Microsoft.Maui;
 using MySqlConnector;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data;
 using System.Windows.Input;
+using Marketplaes02.Class;
+using Microsoft.Maui.Storage;
 
 namespace Marketplaes02.ViewModel
 {
     public class ViewModel_Goods : INotifyPropertyChanged
     {
         int ID_user;
+        Class.FileBase fileBase = new Class.FileBase();
         /// <summary>
         /// Список Good
         /// </summary>
@@ -54,8 +56,8 @@ namespace Marketplaes02.ViewModel
         }
         public ViewModel_Goods()
         {
-            VisibleCollectionViewEmptyView = false;
-            VisibleNullList = true;
+            
+
             RefreshCommand = new Command(async () => await RefreshItemsAsync());
             Load();
           
@@ -100,18 +102,23 @@ namespace Marketplaes02.ViewModel
         /// </summary>
         public async Task Load()
         {
+            VisibleCollectionViewEmptyView = false;
+            VisibleNullList = true;
             ID_user = Preferences.Default.Get("UserID", 0);
-            await LoadGoods();
-            if (Goods != null)
-            {
-                await ImageIsbrannoeLoad();
-            }
-            else
-            {
-                VisibleCollectionViewEmptyView = true;
-            }
-            VisibleNullList = false;
-          
+            bool  res =  await LoadGoods();
+            await ImageIsbrannoeLoad();
+
+                if (Goods != null)
+                {
+
+                    VisibleCollectionViewEmptyView = true;
+                }
+                else
+                {
+                    
+
+                }
+                VisibleNullList = false;
         }
         public async Task<bool> ImageIsbrannoeLoad()
         {
@@ -233,7 +240,7 @@ namespace Marketplaes02.ViewModel
         /// Метод Получения изделий из БД
         /// </summary>
         /// <returns></returns>
-        private async Task<bool> LoadGoods()
+        public async Task<bool> LoadGoods()
         {
 
             string
@@ -273,7 +280,7 @@ namespace Marketplaes02.ViewModel
                     ID_goods = Convert.ToInt32(reader["ID_goods"]),
                     Name = reader["Name"].ToString(),
                     Price = Convert.ToSingle(reader["Price"]),
-                    Image = reader["ImageGood"].ToString(),
+                    Image = await fileBase.LoadImageFromFtpAsync(reader["ImageGood"].ToString()),
                     Price_with_discount = Convert.ToSingle(reader["Price_with_discount"]),
                     Discount = Convert.ToInt32(reader["Discount"]),
                 });

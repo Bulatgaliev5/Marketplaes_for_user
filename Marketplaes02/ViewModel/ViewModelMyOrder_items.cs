@@ -87,7 +87,7 @@ namespace Marketplaes02.ViewModel
                 MyOrder_itemslist.Add(new MyOrder_items()
                 {
                     ID_Order_items = Convert.ToInt32(reader["ID_order_item"]),
-                    Image = Convert.ToString(reader["Goods_Image"]),
+                    Image = await new Class.FileBase().LoadImageFromFtpAsync(reader["Goods_Image"].ToString()),
                     Name = Convert.ToString(reader["Goods_Name"]),
                     Total_Count = Convert.ToInt32(reader["Total_Count"]),
                     ID_user = Convert.ToInt32(reader["User_ID"]),

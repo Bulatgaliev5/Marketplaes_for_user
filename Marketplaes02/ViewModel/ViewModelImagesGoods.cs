@@ -85,7 +85,7 @@ namespace Marketplaes02.ViewModel
                 {
                     ID_goods = Convert.ToInt32(reader["ID_goods"]),
                     ImageID = Convert.ToInt32(reader["ImageID"]),
-                    ImageGoods = reader["Image"].ToString(),
+                    ImageGoods = await new Class.FileBase().LoadImageFromFtpAsync(reader["Image"].ToString()),
                 });
 
 

@@ -12,6 +12,7 @@ namespace Marketplaes02.ViewModel
     public class ViewModelKartochkaGood : KartochkaGood
     {
         int Kartochka_ID_goods, UserID;
+        Class.FileBase fileBase = new Class.FileBase();
         private IList<ImagesGoods> _ImagesGoodsList;
         public IList<ImagesGoods> ImagesGoodsList
         {
@@ -245,13 +246,18 @@ namespace Marketplaes02.ViewModel
             // Цикл while выполняется, пока есть строки для чтения из БД
             while ((await reader.ReadAsync()))
             {
-
-                ImagesGoodsList.Add(new ImagesGoods()
+                var imagesoursegoods = await fileBase.LoadImageFromFtpAsync(reader["Image"].ToString());
+                if (imagesoursegoods!=null)
                 {
-                    ID_goods = Convert.ToInt32(reader["ID_goods"]),
-                    ImageID = Convert.ToInt32(reader["ImageID"]),
-                    ImageGoods = reader["Image"].ToString(),
-                });
+                    ImagesGoodsList.Add(new ImagesGoods()
+                    {
+                        ID_goods = Convert.ToInt32(reader["ID_goods"]),
+                        ImageID = Convert.ToInt32(reader["ImageID"]),
+                        ImageGoods = imagesoursegoods,
+
+                    });
+                }
+
 
 
             }

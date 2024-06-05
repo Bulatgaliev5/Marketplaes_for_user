@@ -69,6 +69,8 @@
 		<PackageReference Include="CommunityToolkit.Maui" Version="9.0.0" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
 		<PackageReference Include="Dadata" Version="23.6.1" />
+		<PackageReference Include="FluentFTP" Version="50.0.1" />
+		<PackageReference Include="HorusStudio.Maui.Skeleton" Version="2.0.0" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.14" />
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.14" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
@@ -141,6 +143,10 @@
 	  <MauiXaml Update="View\ViewWebYoomoney.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Images_goods\" />
 	</ItemGroup>
 
 </Project>
