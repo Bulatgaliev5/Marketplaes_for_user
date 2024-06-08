@@ -11,6 +11,7 @@ namespace Marketplaes02.ViewModel
 {
     public class ViewModelKartochkaGood : KartochkaGood
     {
+        
         int Kartochka_ID_goods, UserID;
         Class.FileBase fileBase = new Class.FileBase();
         private IList<ImagesGoods> _ImagesGoodsList;
@@ -21,6 +22,16 @@ namespace Marketplaes02.ViewModel
             {
                 _ImagesGoodsList = value;
                 OnPropertyChanged("ImagesGoodsList");
+            }
+        }
+        private IList<ImagesGoods> _ImagesGoodsListCopy;
+        public IList<ImagesGoods> ImagesGoodsListCopy
+        {
+            get => _ImagesGoodsListCopy;
+            set
+            {
+                _ImagesGoodsListCopy = value;
+                OnPropertyChanged("ImagesGoodsListCopy");
             }
         }
         public ViewModelKartochkaGood()
@@ -243,25 +254,25 @@ namespace Marketplaes02.ViewModel
                 return false;
             }
             ImagesGoodsList = new ObservableCollection<ImagesGoods>();
+            ImagesGoodsListCopy = new ObservableCollection<ImagesGoods>();
+
             // Цикл while выполняется, пока есть строки для чтения из БД
             while ((await reader.ReadAsync()))
             {
-                var imagesoursegoods = await fileBase.LoadImageFromFtpAsync(reader["Image"].ToString());
-                if (imagesoursegoods!=null)
-                {
+
                     ImagesGoodsList.Add(new ImagesGoods()
                     {
                         ID_goods = Convert.ToInt32(reader["ID_goods"]),
                         ImageID = Convert.ToInt32(reader["ImageID"]),
-                        ImageGoods = imagesoursegoods,
+                        ImageGoods = await fileBase.LoadImageFromFtpAsync(reader["Image"].ToString()),
 
-                    });
-                }
+                     });
+
 
 
 
             }
-            OnPropertyChanged("ImagesGoodsList");
+            ImagesGoodsListCopy = ImagesGoodsList;
 
             await conn.GetCloseBD();
 

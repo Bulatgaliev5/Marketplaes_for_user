@@ -15,11 +15,15 @@
                     <VerticalStackLayout  Padding="0" >
 
                     <Grid Padding="0" Margin="5" HeightRequest="400">
-                            <CarouselView  ItemsSource="{Binding ImagesGoodsList}" IndicatorView="indicatorView">
+                            <CarouselView  ItemsSource="{Binding ImagesGoodsListCopy}" IndicatorView="indicatorView">
                                 <CarouselView.ItemTemplate>
                                     <DataTemplate>
                                         <Border Background="Snow" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"  >
-                                            <Image VerticalOptions="CenterAndExpand"  HorizontalOptions="CenterAndExpand" Aspect="AspectFit" Source="{Binding ImageGoods}" />
+                                            <Image VerticalOptions="CenterAndExpand"  
+                                                   HorizontalOptions="CenterAndExpand" 
+                                                   Aspect="AspectFit" Source="{Binding ImageGoods}">
+
+                                            </Image>
                                         </Border>
                                     </DataTemplate>
                                 </CarouselView.ItemTemplate>

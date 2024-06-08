@@ -24,7 +24,7 @@ namespace Marketplaes02.Model
         /// <summary>
         /// Поле Изображение изделия
         /// </summary>
-        private ImageSource _Image;
+        private StreamImageSource _Image;
 
 
         private string _ImageIsbrannoe;
@@ -99,7 +99,7 @@ namespace Marketplaes02.Model
         /// <summary>
         /// Свойства Изображение товара
         /// </summary>
-        public ImageSource Image
+        public StreamImageSource Image
         {
             get => _Image;
             set

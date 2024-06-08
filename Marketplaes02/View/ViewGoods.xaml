@@ -57,9 +57,11 @@
                                                 <StackLayout.GestureRecognizers >
                                                     <TapGestureRecognizer Tapped="OpenKartochka"/>
                                                 </StackLayout.GestureRecognizers>
-                                                <Border Margin="5" Style="{DynamicResource FrameImageGood}">
-                                                    <Grid>
-                                                        <Image Source="{Binding Image}">
+                                                <Border Margin="5" Style="{DynamicResource FrameImageGood}" >
+                                                    <Grid >
+                                                <Image Source="{Binding Image}">
+
+                                        
                                                             <Image.GestureRecognizers>
                                                                 <TapGestureRecognizer Tapped="OpenKartochkaImage"/>
                                                             </Image.GestureRecognizers>

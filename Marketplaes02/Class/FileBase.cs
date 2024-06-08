@@ -6,6 +6,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using FluentFTP;
+using Microsoft.Maui.Controls;
 
 
 namespace Marketplaes02.Class
@@ -106,35 +107,27 @@ namespace Marketplaes02.Class
             localStream.Close();
         }
 
-        public async Task<ImageSource> LoadImageFromFtpAsync(string remotePath)
+        public async Task<StreamImageSource> LoadImageFromFtpAsync(string remotePath)
         {
-            var imageManagerDiskCache = Path.Combine(FileSystem.CacheDirectory, "image_manager_disk_cache");
-
-            if (Directory.Exists(imageManagerDiskCache))
-            {
-                foreach (var imageCacheFile in Directory.EnumerateFiles(imageManagerDiskCache))
-                {
-                    File.Delete(imageCacheFile);
-                }
-            }
-            FtpWebRequest request = (FtpWebRequest)WebRequest.Create("ftp://" + _host + ":" + _port + "/Bulat_files/" + remotePath);
+            WebRequest request = WebRequest.Create("ftp://" + _host + ":" + _port + "/Bulat_files/" + remotePath);
             request.Method = WebRequestMethods.Ftp.DownloadFile;
             request.Credentials = new NetworkCredential(_username, _password);
-
-            ImageSource streamImageSource = null;
-
+            StreamImageSource streamImageSource = null;
             try
             {
-                FtpWebResponse response = (FtpWebResponse)await request.GetResponseAsync();
-                Stream responseStream = response.GetResponseStream();
-               
-                    MemoryStream memoryStream = new MemoryStream();
-                    await responseStream.CopyToAsync(memoryStream);
-                    memoryStream.Position = 0;
+                WebResponse response = await request.GetResponseAsync();
 
-                    // Создаем новый MemoryStream и копируем в него содержимое
-                    MemoryStream copyStream = new MemoryStream(memoryStream.ToArray());
-                    streamImageSource = (StreamImageSource)ImageSource.FromStream(() => copyStream);
+                Stream responseStream = response.GetResponseStream();
+
+                MemoryStream memoryStream = new MemoryStream();
+
+                await responseStream.CopyToAsync(memoryStream);
+                        memoryStream.Position = 0;
+
+                        // Создаем новый MemoryStream и копируем в него содержимое
+                        MemoryStream copyStream = new MemoryStream(memoryStream.ToArray());
+                        streamImageSource = (StreamImageSource)ImageSource.FromStream(() => copyStream);
+                    
                 
             }
             catch (Exception ex)
@@ -146,7 +139,32 @@ namespace Marketplaes02.Class
             return streamImageSource;
         }
 
+        public async Task CacheImageAsync(ImageSource imageSource, string fileName)
+        {
+            if (imageSource is StreamImageSource streamImageSource)
+            {
+                using (var stream = await streamImageSource.Stream(CancellationToken.None))
+                {
+                    var filePath = Path.Combine(FileSystem.CacheDirectory, fileName);
+                    using (var fileStream = File.OpenWrite(filePath))
+                    {
+                        await stream.CopyToAsync(fileStream);
+                    }
+                }
+            }
+        }
+        public async Task CopyFileToAppDataDirectory(string filename)
+        {
+            // Open the source file
+            using Stream inputStream = await FileSystem.Current.OpenAppPackageFileAsync(filename);
 
+            // Create an output filename
+            string targetFile = Path.Combine(FileSystem.Current.AppDataDirectory, filename);
+
+            // Copy the file to the AppDataDirectory
+            using FileStream outputStream = File.Create(targetFile);
+            await inputStream.CopyToAsync(outputStream);
+        }
 
         public string GetShareableImageLink(string remotePath)
         {
