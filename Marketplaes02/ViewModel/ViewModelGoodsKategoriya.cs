@@ -27,6 +27,7 @@ namespace Marketplaes02.ViewModel
 
             }
         }
+        Class.FileBase FileBase = new Class.FileBase();
         /// <summary>
         /// Список Good
         /// </summary>
@@ -270,7 +271,7 @@ namespace Marketplaes02.ViewModel
                     ID_goods = Convert.ToInt32(reader["ID_goods"]),
                     Name = reader["Name"].ToString(),
                     Price = Convert.ToSingle(reader["Price"]),
-                    Image = await new Class.FileBase().LoadImageFromFtpAsync(reader["ImageGood"].ToString()),
+                    Image = await FileBase.LoadImageAsync(reader["ImageGood"].ToString()),
                     Price_with_discount = Convert.ToSingle(reader["Price_with_discount"]),
                     Discount = Convert.ToInt32(reader["Discount"]),
                     Description = reader["Description"].ToString(),

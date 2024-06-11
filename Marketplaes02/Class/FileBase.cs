@@ -107,63 +107,49 @@ namespace Marketplaes02.Class
             localStream.Close();
         }
 
-        public async Task<StreamImageSource> LoadImageFromFtpAsync(string remotePath)
+        public async Task<string> LoadImageFromFtpAndSaveAsync(string fileName)
         {
-            WebRequest request = WebRequest.Create("ftp://" + _host + ":" + _port + "/Bulat_files/" + remotePath);
+            WebRequest request = WebRequest.Create("ftp://" + _host + ":" + _port + "/Bulat_files/" + fileName);
             request.Method = WebRequestMethods.Ftp.DownloadFile;
             request.Credentials = new NetworkCredential(_username, _password);
-            StreamImageSource streamImageSource = null;
+            string filePath = Path.Combine(FileSystem.AppDataDirectory, fileName);
             try
             {
                 WebResponse response = await request.GetResponseAsync();
-
-                Stream responseStream = response.GetResponseStream();
-
-                MemoryStream memoryStream = new MemoryStream();
-
-                await responseStream.CopyToAsync(memoryStream);
-                        memoryStream.Position = 0;
-
-                        // Создаем новый MemoryStream и копируем в него содержимое
-                        MemoryStream copyStream = new MemoryStream(memoryStream.ToArray());
-                        streamImageSource = (StreamImageSource)ImageSource.FromStream(() => copyStream);
-                    
-                
+                using (Stream responseStream = response.GetResponseStream())
+                using (var fileStream = File.OpenWrite(filePath))
+                {
+                    await responseStream.CopyToAsync(fileStream);
+                }
             }
             catch (Exception ex)
             {
                 Debug.WriteLine("Ошибка при загрузке изображения: " + ex.Message);
                 return null;
             }
-
-            return streamImageSource;
+            return filePath;
         }
 
-        public async Task CacheImageAsync(ImageSource imageSource, string fileName)
+        public async Task<ImageSource> LoadImageAsync(string fileName)
         {
-            if (imageSource is StreamImageSource streamImageSource)
+            var filePath = Path.Combine(FileSystem.AppDataDirectory, fileName);
+            if (File.Exists(filePath))
             {
-                using (var stream = await streamImageSource.Stream(CancellationToken.None))
+                return ImageSource.FromFile(filePath);
+            }
+            else
+            {
+                // Файл отсутствует в кеше, загружаем его из FTP и сохраняем в файловую систему
+                filePath = await LoadImageFromFtpAndSaveAsync(fileName);
+                if (filePath != null)
                 {
-                    var filePath = Path.Combine(FileSystem.CacheDirectory, fileName);
-                    using (var fileStream = File.OpenWrite(filePath))
-                    {
-                        await stream.CopyToAsync(fileStream);
-                    }
+                    return ImageSource.FromFile(filePath);
+                }
+                else
+                {
+                    return null;
                 }
             }
-        }
-        public async Task CopyFileToAppDataDirectory(string filename)
-        {
-            // Open the source file
-            using Stream inputStream = await FileSystem.Current.OpenAppPackageFileAsync(filename);
-
-            // Create an output filename
-            string targetFile = Path.Combine(FileSystem.Current.AppDataDirectory, filename);
-
-            // Copy the file to the AppDataDirectory
-            using FileStream outputStream = File.Create(targetFile);
-            await inputStream.CopyToAsync(outputStream);
         }
 
         public string GetShareableImageLink(string remotePath)

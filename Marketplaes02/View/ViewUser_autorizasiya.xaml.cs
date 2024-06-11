@@ -18,6 +18,31 @@ public partial class ViewUser_autorizasiya : ContentPage
 
 
     }
+    protected override async void OnAppearing()
+    {
+        base.OnAppearing();
+
+        await RequestStoragePermission();
+    }
+
+    public async Task RequestStoragePermission()
+    {
+        var status = await Permissions.CheckStatusAsync<Permissions.StorageWrite>();
+
+        if (status != PermissionStatus.Granted)
+        {
+            status = await Permissions.RequestAsync<Permissions.StorageWrite>();
+        }
+
+        if (status == PermissionStatus.Granted)
+        {
+            // Разрешение предоставлено
+        }
+        else
+        {
+            // Разрешение не предоставлено
+        }
+    }
 
     public bool CheckInternet()
     {

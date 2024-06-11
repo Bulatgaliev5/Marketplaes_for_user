@@ -67,6 +67,7 @@ namespace Marketplaes02.ViewModel
             // Объявление и инициалзиация метода асинрхонного чтения данных из бд
             MySqlDataReader
                  reader = await cmd.ExecuteReaderAsync();
+            Class.FileBase fileBase = new Class.FileBase();
 
             // Проверка, что строк нет
             if (!reader.HasRows)
@@ -76,16 +77,20 @@ namespace Marketplaes02.ViewModel
                 // Возращение false
                 return false;
             }
-
+                         
             // Цикл while выполняется, пока есть строки для чтения из БД
             while (await reader.ReadAsync())
             {
 
+              
+
                 ImagesGoodsList.Add(new ImagesGoods()
                 {
                     ID_goods = Convert.ToInt32(reader["ID_goods"]),
+                    ImageGoods = await fileBase.LoadImageAsync(reader["Image"].ToString()),
+
                     ImageID = Convert.ToInt32(reader["ImageID"]),
-                    ImageGoods = await new Class.FileBase().LoadImageFromFtpAsync(reader["Image"].ToString()),
+  
                 });
 
 

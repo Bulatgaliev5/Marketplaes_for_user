@@ -47,16 +47,10 @@ public partial class ViewOformlenieZakaza : ContentPage
         
         BindingContext = new VewModelSostavZakaza(SostavZakazalist);
     }
-    protected override void OnDisappearing()
+    protected override void OnAppearing()
     {
-        base.OnDisappearing();
-        // Проверка наличия ключа
-         hasKey = Preferences.Default.ContainsKey("LabelPay");
+        base.OnAppearing();
 
-
-
-        // Очистить все ключи
-        Preferences.Default.Clear();
 
         myThread1 = new Thread(CheckPaymentStatus);
         myThread1.Start();
@@ -74,14 +68,14 @@ public partial class ViewOformlenieZakaza : ContentPage
         {
             if (!IsValidText(Adres_dostavki))
             {
-                await DisplayAlert("Уведомление", "После оплаты вернитесь назад и нажмите на кнопку 'Проверить платеж'", "Ок");
+                await DisplayAlert("Уведомление", "После оплаты вернитесь назад", "Ок");
                 myThread2 = new Thread(Pay);
                 myThread2.Start();
 
             }
             else
             {
-                await DisplayAlert("Уведомление", "Заполните все поля", "Ок");
+                await DisplayAlert("Уведомление", "Добавьте адрес доставки", "Ок");
             }
         }
         finally

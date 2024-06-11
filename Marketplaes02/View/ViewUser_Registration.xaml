@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Marketplaes02.View.ViewUser_Registration"
+             x:Class="Marketplaes02.View.ViewUser_Registration"  Background="Azure"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              Title="Регистрация">
     <VerticalStackLayout VerticalOptions="StartAndExpand"  Padding="15" Margin="15">
-        <Label Text="Введите все данные для регистрации" Style="{DynamicResource LabZapol}"/>
+        <Label Text="Введите данные для регистрации" Style="{DynamicResource LabZapol}"/>
         <Label Text="Введите свое имя"/>
         <Entry x:Name="entryName" Placeholder="Имя"/>
         <Label Text="Придумайте логин"/>

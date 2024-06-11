@@ -360,7 +360,7 @@ namespace Marketplaes02.ViewModel
                     ID_user = Convert.ToInt32(reader["User_ID"]),
                     Count = Convert.ToInt32(reader["Count"]),
                     Name = reader["Goods_Name"].ToString(),
-                    Image = await new Class.FileBase().LoadImageFromFtpAsync(reader["Goods_Image"].ToString()),
+                    Image = await new Class.FileBase().LoadImageAsync(reader["Goods_Image"].ToString()),
                     Price = Convert.ToSingle(reader["Total_price"]),
                     Price_with_discount = Convert.ToSingle(reader["Total_Price_with_discount"]),
                     V_nalichiioods = Convert.ToInt32(reader["Goods_V_nalichii"]),

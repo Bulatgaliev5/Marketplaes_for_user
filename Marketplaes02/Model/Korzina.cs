@@ -71,7 +71,7 @@ namespace Marketplaes02.Model
         private int _ID_user;
         private int _Count;
         private string _Name;
-        private StreamImageSource _Image;
+        private ImageSource _Image;
         private float _Price;
         private float _Price_with_discount;
 
@@ -107,7 +107,7 @@ namespace Marketplaes02.Model
                 OnPropertyChanged("Name");
             }
         }
-        public StreamImageSource Image
+        public ImageSource Image
         {
             get => _Image;
             set

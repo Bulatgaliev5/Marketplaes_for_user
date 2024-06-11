@@ -53,17 +53,37 @@ namespace Marketplaes02.ViewModel
                 OnPropertyChanged("BoolRadioButton");
             }
         }
+        private bool _isExecuting;
+
+
         public ViewModelSortGoods(IList<bool> boolRadioButton)
         {
             BoolRadioButton = boolRadioButton;
-            SortGoodsPriceCommand = new Command<string>(SortGoodsPrice);
+            SortGoodsPriceCommand = new Command<string>(async (sortOption) => await SortGoodsPrice(sortOption), (sortOption) => !_isExecuting);
         }
 
-        public async void SortGoodsPrice(string sortOption)
+        public async Task SortGoodsPrice(string sortOption)
         {
-            // Отправляем сообщение, что нужно отсортировать список по цене
-            WeakReferenceMessenger.Default.Send(new UpdateSort(sortOption));
-            await MopupService.Instance.PopAsync();
+            if (_isExecuting)
+                return;
+
+            _isExecuting = true;
+
+            try
+            {
+                // Отправляем сообщение, что нужно отсортировать список по цене
+                WeakReferenceMessenger.Default.Send(new UpdateSort(sortOption));
+                await MopupService.Instance.PopAsync();
+            }
+            catch (InvalidOperationException ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("Уведомление", "Страница уже открыто или закрыто: " + ex.Message, "ОK");
+
+            }
+            finally
+            {
+                _isExecuting = false;
+            }
         }
 
 

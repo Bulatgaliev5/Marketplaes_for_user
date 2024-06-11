@@ -13,19 +13,26 @@ namespace Marketplaes02
             builder
                 .UseMauiApp<App>()
                 .UseMauiCommunityToolkit()
-                .ConfigureMopups() 
+                .ConfigureMopups()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
-      
+
 
 #if DEBUG
             builder.Logging.AddDebug();
 #endif
 
             return builder.Build();
+
+
         }
+
+
     }
+
+
+
 }

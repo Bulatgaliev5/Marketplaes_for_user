@@ -11,11 +11,11 @@ public partial class ViewPay : ContentPage
 
         Content = webView;
     }
-    protected override bool OnBackButtonPressed()
-    {
-        DisplayAlert("Уведомление", "Нажмите на кнопку 'Проверить платёж'", "Ок");
+    //protected override bool OnBackButtonPressed()
+    //{
+    //    DisplayAlert("Уведомление", "Нажмите на кнопку 'Проверить платёж'", "Ок");
 
-        return base.OnBackButtonPressed();
+    //    return base.OnBackButtonPressed();
 
-    }
+    //}
 }

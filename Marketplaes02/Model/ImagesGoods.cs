@@ -11,7 +11,7 @@ namespace Marketplaes02.Model
         /// <summary>
         /// Поле Изображение
         /// </summary>
-        private StreamImageSource _ImageGoods;
+        private ImageSource _ImageGoods;
         /// <summary>
         /// Поле ID_goods
         /// </summary>
@@ -52,7 +52,7 @@ namespace Marketplaes02.Model
         /// <summary>
         /// Свойства Изображение 
         /// </summary>
-        public StreamImageSource ImageGoods
+        public ImageSource ImageGoods
         {
             get => _ImageGoods;
             set

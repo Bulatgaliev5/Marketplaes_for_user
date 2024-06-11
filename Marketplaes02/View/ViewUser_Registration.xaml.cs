@@ -90,7 +90,7 @@ public partial class ViewUser_Registration : ContentPage
             | string.IsNullOrEmpty(entryPas.Text) | string.IsNullOrEmpty(entryNumber.Text))
         {
             await con.GetCloseBD();
-            await DisplayAlert("Уведомление", "Заполните все поля", "Ок");
+            await DisplayAlert("Уведомление", "Заполните все поля!", "Ок");
             return false;
         }
 
@@ -104,7 +104,7 @@ public partial class ViewUser_Registration : ContentPage
         await con.GetConnectBD();
         await  cmd.ExecuteNonQueryAsync();
         await con.GetCloseBD();
-        await DisplayAlert("Уведомление", "Вы зарегестрировались! Пожалуйста авторизуйтесь", "Ок");
+        await DisplayAlert("Уведомление", "Вы зарегистрироваться! Пожалуйста авторизуйтесь", "Ок");
 
         return true;
 

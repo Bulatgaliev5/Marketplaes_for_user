@@ -96,7 +96,7 @@ namespace Marketplaes02.ViewModel
 
 
                 Count--;
-                if (!result)
+                if (result)
                 {
                     await AddKorzinaGood(ID_goods, UserID);
                 }
@@ -202,7 +202,7 @@ namespace Marketplaes02.ViewModel
         public async Task<bool> CheckAddKorzinaGood(int id_good, int UserID)
         {
             string
-             sql = "SELECT * FROM korzina WHERE  ID_goods=@id and ID_user=@UserID ";
+             sql = "SELECT Count FROM korzina WHERE  ID_goods=@id and ID_user=@UserID ";
             ConnectBD
              conn = new ConnectBD();
             MySqlCommand
@@ -221,9 +221,10 @@ namespace Marketplaes02.ViewModel
                 {
                     Count = Convert.ToInt32(reader["Count"]);
                     await conn.GetCloseBD();
+                    return false;
                 }
 
-                return false;
+
             }
 
             await conn.GetCloseBD();
@@ -254,8 +255,6 @@ namespace Marketplaes02.ViewModel
                 return false;
             }
             ImagesGoodsList = new ObservableCollection<ImagesGoods>();
-            ImagesGoodsListCopy = new ObservableCollection<ImagesGoods>();
-
             // Цикл while выполняется, пока есть строки для чтения из БД
             while ((await reader.ReadAsync()))
             {
@@ -264,15 +263,10 @@ namespace Marketplaes02.ViewModel
                     {
                         ID_goods = Convert.ToInt32(reader["ID_goods"]),
                         ImageID = Convert.ToInt32(reader["ImageID"]),
-                        ImageGoods = await fileBase.LoadImageFromFtpAsync(reader["Image"].ToString()),
+                        ImageGoods =  await fileBase.LoadImageAsync(reader["Image"].ToString()),
 
                      });
-
-
-
-
             }
-            ImagesGoodsListCopy = ImagesGoodsList;
 
             await conn.GetCloseBD();
 
