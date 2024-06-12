@@ -146,6 +146,39 @@ namespace Marketplaes02.Class
             }
         }
 
+
+        public async Task<StreamImageSource> LoadImageFromFtpAsync(string remotePath)
+        {
+            StreamImageSource streamImageSource = null;
+            byte[] buffer = await DownloadFtpFile(remotePath);
+            if (buffer != null)
+            {
+                streamImageSource = (StreamImageSource)ImageSource.FromStream(() => new MemoryStream(buffer));
+            }
+
+            return streamImageSource;
+        }
+
+        private async Task<byte[]> DownloadFtpFile(string remotePath)
+        {
+            try
+            {
+                WebRequest request = WebRequest.Create("ftp://" + _host + ":" + _port + "/Bulat_files/" + remotePath);
+                request.Method = WebRequestMethods.Ftp.DownloadFile;
+                request.Credentials = new NetworkCredential(_username, _password);
+                using WebResponse response = await request.GetResponseAsync();
+
+                using Stream responseStream = response.GetResponseStream();
+                using MemoryStream memoryStream = new MemoryStream();
+                await responseStream.CopyToAsync(memoryStream);
+                return memoryStream.ToArray();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Ошибка при загрузке изображения: " + ex.Message);
+                return null;
+            }
+        }
         public string GetShareableImageLink(string remotePath)
         {
             string

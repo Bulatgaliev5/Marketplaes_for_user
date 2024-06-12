@@ -91,12 +91,21 @@ namespace Marketplaes02.ViewModel
             await Task.Run(() =>
             {
 
-                Goods = AllGoods;
-                Goods = Goods.Where(a => a.Name.IndexOf(searchText, StringComparison.OrdinalIgnoreCase) >= 0
-                  || a.Description.IndexOf(searchText, StringComparison.OrdinalIgnoreCase) >= 0
-                ).ToList();
+                try
+                {
 
-                OnPropertyChanged("Goods");
+                    Goods = AllGoods;
+                    Goods = Goods.Where(a => a.Name.IndexOf(searchText, StringComparison.OrdinalIgnoreCase) >= 0
+                      || a.Description.IndexOf(searchText, StringComparison.OrdinalIgnoreCase) >= 0
+                    ).ToList();
+
+                    OnPropertyChanged("Goods");
+                }
+                catch (ArgumentNullException ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    // Обработка исключения
+                }
             });
 
 
@@ -196,9 +205,19 @@ namespace Marketplaes02.ViewModel
         public async void Load()
         {
             ID_user = Preferences.Default.Get("UserID", 0);
-            await LoadGoods();
-            await ImageIsbrannoeLoad();
-            AllGoods = Goods;
+            try
+            {
+
+                await LoadGoods();
+                await ImageIsbrannoeLoad();
+                AllGoods = Goods;
+            }
+            catch (NullReferenceException ex)
+            {
+                Console.WriteLine(ex.Message);
+                // Обработка исключения
+            }
+
         }
         public async Task<bool> ImageIsbrannoeLoad()
         {
@@ -207,17 +226,26 @@ namespace Marketplaes02.ViewModel
             int i = 0;
             for (; i < Goods.Count; i++)
             {
-
-                bool res = await SQLImageIsbrannoeLoad(ID_user, Goods[i].ID_goods);
-                if (res)
-                {
-                    Goods[i].ImageIsbrannoe = "isbrannoe_true.png";
-                }
-                else
+                try
                 {
 
-                    Goods[i].ImageIsbrannoe = "isbrannoe.png";
+                    bool res = await SQLImageIsbrannoeLoad(ID_user, Goods[i].ID_goods);
+                    if (res)
+                    {
+                        Goods[i].ImageIsbrannoe = "isbrannoe_true.png";
+                    }
+                    else
+                    {
+
+                        Goods[i].ImageIsbrannoe = "isbrannoe.png";
+                    }
                 }
+                catch (NullReferenceException ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    // Обработка исключения
+                }
+
 
             }
 

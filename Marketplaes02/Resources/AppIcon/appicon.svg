@@ -1,4 +1,59 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg width="456" height="456" viewBox="0 0 456 456" version="1.1" xmlns="http://www.w3.org/2000/svg">
-    <rect x="0" y="0" width="456" height="456" fill="#512BD4" />
+<svg width="40" height="40" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" data-name="Layer 1">
+ <defs>
+  <linearGradient y2="-1.03818" x2="0.5" y1="0.86364" x1="0.5" id="svg_47">
+   <stop stop-color="#273a9b" offset="0"/>
+   <stop stop-color="#202f65" offset="0.56"/>
+   <stop stop-color="#021e2f" offset="1"/>
+  </linearGradient>
+  <linearGradient xlink:href="#svg_47"  y2="25.44" x2="29.27" y1="42" x1="29.27" id="svg_45"/>
+  <linearGradient y2="-0.72018" x2="0.5" y1="1.84838" x1="0.5" id="svg_43">
+   <stop stop-color="#27e9de" offset="0"/>
+   <stop stop-color="#03a4ec" offset="0.52"/>
+   <stop stop-color="#2547a8" offset="1"/>
+  </linearGradient>
+  <linearGradient href="#svg_43" xlink:href="#svg_43" y2="12.83" x2="25.88" y1="31.92" x1="25.88" id="svg_41"/>
+  <linearGradient href="#svg_43" xlink:href="#svg_43" y2="15.85" y1="-4.13" id="svg_39"/>
+  <linearGradient href="#svg_43" xlink:href="#svg_43" y2="13.03" y1="56.06" id="svg_37"/>
+  <linearGradient y2="-11" x2="0.5" y1="-2.74" x1="0.5" id="svg_35">
+   <stop stop-color="#fff" offset="0"/>
+   <stop stop-color="#cce2e6" offset="0.52"/>
+   <stop stop-color="#8fa1bb" offset="1"/>
+  </linearGradient>
+  <linearGradient href="#svg_35" xlink:href="#svg_35" y2="-5.26" x2="15.76" y1="7.13" x1="15.76" id="svg_33"/>
+  <linearGradient href="#svg_35" xlink:href="#svg_35" y2="-5.26" x2="20.26" y1="7.13" x1="20.26" id="svg_31"/>
+  <linearGradient y2="-1.14" x2="0.50539" y1="2.08286" x1="0.50539" id="svg_29">
+   <stop stop-color="#f3c57a" offset="0"/>
+   <stop stop-color="#f39369" offset="0.49"/>
+   <stop stop-color="#e94867" offset="1"/>
+  </linearGradient>
+  <linearGradient href="#svg_29" xlink:href="#svg_29" y2="35.66" x2="15.74" y1="40.69" x1="15.74" id="svg_27"/>
+  <linearGradient href="#svg_43" xlink:href="#svg_43" y2="17.95" x2="29.26" y1="48" x1="29.26" id="svg_25"/>
+  <linearGradient href="#svg_43" xlink:href="#svg_43" y2="26.55" x2="29.26" y1="40" x1="29.26" id="svg_23"/>
+  <linearGradient href="#svg_47" xlink:href="#svg_47" y2="18.97" x2="24.01" y1="34.33" x1="24.01" id="svg_21"/>
+ </defs>
+ <title>store, shop, building, ecommerce</title>
+ <g>
+  <title>Layer 1</title>
+  <g stroke="null">
+
+   <title stroke="null">store, shop, building, ecommerce</title>
+   <g stroke="null">
+    <title stroke="null">Layer 1</title>
+    <rect stroke="null" id="svg_46" fill="url(#svg_47)" height="12.67391" width="24.5272" y="18.94117" x="8.04372" class="cls-1"/>
+    <rect stroke="null" id="svg_44" fill="url(#svg_45)" height="5.60725" width="9.18407" y="26.00784" x="19.29897" class="cls-2"/>
+    <path stroke="null" id="svg_42" fill="url(#svg_43)" d="m32.05312,13.1803l-23.50523,0l-2.35734,4.24a1.36262,1.53623 0 0 0 -0.20439,0.76812l0,1.31348a0.50417,0.56841 0 0 0 0.50417,0.56841l27.62035,0a0.50417,0.56841 0 0 0 0.50417,-0.56841l0,-1.29043a1.36262,1.53623 0 0 0 -0.20439,-0.76812l-2.35734,-4.26304z" class="cls-3"/>
+    <path stroke="null" id="svg_40" fill="url(#svg_41)" d="m20.3005,20.09335l13.81017,0a0.50417,0.56841 0 0 0 0.50417,-0.56841l0,-1.31348a1.36262,1.53623 0 0 0 -0.20439,-0.76812l-2.35734,-4.26304l-23.50523,0l10.499,2.06623a1.51932,1.7129 0 0 1 1.25361,1.67449l0,3.17232z" class="cls-4"/>
+    <path stroke="null" id="svg_38" fill="url(#svg_39)" d="m9.84919,8.57161l20.90262,0a1.3013,1.4671 0 0 1 1.3013,1.4671l0,3.14159a0,0 0 0 1 0,0l-23.50523,0a0,0 0 0 1 0,0l0,-3.14159a1.3013,1.4671 0 0 1 1.3013,-1.4671z" class="cls-5"/>
+    <path stroke="null" id="svg_36" fill="url(#svg_37)" d="m5.99297,18.21146l0,1.31348a0.50417,0.56841 0 0 0 0.50417,0.56841l27.61353,0a0.50417,0.56841 0 0 0 0.50417,-0.56841l0,-1.31348a1.32174,1.49015 0 0 0 -0.0545,-0.43014l-28.51968,0a1.36262,1.53623 0 0 0 -0.04769,0.43014z" class="cls-6"/>
+    <circle stroke="null" id="svg_34" fill="url(#svg_35)" r="0.33341" cy="10.86828" cx="11.6206" class="cls-7"/>
+    <circle stroke="null" id="svg_32" fill="url(#svg_33)" r="0.33341" cy="10.86828" cx="14.6865" class="cls-8"/>
+    <circle stroke="null" id="svg_30" fill="url(#svg_31)" r="0.33341" cy="10.86828" cx="17.7524" class="cls-9"/>
+    <path stroke="null" id="svg_28" fill="url(#svg_29)" d="m13.48739,23.54987l2.34371,0a1.36262,1.53623 0 0 1 1.36262,1.53623l0,6.52899a0,0 0 0 1 0,0l-5.06895,0a0,0 0 0 1 0,0l0,-6.50594a1.36262,1.53623 0 0 1 1.36262,-1.55928z" class="cls-10"/>
+    <rect stroke="null" id="svg_26" fill="url(#svg_27)" height="1.19826" width="5.13027" y="30.41683" x="12.11114" class="cls-11"/>
+    <path stroke="null" id="svg_24" fill="url(#svg_25)" d="m26.4323,28.15857l-5.10983,0a2.04393,2.30435 0 0 1 -2.04393,-2.30435l0,0a2.04393,2.30435 0 0 1 2.04393,-2.30435l5.10983,0a2.04393,2.30435 0 0 1 2.04393,2.30435l0,0a2.04393,2.30435 0 0 1 -2.04393,2.30435z" class="cls-12"/>
+    <path stroke="null" id="svg_22" fill="url(#svg_23)" d="m21.32928,24.94016l5.10302,0a2.04393,2.30435 0 0 1 1.94174,1.60536a2.04393,2.30435 0 0 0 0.1022,-0.6913a2.04393,2.30435 0 0 0 -2.04393,-2.30435l-5.10983,0a2.04393,2.30435 0 0 0 -2.04393,2.30435a2.04393,2.30435 0 0 0 0.1022,0.69899a2.04393,2.30435 0 0 1 1.94855,-1.61304z" class="cls-13"/>
+    <rect stroke="null" id="svg_20" fill="url(#svg_21)" height="1.59768" width="24.5272" y="20.09335" x="8.04372" class="cls-14"/>
+   </g>
+  </g>
+ </g>
 </svg>
