@@ -1,8 +1,65 @@
 <svg width="456" height="456" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" clip-rule="evenodd" xml:space="preserve" version="1.1">
-
+ <defs>
+  <linearGradient id="svg_33" x1="0.5" y1="0.86364" x2="0.5" y2="-1.03818">
+   <stop offset="0" stop-color="#273a9b"/>
+   <stop offset="0.56" stop-color="#202f65"/>
+   <stop offset="1" stop-color="#021e2f"/>
+  </linearGradient>
+  <linearGradient  id="svg_31" x1="29.27" y1="42" x2="29.27" y2="25.44" xlink:href="#svg_33"/>
+  <linearGradient id="svg_29" x1="0.5" y1="1.84838" x2="0.5" y2="-0.72018">
+   <stop offset="0" stop-color="#27e9de"/>
+   <stop offset="0.52" stop-color="#03a4ec"/>
+   <stop offset="1" stop-color="#2547a8"/>
+  </linearGradient>
+  <linearGradient id="svg_27" x1="25.88" y1="31.92" x2="25.88" y2="12.83" xlink:href="#svg_29" href="#svg_29"/>
+  <linearGradient id="svg_25" y1="-4.13" y2="15.85" xlink:href="#svg_29" href="#svg_29"/>
+  <linearGradient id="svg_23" y1="56.06" y2="13.03" xlink:href="#svg_29" href="#svg_29"/>
+  <linearGradient id="svg_21" x1="0.5" y1="-2.74" x2="0.5" y2="-11">
+   <stop offset="0" stop-color="#fff"/>
+   <stop offset="0.52" stop-color="#cce2e6"/>
+   <stop offset="1" stop-color="#8fa1bb"/>
+  </linearGradient>
+  <linearGradient id="svg_19" x1="15.76" y1="7.13" x2="15.76" y2="-5.26" xlink:href="#svg_21" href="#svg_21"/>
+  <linearGradient id="svg_17" x1="20.26" y1="7.13" x2="20.26" y2="-5.26" xlink:href="#svg_21" href="#svg_21"/>
+  <linearGradient id="svg_15" x1="0.50539" y1="2.08286" x2="0.50539" y2="-1.14">
+   <stop offset="0" stop-color="#f3c57a"/>
+   <stop offset="0.49" stop-color="#f39369"/>
+   <stop offset="1" stop-color="#e94867"/>
+  </linearGradient>
+  <linearGradient id="svg_13" x1="15.74" y1="40.69" x2="15.74" y2="35.66" xlink:href="#svg_15" href="#svg_15"/>
+  <linearGradient id="svg_11" x1="29.26" y1="48" x2="29.26" y2="17.95" xlink:href="#svg_29" href="#svg_29"/>
+  <linearGradient id="svg_9" x1="29.26" y1="40" x2="29.26" y2="26.55" xlink:href="#svg_29" href="#svg_29"/>
+  <linearGradient id="svg_7" x1="24.01" y1="34.33" x2="24.01" y2="18.97" xlink:href="#svg_33" href="#svg_33"/>
+ </defs>
  <g>
   <title>Layer 1</title>
-  <text stroke-dasharray="5,2,2,2,2,2" xml:space="preserve" text-anchor="start" font-family="'Heebo'" font-size="57" id="svg_5" y="246.05556" x="20.64758" stroke-width="5" fill="#199be2">ElectronicsStore</text>
-  <image xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAACXBIWXMAAAsTAAALEwEAmpwYAAAEdklEQVR4nO2dzU8bRxjGLXHonRsNtKcqUtWqhwzg4PUn2BCCUXpopaZ/AEI1oqR21Db8DWlzDdEuCf3CYJxDVanqoUaq1BZRD1Uohx44pMIniBgqtbm91Xpj1t669X6MWeM8j/RIiJUt/Pxm5t13ZoUDAQiCIAiCIAiCIAiCIAhqook3C/2pdHFtbGrjJJkuUs1jUxsNHr1aaPRkgRKT66avrFP8yprpiTWKTeRNj+cpOr5qOrVKkdRXppOGw8kvDY8ZVsa+MDxqODT6ueGE4ZHEZ4bjhi/HVwzHTAdjDygYNT0cvU/DEdNDkWUaCpseDGs0qGjEFO1kUNEKwxH1lbaFn0w/PEpNPzwN3i6AhvAlAQjXwncKIG4B8D/hVwFELADCFgCK1uBLIfUoGFy+IB2APvL18D0DaBJ+vB7AuAVAygLA5ug/BZBwD8A6+u0AYCGVLo2oq9IBJNPFk2bhJ6csAK5ueF5+YhIAWEe/DADW5ee/ALCQeiwdgN3RLwNA1LL8yABgXf9bAZiYLtLM+1s0M79FqfTGvwDov9Ovzcz/TMmpdSsA8g1AtxTgmfktmsvxqvWQrQCs141CrHYeAF8LcML98tMUQLgFgFCnAZg8vwU4NW0uMadLUB2AVLpQvVa/BLUdAArwsp0CfHYAurUABx00YB0FoFsKcNAFgPoC3DEAzmsBDrrogOvDlw5g9sajgVrFh7m9DG7+2i8NwNwH/G0Ezx0NvkyOvyUNQCZX/gQAuLPZny3flgngJwDgzmZAlv8oJfy5ud9fyOTKTwGAO1yCyk/17DwDeC/7y2WEz93dfNzcDnqfAdmdGwDAXQHI5PiCZwCZLF8DAO729jsvAUD5DwDg7gBk+YGn8NGAcX8bMjRg3N+GDA0Y97chQwPG/WvI0IBxfxsyNGDc34YMDRj3tyFDA8b9bchmF7aFxD/gufbswvafjgFYj9xgzVMGAKCcMwDPnnfHyFckZBDSnD+sy0JqEQA0KQOQKS4eV2cj9y4yRX0CCJrX8A+HonfdbcixsDrAFC3PFFUAhOY0eKGPfNfhW3WtQgST7QykhA4A5HrQAUDF3xkLABUAeK5rRgA1gACg2ciI7vxFL60cUN/SY09+46M9ev3j3+i1W7v06uIjz+/38soBxXb+7v4ZoH9Qr2H1tQFADULXA5ARVF+bAOgGgCUAwAyoYAkiLEGoAYQivIQijLugCm5DCbeh6AMIjdgSGjF0whVsRRC2Is5oL6j3033qubVHPYt71Htn3/FeUKvXYy+oRRA9i3sU+HC3av1npwBavR4AAKCzt6N77+xXR67rJajF6zEDcB7gTDiQIZyI9eFEDEeS13Am/BhnwjiUp7N/KmJwU5AM15ojrx5452vqv/4NXbj+Lb347nfS3lfa5wSA3e4CwEriBDNA2AUg/wscWOm4CADCFgC2KeR/hQn7QVxkJfEENUC0CP/4cOj7Q3n/NbcBwubRANsUeVYSAkVYNAZfEkIf+W0LH4IgCIIgCIIgCIIgCAqcd/0DrVal7pKs/yIAAAAASUVORK5CYII=" id="svg_6" height="96" width="96" y="259.16666" x="181.66667"/>
+  <text style="cursor: move;" xml:space="preserve" text-anchor="start" font-family="'Heebo'" font-size="55" id="svg_5" y="171.33333" x="28.99998" stroke-width="0" stroke="#000" fill="#199be2">ElectronicsStore</text>
+  <g stroke="null">
+
+   <title stroke="null">store, shop, building, ecommerce</title>
+   <g stroke="null">
+    <title stroke="null">Layer 1</title>
+    <g stroke="null">
+     <title stroke="null">store, shop, building, ecommerce</title>
+     <g stroke="null">
+      <title stroke="null">Layer 1</title>
+      <rect stroke="null" class="cls-1" x="178.99599" y="265.59779" width="99.06309" height="53.92388" fill="url(#svg_33)" id="svg_32"/>
+      <rect stroke="null" class="cls-2" x="224.45491" y="295.66446" width="37.09361" height="23.85725" fill="url(#svg_31)" id="svg_30"/>
+      <path stroke="null" class="cls-3" d="m275.96774,241.08692l-94.93545,0l-9.52108,18.03999a5.5035,6.53622 0 0 0 -0.82551,3.26813l0,5.58848a2.0363,2.41842 0 0 0 2.0363,2.41842l111.55604,0a2.0363,2.41842 0 0 0 2.0363,-2.41842l0,-5.49041a5.5035,6.53622 0 0 0 -0.82551,-3.26813l-9.52108,-18.13802l0,-0.00004z" fill="url(#svg_29)" id="svg_28"/>
+      <path stroke="null" class="cls-4" d="m228.49999,270.49998l55.778,0a2.0363,2.41842 0 0 0 2.0363,-2.41842l0,-5.58848a5.5035,6.53622 0 0 0 -0.82551,-3.26813l-9.52108,-18.13802l-94.93545,0l42.40449,8.79122a6.13639,7.2879 0 0 1 5.06321,7.12448l0,13.49732l0.00004,0.00004z" fill="url(#svg_27)" id="svg_26"/>
+      <path stroke="null" class="cls-5" d="m186.28812,221.47826l84.42375,0a5.25583,6.24209 0 0 1 5.25583,6.24209l0,13.36657a0,0 0 0 1 0,0l-94.93545,0a0,0 0 0 1 0,0l0,-13.36657a5.25583,6.24209 0 0 1 5.25583,-6.24209l0.00004,0z" fill="url(#svg_25)" id="svg_24"/>
+      <path stroke="null" class="cls-6" d="m170.7132,262.49308l0,5.58848a2.0363,2.41842 0 0 0 2.0363,2.41842l111.52849,0a2.0363,2.41842 0 0 0 2.0363,-2.41842l0,-5.58848a5.33839,6.34016 0 0 0 -0.22012,-1.83012l-115.18835,0a5.5035,6.53622 0 0 0 -0.19262,1.83012z" fill="url(#svg_23)" id="svg_22"/>
+      <circle stroke="null" class="cls-7" cx="193.44268" cy="231.24994" r="1.34661" fill="url(#svg_21)" id="svg_20"/>
+      <circle stroke="null" class="cls-8" cx="205.82557" cy="231.24994" r="1.34661" fill="url(#svg_19)" id="svg_18"/>
+      <circle stroke="null" class="cls-9" cx="218.20845" cy="231.24994" r="1.34661" fill="url(#svg_17)" id="svg_16"/>
+      <path stroke="null" class="cls-10" d="m200.98247,285.20649l9.46603,0a5.5035,6.53622 0 0 1 5.5035,6.53622l0,27.77899a0,0 0 0 1 0,0l-20.47302,0a0,0 0 0 1 0,0l0,-27.68092a5.5035,6.53622 0 0 1 5.5035,-6.63429z" fill="url(#svg_15)" id="svg_14"/>
+      <rect stroke="null" class="cls-11" x="195.42393" y="314.42345" width="20.72069" height="5.09826" fill="url(#svg_13)" id="svg_12"/>
+      <path stroke="null" class="cls-12" d="m253.26577,304.8152l-20.63813,0a8.25524,9.80435 0 0 1 -8.25524,-9.80435l0,0a8.25524,9.80435 0 0 1 8.25524,-9.80435l20.63813,0a8.25524,9.80435 0 0 1 8.25524,9.80435l0,0a8.25524,9.80435 0 0 1 -8.25524,9.80435z" fill="url(#svg_11)" id="svg_10"/>
+      <path stroke="null" class="cls-13" d="m232.65514,291.12178l20.61063,0a8.25524,9.80435 0 0 1 7.84251,6.83035a8.25524,9.80435 0 0 0 0.41278,-2.94128a8.25524,9.80435 0 0 0 -8.25524,-9.80435l-20.63813,0a8.25524,9.80435 0 0 0 -8.25524,9.80435a8.25524,9.80435 0 0 0 0.41278,2.974a8.25524,9.80435 0 0 1 7.87001,-6.86303l-0.00008,-0.00004z" fill="url(#svg_9)" id="svg_8"/>
+      <rect stroke="null" class="cls-14" x="178.99599" y="270.49998" width="99.06309" height="6.79767" fill="url(#svg_7)" id="svg_6"/>
+     </g>
+    </g>
+   </g>
+  </g>
  </g>
 </svg>
