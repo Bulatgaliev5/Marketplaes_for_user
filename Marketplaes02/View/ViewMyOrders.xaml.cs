@@ -22,7 +22,6 @@ public partial class ViewMyOrders : ContentPage
     private async void RefreshGoodsData(object sender, EventArgs e)
     {
         Load();
-       // await Task.Delay(1000);
         RefreshView1.IsRefreshing = false;
        
     }

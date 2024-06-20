@@ -4,25 +4,9 @@ namespace Marketplaes02.Model
 {
     public class ImagesGoods : INotifyPropertyChanged
     {
-        /// <summary>
-        /// Поле ImageID
-        /// </summary>
         private int _ImageID;
-        /// <summary>
-        /// Поле Изображение
-        /// </summary>
         private ImageSource _ImageGoods;
-        /// <summary>
-        /// Поле ID_goods
-        /// </summary>
         private int _ID_goods;
-
-
-        /// <summary>
-        /// Свойсва ImageID
-        /// </summary>
-        /// 
-
         public int ImageID
         {
             get => _ImageID;
@@ -32,12 +16,6 @@ namespace Marketplaes02.Model
                 OnPropertyChanged("ImageID");
             }
         }
-
-        /// <summary>
-        /// Свойсва ID_goods
-        /// </summary>
-        /// 
-
         public int ID_goods
         {
             get => _ID_goods;
@@ -47,11 +25,6 @@ namespace Marketplaes02.Model
                 OnPropertyChanged("ID_goods");
             }
         }
-
-
-        /// <summary>
-        /// Свойства Изображение 
-        /// </summary>
         public ImageSource ImageGoods
         {
             get => _ImageGoods;

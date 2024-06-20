@@ -1,6 +1,4 @@
 ﻿using Marketplaes02.Class;
-using System.ComponentModel;
-
 
 namespace Marketplaes02.Model
 {
@@ -8,25 +6,10 @@ namespace Marketplaes02.Model
     {
         private int _Discount;
         private float _Price_with_discount;
-        /// <summary>
-        /// Поле ID_goods
-        /// </summary>
         private int _ID_goods;
-        /// <summary>
-        /// Поле Название изделия
-        /// </summary>
         private string _Name;
-        /// <summary>
-        /// Поле Цена
-        /// </summary>
         private float _Price;
-
-        /// <summary>
-        /// Поле Изображение изделия
-        /// </summary>
         private ImageSource _Image;
-
-
         private string _ImageIsbrannoe;
         public string ImageIsbrannoe
         {
@@ -38,10 +21,6 @@ namespace Marketplaes02.Model
 
             }
         }
-        /// <summary>
-        /// Свойсва ID_goods
-        /// </summary>
-        /// 
         public int Discount
         {
             get => _Discount;
@@ -60,9 +39,6 @@ namespace Marketplaes02.Model
                 OnPropertyChanged();
             }
         }
-        /// <summary>
-        /// Свойсва Название
-        /// </summary>
         public string Name
         {
             get => _Name;
@@ -73,9 +49,7 @@ namespace Marketplaes02.Model
 
             }
         }
-        /// <summary>
-        /// Свойства цена
-        /// </summary>
+
         public float Price
         {
             get => _Price;
@@ -96,9 +70,6 @@ namespace Marketplaes02.Model
 
             }
         }
-        /// <summary>
-        /// Свойства Изображение товара
-        /// </summary>
         public ImageSource Image
         {
             get => _Image;

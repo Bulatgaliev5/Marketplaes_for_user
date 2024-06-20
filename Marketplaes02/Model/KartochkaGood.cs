@@ -6,41 +6,14 @@ namespace Marketplaes02.Model
     public class KartochkaGood : INotifyPropertyChanged
     {
 
-        /// <summary>
-        /// Поле ID_goods
-        /// </summary>
+
         private int _ID_goods;
-        /// <summary>
-        /// Поле Название изделия
-        /// </summary>
         private string _Name;
-        /// <summary>
-        /// Поле Цена
-        /// </summary>
         private float _Price;
-
-        /// <summary>
-        /// Поле Цена
-        /// </summary>
         private float _Price_with_discount;
-
-        /// <summary>
-        /// Поле Изображение изделия
-        /// </summary>
         private ImageSource _Image;
-
-        /// <summary>
-        /// Поле Описание товара
-        /// </summary>
         private string _Description;
-
-        private int _Count;
-
         private int _V_nalichii;
-
-        /// <summary>
-        /// Свойство Описание товара
-        /// </summary>
         public string Description
         {
             get => _Description;
@@ -51,12 +24,6 @@ namespace Marketplaes02.Model
 
             }
         }
-
-        /// <summary>
-        /// Свойсва ID_goods
-        /// </summary>
-        /// 
-
         public int V_nalichii
         {
             get => _V_nalichii;
@@ -76,9 +43,6 @@ namespace Marketplaes02.Model
                 OnPropertyChanged("ID_goods");
             }
         }
-        /// <summary>
-        /// Свойсва Название изделия
-        /// </summary>
         public string Name
         {
             get => _Name;
@@ -89,9 +53,6 @@ namespace Marketplaes02.Model
 
             }
         }
-        /// <summary>
-        /// Свойства цена
-        /// </summary>
         public float Price
         {
             get => _Price;
@@ -102,7 +63,6 @@ namespace Marketplaes02.Model
 
             }
         }
-
         public float Price_with_discount
         {
             get => _Price_with_discount;

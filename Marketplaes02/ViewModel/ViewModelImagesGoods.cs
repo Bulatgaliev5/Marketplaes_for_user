@@ -10,9 +10,6 @@ namespace Marketplaes02.ViewModel
         int Kartochka_ID_goods;
         public event PropertyChangedEventHandler PropertyChanged;
 
-        /// <summary>
-        /// Список Good
-        /// </summary>
         private IList<ImagesGoods> _ImagesGoodsList;
         public IList<ImagesGoods> ImagesGoodsList
         {
@@ -40,20 +37,18 @@ namespace Marketplaes02.ViewModel
         }
 
 
-        /// <summary>
-        /// Метод загрузки изделтй Load
-        /// </summary>
         public async void Load()
         {
 
             await ImagesGoodsSelectSQL(Kartochka_ID_goods);
 
         }
-        /// <summary>
-        /// Метод Получения изделий из БД
-        /// </summary>
-        /// <returns></returns>
 
+        /// <summary>
+        /// Метод для загрузки всех товаров в карусель изображений
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<bool> ImagesGoodsSelectSQL(int id)
         {
             string

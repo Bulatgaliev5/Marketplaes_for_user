@@ -22,7 +22,6 @@ public partial class ViewIsbrannoe : ContentPage
     {
 
         BindingContext = new ViewModelIsbrannoe();
-        // base.OnAppearing();
 
 
     }

@@ -4,7 +4,6 @@ using Marketplaes02.Commands;
 using Marketplaes02.Model;
 using MySqlConnector;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Windows.Input;
 
 namespace Marketplaes02.ViewModel
@@ -157,7 +156,12 @@ namespace Marketplaes02.ViewModel
             return true;
 
         }
-
+        /// <summary>
+        /// Добавит товар в корзину
+        /// </summary>
+        /// <param name="id_good"></param>
+        /// <param name="UserID"></param>
+        /// <returns></returns>
         public async Task<bool> AddKorzinaGood(int id_good, int UserID)
         {
             ConnectBD con = new ConnectBD();
@@ -173,7 +177,13 @@ namespace Marketplaes02.ViewModel
             return true;
 
         }
-
+        /// <summary>
+        /// Обновить колисемтво товаров в корзине
+        /// </summary>
+        /// <param name="id_good"></param>
+        /// <param name="ID_user"></param>
+        /// <param name="Count"></param>
+        /// <returns></returns>
         public async Task<bool> UpdateCountKorzinaGood(int id_good, int ID_user, int Count)
         {
             string
@@ -187,7 +197,7 @@ namespace Marketplaes02.ViewModel
             cmd.Parameters.Add(new MySqlParameter("@ID_user", ID_user));
             await conn.GetConnectBD();
             MySqlDataReader
-                 reader  = await cmd.ExecuteReaderAsync();
+                 reader = await cmd.ExecuteReaderAsync();
             if (!reader.HasRows)
             {
                 await conn.GetCloseBD();
@@ -199,6 +209,12 @@ namespace Marketplaes02.ViewModel
             return true;
 
         }
+        /// <summary>
+        /// Проверка Количествао товаров
+        /// </summary>
+        /// <param name="id_good"></param>
+        /// <param name="UserID"></param>
+        /// <returns></returns>
         public async Task<bool> CheckAddKorzinaGood(int id_good, int UserID)
         {
             string
@@ -216,7 +232,7 @@ namespace Marketplaes02.ViewModel
 
             while (await reader.ReadAsync())
             {
-                
+
                 if (reader.HasRows)
                 {
                     Count = Convert.ToInt32(reader["Count"]);
@@ -232,6 +248,11 @@ namespace Marketplaes02.ViewModel
             return true;
 
         }
+        /// <summary>
+        /// Метод для загрузки всех изображений в карусел товаров
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<bool> ImagesGoodsSelectSQL(int id)
         {
             string
@@ -273,7 +294,11 @@ namespace Marketplaes02.ViewModel
             return true;
         }
 
-
+        /// <summary>
+        /// Метод для загрузки товара в карточку товара
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<bool> GoodsSelectSQL(int id)
         {
             string

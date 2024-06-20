@@ -2,12 +2,9 @@
 using Marketplaes02.Class;
 using Mopups.PreBaked.Services;
 using Mopups.Services;
-using System;
-using System.Collections.Generic;
+
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 using System.Windows.Input;
 
 namespace Marketplaes02.ViewModel
@@ -55,7 +52,10 @@ namespace Marketplaes02.ViewModel
             FillterGoodsPriceCommand = new Command(async () => await FillterPriceGoods(), () => !_isExecuting);
             SbrosCommand = new Command(async () => await Sbros(), () => !_isExecuting);
         }
-
+        /// <summary>
+        /// Метод для фильтрации
+        /// </summary>
+        /// <returns></returns>
         public async Task FillterPriceGoods()
         {
             if (_isExecuting)
@@ -80,7 +80,10 @@ namespace Marketplaes02.ViewModel
                 _isExecuting = false;
             }
         }
-
+        /// <summary>
+        /// Метод для сброса фильтров
+        /// </summary>
+        /// <returns></returns>
         public async Task Sbros()
         {
             if (_isExecuting)

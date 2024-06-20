@@ -2,13 +2,12 @@ using Marketplaes02.BD;
 using Marketplaes02.ViewModel;
 using Mopups.PreBaked.Services;
 using MySqlConnector;
-using System.Linq;
+
 
 namespace Marketplaes02.View;
 
 public partial class ViewUser_autorizasiya : ContentPage
 {
-    ViewModelUser viewModelUser = new ViewModelUser();
     public string
            UserName, UserNumber_phone, UserAdres_Dostavki;
     int UserID;
@@ -103,9 +102,7 @@ public partial class ViewUser_autorizasiya : ContentPage
             Preferences.Default.Set("UserID", UserID);
             Preferences.Default.Set("UserNumber_phone", UserNumber_phone);
             Preferences.Default.Set("UserAdres_Dostavki", UserAdres_Dostavki);
-            //  Role_name = Convert.ToString(readed["RoleName"]);
-            // Role_id = Convert.ToInt32(readed["RoleID"]);
-            // ID_User = Convert.ToInt32(readed["UserID"]);
+
             break;
 
         }
@@ -127,8 +124,6 @@ public partial class ViewUser_autorizasiya : ContentPage
         try
         {
             bool stateinternet = CheckInternet();
-            //List<string> message = ["Выполняется вход"];
-            //await PreBakedMopupService.GetInstance().WrapTaskInLoader(Task.Delay(3000), Color.FromRgb(0, 127, 255), Color.FromRgb(255, 255, 250), message, Color.FromRgb(0, 0, 0));
 
             if (stateinternet)
             {

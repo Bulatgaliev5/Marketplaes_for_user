@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 using System.Windows.Input;
 
 namespace Marketplaes02.Commands
 {
+    /// <summary>
+    /// Класс для реализации команды
+    /// </summary>
     public class ActionCommand : ICommand
     {
         Action<object> action;

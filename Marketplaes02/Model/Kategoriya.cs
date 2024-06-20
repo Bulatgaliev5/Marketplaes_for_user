@@ -4,25 +4,10 @@ namespace Marketplaes02.Model
 {
     public class Kategoriya : INotifyPropertyChanged
     {
-        /// <summary>
-        /// Поле ID_katehorii
-        /// </summary>
+
         private int _ID_katehorii;
-        /// <summary>
-        /// Поле Название товара
-        /// </summary>
         private string _Name;
-        /// <summary>
-        /// Поле Изображение
-        /// </summary>
         private string _Image;
-
-
-        /// <summary>
-        /// Свойсва ID_katehorii
-        /// </summary>
-        /// 
-
         public int ID_katehorii
         {
             get => _ID_katehorii;
@@ -32,9 +17,6 @@ namespace Marketplaes02.Model
                 OnPropertyChanged("ID_katehorii");
             }
         }
-        /// <summary>
-        /// Свойсва Название товара
-        /// </summary>
         public string Name
         {
             get => _Name;
@@ -45,11 +27,6 @@ namespace Marketplaes02.Model
 
             }
         }
-
-        /// <summary>
-        /// Изображение
-        /// </summary>
-
         public string Image
         {
             get => _Image;
@@ -60,9 +37,6 @@ namespace Marketplaes02.Model
 
             }
         }
-
-
-
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged(string property)
         {

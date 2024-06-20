@@ -24,17 +24,9 @@
             </Setter>
         </Style>
     </ContentPage.Resources>
-
-
-
     <StackLayout>
-
-
-
         <Label Margin="15" VerticalOptions="Center" Grid.Row="0" Text="Подобрали для вас"/>
         <ActivityIndicator VerticalOptions="CenterAndExpand" IsRunning="{Binding VisibleNullList}" IsVisible="{Binding VisibleNullList}" Color="DeepSkyBlue" WidthRequest="200" />
-
-
         <RefreshView x:Name="RefreshView1"  Grid.Row="1"  IsVisible="{Binding VisibleCollectionViewEmptyView}"
              RefreshColor="DeepSkyBlue" IsRefreshing="{Binding IsRefreshing}"
              Command="{Binding RefreshCommand}">
@@ -81,12 +73,6 @@
                                             </Grid>
                                         </Border>
 
-
-                                        <!-- <ImageButton Style="{DynamicResource IsbranImBt}" Source="isbrannoe.png"
-                                         BackgroundColor="White"
-                                         VerticalOptions="Start"
-                                         HorizontalOptions="End"
-                                         Margin="10"/> -->
                                         <StackLayout Margin="5" HorizontalOptions="Start"  Orientation="Horizontal">
 
 

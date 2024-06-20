@@ -13,6 +13,9 @@ using System.Windows.Input;
 
 namespace Marketplaes02.ViewModel
 {
+    /// <summary>
+    /// Класс товары с категории
+    /// </summary>
     public class ViewModelGoodsKategoriya : INotifyPropertyChanged
     {
         int id_kategoriya, ID_user;
@@ -28,9 +31,7 @@ namespace Marketplaes02.ViewModel
             }
         }
         Class.FileBase FileBase = new Class.FileBase();
-        /// <summary>
-        /// Список Good
-        /// </summary>
+
         private IList<GoodsKategoriya> _GoodsKategoriyalist;
         public IList<GoodsKategoriya> GoodsKategoriyalist
         {
@@ -204,9 +205,6 @@ namespace Marketplaes02.ViewModel
         }
 
 
-        /// <summary>
-        /// Метод загрузки изделтй Load
-        /// </summary>
         public async void Load()
         {
             ID_user = Preferences.Default.Get("UserID", 0);
@@ -215,10 +213,7 @@ namespace Marketplaes02.ViewModel
             await ImageIsbrannoeLoad();
             AllGoodsKategoriyalist = GoodsKategoriyalist;
         }
-        /// <summary>
-        /// Метод Получения изделий из БД
-        /// </summary>
-        /// <returns></returns>
+
         private async Task<bool> LoadGoods(int id_kategoriya)
         {
             // Строка запроса
@@ -227,18 +222,10 @@ namespace Marketplaes02.ViewModel
                 "JOIN kategoriya k ON k.id_kategoriya = g.id_kategoriya " +
                 "WHERE k.id_kategoriya=@id_kategoriya";
 
-            // Объявление переменной на основе класс подключения:
-            // >    Connector conn
-            // Инициализация переменной:
-            // >    = new Connector()
 
 
             ConnectBD con = new ConnectBD();
 
-            // Объявление объекта команды:
-            // >    MySqlCommand cmd
-            // Инициализация объекта команды:
-            // >    new MySqlCommand(sql, conn.GetConn());
             MySqlCommand
              cmd = new MySqlCommand(sql, con.GetConnBD());
             cmd.Parameters.Add(new MySqlParameter("@id_kategoriya", id_kategoriya));
@@ -265,7 +252,6 @@ namespace Marketplaes02.ViewModel
             while (await reader.ReadAsync())
             {
 
-                // Добавление элемента в коллекцию списка товаров на основе класса (Экземпляр класс создается - объект)
                 GoodsKategoriyalist.Add(new GoodsKategoriya()
                 {
                     ID_goods = Convert.ToInt32(reader["ID_goods"]),
@@ -277,13 +263,9 @@ namespace Marketplaes02.ViewModel
                     Description = reader["Description"].ToString(),
                 });
                 NameKategoriya = reader["NameKategoriya"].ToString();
-                // await Task.Delay(1000);
             }
             
-            OnPropertyChanged("NameKategoriya");
-            OnPropertyChanged("GoodsKategoriyalist");
-           
-            // Синхронное отключение от БД
+
             await con.GetCloseBD();
             // Возращение true
             return true;

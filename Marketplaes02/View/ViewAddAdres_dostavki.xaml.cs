@@ -22,7 +22,11 @@ public partial class ViewAddAdres_dostavki : PopupPage
 	}
 
 
-
+    /// <summary>
+    /// Метод для подключения к Интернет сераису по выбарке адреса доставки
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private async void addressEntry_TextChanged(object sender, TextChangedEventArgs e)
     {
         // https://github.com/hflabs/dadata-csharp
@@ -40,7 +44,11 @@ public partial class ViewAddAdres_dostavki : PopupPage
 
         addressDataList.ItemsSource = addresses.ToList();
     }
-
+    /// <summary>
+    /// Выбранный адрес доставки
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private async void SelectAdres(object sender, SelectedItemChangedEventArgs e)
     {
         addressEntry.Text = e.SelectedItem.ToString();
@@ -54,7 +62,10 @@ public partial class ViewAddAdres_dostavki : PopupPage
             ValidBool = false;
         }
     }
-
+    /// <summary>
+    /// Метод для добавления адреса доставки
+    /// </summary>
+    /// <returns></returns>
     public async Task<bool> AddAdres_dostavki()
     {
        int UserID = Preferences.Default.Get("UserID", 0);

@@ -4,14 +4,6 @@
              x:Class="Marketplaes02.View.ViewMyOrders" Title="Мои заказы"
          xmlns:view="clr-namespace:Marketplaes02.View" Background="Azure"
              >
-
-
-    <!--<ContentPage.ToolbarItems>
-        <ToolbarItem Clicked="BtFilter"
-                 IconImageSource="filter.png"
-                 Order="Primary"
-                 Priority="0" />
-    </ContentPage.ToolbarItems>-->
     <StackLayout>
       
         <RefreshView x:Name="RefreshView1" 

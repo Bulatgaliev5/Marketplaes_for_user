@@ -36,32 +36,24 @@ namespace Marketplaes02.ViewModel
         }
 
 
-        /// <summary>
-        /// Метод загрузки Load
-        /// </summary>
         public async void Load()
         {
             await Loadkategoriya();
         }
-
+        /// <summary>
+        /// Метод для загрузки категории
+        /// </summary>
+        /// <returns></returns>
         private async Task<bool> Loadkategoriya()
         {
             // Строка запроса
             string
                 sql = "SELECT * FROM kategoriya";
 
-            // Объявление переменной на основе класс подключения:
-            // >    Connector conn
-            // Инициализация переменной:
-            // >    = new Connector()
 
 
             ConnectBD con = new ConnectBD();
 
-            // Объявление объекта команды:
-            // >    MySqlCommand cmd
-            // Инициализация объекта команды:
-            // >    new MySqlCommand(sql, conn.GetConn());
             MySqlCommand
                 cmd = new MySqlCommand(sql, con.GetConnBD());
 
@@ -96,7 +88,6 @@ namespace Marketplaes02.ViewModel
                     Image = reader["Image"].ToString(),
                 });
 
-                // await Task.Delay(1000);
             }
             OnPropertyChanged("KategoriyaList");
 

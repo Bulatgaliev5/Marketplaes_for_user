@@ -15,9 +15,7 @@ namespace Marketplaes02.ViewModel
     public class ViewModelSearchGoodsList : INotifyPropertyChanged
     {
         int ID_user;
-        /// <summary>
-        /// Список Good во время поиска 
-        /// </summary>
+
         private IList<SearchGoodsList> _Goods;
         public IList<SearchGoodsList> Goods
         {
@@ -171,6 +169,10 @@ namespace Marketplaes02.ViewModel
         {
             await MopupService.Instance.PushAsync(new ViewSortGoods(BoolRadioButton));
         }
+        /// <summary>
+        /// Метод для сортировки товаров
+        /// </summary>
+        /// <param name="sortOption"></param>
         private async void SortGoodsPrice(string sortOption)
         {
 
@@ -199,9 +201,6 @@ namespace Marketplaes02.ViewModel
         }
 
 
-        /// <summary>
-        /// Метод загрузки изделтй Load
-        /// </summary>
         public async void Load()
         {
             ID_user = Preferences.Default.Get("UserID", 0);
@@ -294,8 +293,7 @@ namespace Marketplaes02.ViewModel
         }
         public async Task<bool> AddSQLImageIsbrannoe(int ID_user, int ID_goods)
         {
-            // Строка запроса
-            //INSERT INTO `dp_bulat_base`.`isbrannoe_goods` (`ID_goods`, `ID_user`) VALUES (57, 27);
+
             string
                 sql = "INSERT INTO isbrannoe_goods (ID_goods, ID_user) VALUES (@ID_goods, @ID_user)";
 
@@ -344,28 +342,18 @@ namespace Marketplaes02.ViewModel
             // Возращение true
             return false;
         }
-        /// <summary>
-        /// Метод Получения изделий из БД
-        /// </summary>
-        /// <returns></returns>
+
         private async Task<bool> LoadGoods()
         {
             // Строка запроса
             string
                 sql = "SELECT * FROM goods ORDER BY RAND()";
 
-            // Объявление переменной на основе класс подключения:
-            // >    Connector conn
-            // Инициализация переменной:
-            // >    = new Connector()
 
 
             ConnectBD con = new ConnectBD();
 
-            // Объявление объекта команды:
-            // >    MySqlCommand cmd
-            // Инициализация объекта команды:
-            // >    new MySqlCommand(sql, conn.GetConn());
+
             MySqlCommand
                 cmd = new MySqlCommand(sql, con.GetConnBD());
 
@@ -432,7 +420,6 @@ namespace Marketplaes02.ViewModel
 
             }
             await conn.GetCloseBD();
-            // App.Current.Properties["ID_goods"] = id;
             return false;
         }
 

@@ -18,14 +18,14 @@ namespace Marketplaes02.Model
                 OnPropertyChanged("V_nalichiioods");
             }
         }
+
+
         int Kartochka_ID_goods, UserID;
-
-
         public Korzina()
         {
             Kartochka_ID_goods = Preferences.Default.Get("Kartochka_ID_goods", 0);
             UserID = Preferences.Default.Get("UserID", 0);
-            //  Price = Price * Count;
+
 
         }
 

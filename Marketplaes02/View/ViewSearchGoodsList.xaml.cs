@@ -26,7 +26,7 @@ public partial class ViewSearchGoodsList : ContentPage
     {
 
         BindingContext = new ViewModelSearchGoodsList();
-        // base.OnAppearing();
+
 
 
     }

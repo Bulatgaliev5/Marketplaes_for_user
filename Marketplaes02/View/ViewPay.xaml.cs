@@ -1,5 +1,4 @@
-using CommunityToolkit.Mvvm.Messaging;
-using Marketplaes02.Class;
+
 
 namespace Marketplaes02.View;
 
@@ -11,11 +10,5 @@ public partial class ViewPay : ContentPage
 
         Content = webView;
     }
-    //protected override bool OnBackButtonPressed()
-    //{
-    //    DisplayAlert("Уведомление", "Нажмите на кнопку 'Проверить платёж'", "Ок");
 
-    //    return base.OnBackButtonPressed();
-
-    //}
 }

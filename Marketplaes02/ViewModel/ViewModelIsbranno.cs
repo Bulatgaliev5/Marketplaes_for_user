@@ -7,12 +7,13 @@ using System.ComponentModel;
 
 namespace Marketplaes02.ViewModel
 {
+    /// <summary>
+    /// Класс для работы с избранными товарами
+    /// </summary>
     public class ViewModelIsbrannoe : INotifyPropertyChanged
     {
         int ID_user;
-        /// <summary>
-        /// Список Good
-        /// </summary>
+
         private IList<Isbrannoe> _Isbrannoelist;
         public IList<Isbrannoe> Isbrannoelist
         {
@@ -65,10 +66,6 @@ namespace Marketplaes02.ViewModel
             Load();
         }
 
-
-        /// <summary>
-        /// Метод загрузки изделтй Load
-        /// </summary>
         public async void Load()
         {
             
@@ -151,8 +148,7 @@ namespace Marketplaes02.ViewModel
         }
         public async Task<bool> AddSQLImageIsbrannoe(int ID_user, int ID_goods)
         {
-            // Строка запроса
-            //INSERT INTO `dp_bulat_base`.`isbrannoe_goods` (`ID_goods`, `ID_user`) VALUES (57, 27);
+
             string
                 sql = "INSERT INTO isbrannoe_goods (ID_goods, ID_user) VALUES (@ID_goods, @ID_user)";
 
@@ -201,10 +197,7 @@ namespace Marketplaes02.ViewModel
             // Возращение true
             return false;
         }
-        /// <summary>
-        /// Метод Получения изделий из БД
-        /// </summary>
-        /// <returns></returns>
+
         private async Task<bool> LoadGoods(int ID_user)
         {
             // Строка запроса
@@ -216,18 +209,11 @@ namespace Marketplaes02.ViewModel
                 "WHERE i.ID_user=@ID_user " +
                 "ORDER BY i.ID_goods DESC";
 
-            // Объявление переменной на основе класс подключения:
-            // >    Connector conn
-            // Инициализация переменной:
-            // >    = new Connector()
 
 
             ConnectBD con = new ConnectBD();
 
-            // Объявление объекта команды:
-            // >    MySqlCommand cmd
-            // Инициализация объекта команды:
-            // >    new MySqlCommand(sql, conn.GetConn());
+
             MySqlCommand
                 cmd = new MySqlCommand(sql, con.GetConnBD());
             cmd.Parameters.Add(new MySqlParameter("@ID_user", ID_user));
@@ -263,7 +249,6 @@ namespace Marketplaes02.ViewModel
                     Discount = Convert.ToInt32(reader["Discount"]),
                 });
 
-                // await Task.Delay(1000);
             }
             OnPropertyChanged("Isbrannoelist");
 
@@ -292,7 +277,7 @@ namespace Marketplaes02.ViewModel
 
             }
             await conn.GetCloseBD();
-            // App.Current.Properties["ID_goods"] = id;
+
             return false;
         }
 

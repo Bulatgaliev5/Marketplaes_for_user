@@ -100,24 +100,15 @@ namespace Marketplaes02.Model
                 OnPropertyChanged("Status");
             }
         }
-        public MyOrders()
-        {
 
-        }
         private int _ID_order;
 
-        /// <summary>
-        /// Поле Название изделия
-        /// </summary>
+
         private string _Name;
-        /// <summary>
-        /// Поле Изображение изделия
-        /// </summary>
+
         private StreamImageSource _Image;
 
-        /// <summary>
-        /// Поле Адрес доставки
-        /// </summary>
+
         private string _adres_Dostavki;
         
 
@@ -182,9 +173,7 @@ namespace Marketplaes02.Model
 
             }
         }
-        /// <summary>
-        /// Свойства Изображение изделия
-        /// </summary>
+
         public StreamImageSource Image
         {
             get => _Image;

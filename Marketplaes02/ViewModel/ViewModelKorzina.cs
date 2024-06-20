@@ -8,7 +8,6 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Text.Json;
 using System.Windows.Input;
-using Microsoft.Maui.Controls;
 using Marketplaes02.View;
 
 
@@ -91,7 +90,7 @@ namespace Marketplaes02.ViewModel
                 await UpdateCountKorzinaGood(korzina.ID_goods, UserID, korzina.Count);
 
             }
-            Update();
+      
         }
 
 
@@ -104,7 +103,7 @@ namespace Marketplaes02.ViewModel
 
                 await UpdateCountKorzinaGood(korzina.ID_goods, UserID, korzina.Count);
             await LoadKorzinaGoodPrice(korzina.ID_goods, UserID, korzina);
-            Update();
+    
         }
         public async Task<bool> LoadKorzinaGoodPrice(int id_good, int ID_user, Korzina korzina)
         {
@@ -281,12 +280,13 @@ namespace Marketplaes02.ViewModel
 
         }
 
-        public async void Update()
-        {
 
-           // SaveList("Sostavzakazalist", Korzinalist);
-        }
-
+        /// <summary>
+        /// Удалить тоапр из корзины
+        /// </summary>
+        /// <param name="ID_user"></param>
+        /// <param name="i"></param>
+        /// <returns></returns>
         public async Task<bool> SQL_Delete_Korzina(int ID_user, int i)
         {
             ConnectBD con = new ConnectBD();
@@ -316,6 +316,11 @@ namespace Marketplaes02.ViewModel
             }
             return false;
         }
+        /// <summary>
+        /// Метод для загрузки корзины пользователя
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         private  async Task<bool> LoadKorzinalist(int id)
         {
 
@@ -376,8 +381,7 @@ namespace Marketplaes02.ViewModel
            
             OnPropertyChanged("Korzinalist");
             await con.GetCloseBD();
-            // Preferences.Default.Set("Sostavzakazalist", Korzinalist.ToList<Korzina>);
-            ///  UpdateCount();
+
             return true;
 
 

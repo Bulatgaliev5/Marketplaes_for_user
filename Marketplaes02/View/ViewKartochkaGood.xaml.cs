@@ -5,13 +5,12 @@ namespace Marketplaes02.View;
 
 public partial class ViewKartochkaGood : ContentPage
 {
-    ViewModelKartochkaGood viewmodel = new ViewModelKartochkaGood();
     private System.Timers.Timer _timer;
 
     public ViewKartochkaGood()
     {
         BindingContext = new ViewModelKartochkaGood();
-        //BindingContext = new ViewModelImagesGoods();
+
         InitializeComponent();
         _timer = new System.Timers.Timer();
         _timer.Interval = 5000; // 5 seconds of inactivity
@@ -20,7 +19,7 @@ public partial class ViewKartochkaGood : ContentPage
 
     public void OnUserInteraction()
     {
-        // Reset the timer whenever the user interacts
+
         _timer.Stop();
         _timer.Start();
     }

@@ -32,9 +32,6 @@ namespace Marketplaes02.Model
                 OnPropertyChanged();
             }
         }
-        /// <summary>
-        /// Свойство Описание товара
-        /// </summary>
         public string Description
         {
             get => _Description;
@@ -54,9 +51,6 @@ namespace Marketplaes02.Model
                 OnPropertyChanged();
             }
         }
-        /// <summary>
-        /// Свойсва Название
-        /// </summary>
         public string Name
         {
             get => _Name;
@@ -67,10 +61,6 @@ namespace Marketplaes02.Model
 
             }
         }
-       
-        /// <summary>
-        /// Свойства цена
-        /// </summary>
         public float Price
         {
             get => _Price;
@@ -91,9 +81,6 @@ namespace Marketplaes02.Model
 
             }
         }
-        /// <summary>
-        /// Свойства Изображение товара
-        /// </summary>
         public ImageSource Image
         {
             get => _Image;

@@ -1,16 +1,12 @@
-﻿using CommunityToolkit.Maui.Core.Primitives;
+﻿
 using Marketplaes02.BD;
 using Marketplaes02.Model;
-using Microsoft.Maui;
-using Microsoft.Maui.Controls;
+
 using MySqlConnector;
-using System;
-using System.Collections.Generic;
+
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 
 namespace Marketplaes02.ViewModel
@@ -158,7 +154,11 @@ namespace Marketplaes02.ViewModel
 
 
         }
-
+        /// <summary>
+        /// Метод для загрузки конкретного заказа
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         private async Task<bool> LoadMyOrder_items(int id)
         {
 
@@ -221,10 +221,7 @@ namespace Marketplaes02.ViewModel
 
 
         }
-        private void Get_Count_goods()
-        {
-           
-        }
+
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged(string property)
         {

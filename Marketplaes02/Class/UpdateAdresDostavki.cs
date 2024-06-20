@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 
 namespace Marketplaes02.Class
 {
+    /// <summary>
+    /// Класс для обновления адреса доставки
+    /// </summary>
     public class UpdateAdresDostavki
     {
         public string SelectAdresDostavki { get; }

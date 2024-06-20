@@ -1,15 +1,11 @@
 ﻿using Marketplaes02.BD;
 using Marketplaes02.Model;
-using Microsoft.Maui;
-using Microsoft.Maui.Controls;
+
 using MySqlConnector;
-using System;
-using System.Collections.Generic;
+
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 
 
@@ -36,7 +32,6 @@ namespace Marketplaes02.ViewModel
           
         }
         int UserID;
-        //float Total_Order_Price_with_discount;
         private IList<MyOrder_items> _MyOrder_itemslist;
         public IList<MyOrder_items> MyOrder_itemslist
         {
@@ -47,6 +42,13 @@ namespace Marketplaes02.ViewModel
                 OnPropertyChanged("MyOrder_itemslist");
             }
         }
+
+        /// <summary>
+        /// Метод для загрузки моиз заказов
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="ID_order"></param>
+        /// <returns></returns>
         private async Task<bool> LoadMyOrders(int id, int ID_order)
         {
 
@@ -92,8 +94,7 @@ namespace Marketplaes02.ViewModel
                     Total_Count = Convert.ToInt32(reader["Total_Count"]),
                     ID_user = Convert.ToInt32(reader["User_ID"]),
                     Total_Price_with_discount = Convert.ToSingle(reader["Total_Price_with_discount"]),
-                   // Status = Convert.ToString(reader["Status"]),
-                   // Track_number = Convert.ToString(reader["Track_number"]),
+
 
                 });
                  Adres_Dostavki = Convert.ToString(reader["Adres_Dostavki"]);

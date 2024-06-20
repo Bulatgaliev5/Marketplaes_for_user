@@ -3,13 +3,12 @@ using CommunityToolkit.Mvvm.Messaging;
 using Marketplaes02.BD;
 using Marketplaes02.Class;
 using Marketplaes02.Model;
-using Microsoft.Maui;
+
 using MySqlConnector;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
+
 using System.Data;
 using System.Text.Json;
-using System.Xml.Linq;
+
 
 
 namespace Marketplaes02.ViewModel
@@ -40,12 +39,15 @@ namespace Marketplaes02.ViewModel
                 OnPropertyChanged("VisiblBtnZakazat");
             }
         }
+        /// <summary>
+        /// Конструктор
+        /// </summary>
+        /// <param name="Korzinalist"></param>
         public VewModelSostavZakaza(IList<Korzina> Korzinalist)
         {
             SostavZakazalist = Korzinalist;
             VisiblBtnZakazat = true;
             Load();
-            // Регистрируемся для получения сообщений о сортировке по цене
             WeakReferenceMessenger.Default.Register<UpdateAdresDostavki>(this, (r, m) =>
             {
                 User_Adres_Dostavki = m.SelectAdresDostavki;
@@ -70,12 +72,12 @@ namespace Marketplaes02.ViewModel
 
         }
 
-
+        /// <summary>
+        /// Метод для загрузки 
+        /// </summary>
         public async void Load()
         {
 
-            
-          //  SostavZakazalist = GetList<SostavZakaza>("Sostavzakazalist");
             User_Name = Preferences.Default.Get("UserName", "NoName");
             User_Number_phone = Preferences.Default.Get("UserNumber_phone", "NoName");
             User_Adres_Dostavki = Preferences.Default.Get("UserAdres_Dostavki", "NoName");
@@ -84,18 +86,19 @@ namespace Marketplaes02.ViewModel
             User_Data = GetUser_Data();
             Goods_Total_Price_with_discount = GetGoods_Total_Price_with_discount();
             Goods_Total_Count = GetGoods_Total_Count();
-            //  ID_goods = Preferences.Default.Get("ID_goods", 0);
-            //  await LoadSostavZakazalist(ID_goods);
-        }
 
+        }
+        /// <summary>
+        /// БД доавть адрес доставки
+        /// </summary>
+        /// <param name="labelPay"></param>
+        /// <returns></returns>
         public async Task<bool> SQL_AddOrders(string labelPay)
         {
             ConnectBD con = new ConnectBD();
 
             Order_date =  DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-           
 
-            // int id_klienta = (Int32)Application.Current.Properties["UserID"];
             
             string sql = "INSERT INTO `orders` (`ID_user`, `Order_date`, `Total_Count`, `Total_Price_with_discount`, Adres_Dostavki, labelPay) VALUES (@ID_user, @Order_date, @Total_Count, @Total_Price_with_discount, @Adres_Dostavki, @labelPay)";
             MySqlCommand cmd = new MySqlCommand(sql, con.GetConnBD());
@@ -110,7 +113,12 @@ namespace Marketplaes02.ViewModel
             await con.GetCloseBD();
             return true;
         }
-
+        /// <summary>
+        /// Получить заказа
+        /// </summary>
+        /// <param name="Order_date"></param>
+        /// <param name="ID_user"></param>
+        /// <returns></returns>
         private async Task<int> Get_ID_order(string Order_date, int ID_user)
         {
 
@@ -123,13 +131,11 @@ namespace Marketplaes02.ViewModel
             cmd.Parameters.Add(new MySqlParameter("@Order_date", Order_date));
             cmd.Parameters.Add(new MySqlParameter("@ID_user", ID_user));
 
-            // Синхронное подключение к БД
             await con.GetConnectBD();
 
-            // Объявление и инициалзиация метода асинрхонного чтения данных из бд
             MySqlDataReader
                  reader = await cmd.ExecuteReaderAsync();
-            // Проверка, что строк нет
+
             if (!reader.HasRows)
             {
                 await con.GetCloseBD();
@@ -144,7 +150,12 @@ namespace Marketplaes02.ViewModel
             return ID_order;
         }
 
-
+        /// <summary>
+        /// Добавить  заказы в состав заакза
+        /// </summary>
+        /// <param name="ID_order"></param>
+        /// <param name="i"></param>
+        /// <returns></returns>
         public async Task<bool> SQL_AddOrder_items(int ID_order, int i)
         {
             ConnectBD con = new ConnectBD();
@@ -160,6 +171,11 @@ namespace Marketplaes02.ViewModel
             await con.GetCloseBD();
             return true;
         }
+        /// <summary>
+        /// Обновить товары в наличии
+        /// </summary>
+        /// <param name="i"></param>
+        /// <returns></returns>
         public async Task<bool> SQL_Upbate_V_nalichii(int i)
         {
             ConnectBD con = new ConnectBD();
@@ -175,6 +191,11 @@ namespace Marketplaes02.ViewModel
             await con.GetCloseBD();
             return true;
         }
+        /// <summary>
+        /// Добавить заказы
+        /// </summary>
+        /// <param name="labelPay"></param>
+        /// <returns></returns>
         public async Task<bool> AddZakazi(string labelPay)
         {
             await SQL_AddOrders(labelPay);
@@ -196,7 +217,10 @@ namespace Marketplaes02.ViewModel
         }
 
 
-
+        /// <summary>
+        /// Проверить указан адрес доставки
+        /// </summary>
+        /// <returns></returns>
         public string CheckUserAdres_Dostavki()
         {
             if (User_Adres_Dostavki!= "")

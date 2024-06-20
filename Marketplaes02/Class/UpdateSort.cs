@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CommunityToolkit.Mvvm.Messaging;
-using Marketplaes02.Model;
-
+﻿
 namespace Marketplaes02.Class
 {
+    /// <summary>
+    /// Классс для работы сортировкой
+    /// </summary>
     public class UpdateSort
     {
         public string SelectParam { get; }

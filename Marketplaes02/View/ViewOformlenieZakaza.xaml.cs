@@ -100,7 +100,7 @@ public partial class ViewOformlenieZakaza : ContentPage
         };
         await this.Dispatcher.DispatchAsync(async () =>
        {
-           //Content = webView;
+     
            
            await Navigation.PushAsync(new ViewPay(webView));
            

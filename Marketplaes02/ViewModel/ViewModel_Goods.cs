@@ -5,8 +5,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data;
 using System.Windows.Input;
-using Marketplaes02.Class;
-using Microsoft.Maui.Storage;
+
 
 namespace Marketplaes02.ViewModel
 {
@@ -14,9 +13,7 @@ namespace Marketplaes02.ViewModel
     {
         int ID_user;
         Class.FileBase fileBase = new Class.FileBase();
-        /// <summary>
-        /// Список Good
-        /// </summary>
+
         private IList<Goods> _Goods;
         public IList<Goods> Goods
         {
@@ -97,9 +94,7 @@ namespace Marketplaes02.ViewModel
             }
         }
       
-        /// <summary>
-        /// Метод загрузки изделтй Load
-        /// </summary>
+
         public async Task Load()
         {
             VisibleCollectionViewEmptyView = false;
@@ -115,20 +110,23 @@ namespace Marketplaes02.ViewModel
                 }
                 else
                 {
-                    
 
                 }
                 VisibleNullList = false;
         }
+        /// <summary>
+        /// Мктод для загрузки иконок мои избранное в товарах
+        /// </summary>
+        /// <returns></returns>
         public async Task<bool> ImageIsbrannoeLoad()
         {
 
-           
+
             int i = 0;
             for (; i < Goods.Count; i++)
             {
 
-              bool res = await SQLImageIsbrannoeLoad(ID_user, Goods[i].ID_goods);
+                bool res = await SQLImageIsbrannoeLoad(ID_user, Goods[i].ID_goods);
                 if (res)
                 {
                     Goods[i].ImageIsbrannoe = "isbrannoe_true.png";
@@ -136,13 +134,19 @@ namespace Marketplaes02.ViewModel
                 else
                 {
 
-                   Goods[i].ImageIsbrannoe = "isbrannoe.png";
+                    Goods[i].ImageIsbrannoe = "isbrannoe.png";
                 }
 
             }
-          
+
             return true;
         }
+        /// <summary>
+        /// Метод загрузки избранных товарах
+        /// </summary>
+        /// <param name="ID_user"></param>
+        /// <param name="ID_goods"></param>
+        /// <returns></returns>
         private async Task<bool> SQLImageIsbrannoeLoad(int ID_user, int ID_goods)
         {
             // Строка запроса
@@ -184,10 +188,15 @@ namespace Marketplaes02.ViewModel
             // Возращение true
             return true;
         }
+        /// <summary>
+        /// Добавит избранные товары
+        /// </summary>
+        /// <param name="ID_user"></param>
+        /// <param name="ID_goods"></param>
+        /// <returns></returns>
         public async Task<bool> AddSQLImageIsbrannoe(int ID_user, int ID_goods)
         {
-            // Строка запроса
-            //INSERT INTO `dp_bulat_base`.`isbrannoe_goods` (`ID_goods`, `ID_user`) VALUES (57, 27);
+
             string
                 sql = "INSERT INTO isbrannoe_goods (ID_goods, ID_user) VALUES (@ID_goods, @ID_user)";
 
@@ -206,6 +215,12 @@ namespace Marketplaes02.ViewModel
             // Возращение true
             return true;
         }
+        /// <summary>
+        /// Метод для удаления товара из избранных
+        /// </summary>
+        /// <param name="ID_user"></param>
+        /// <param name="ID_goods"></param>
+        /// <returns></returns>
         public async Task<bool> SQLImageIsbrannoeDelete(int ID_user, int ID_goods)
         {
             // Строка запроса
@@ -237,7 +252,7 @@ namespace Marketplaes02.ViewModel
             return false;
         }
         /// <summary>
-        /// Метод Получения изделий из БД
+        /// Загрузить все товары
         /// </summary>
         /// <returns></returns>
         public async Task<bool> LoadGoods()
@@ -273,8 +288,7 @@ namespace Marketplaes02.ViewModel
             // Цикл while выполняется, пока есть строки для чтения из БД
             while (await reader.ReadAsync())
             {
-              //  await fileBase.LoadImageFromFtpAsync(reader["ImageGood"].ToString());
-                // Добавление элемента в коллекцию списка товаров на основе класса (Экземпляр класс создается - объект)
+              
                 Goods.Add(new Goods()
                 {
                     ID_goods = Convert.ToInt32(reader["ID_goods"]),
@@ -294,7 +308,11 @@ namespace Marketplaes02.ViewModel
         }
 
 
-
+        /// <summary>
+        /// Метод
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<bool> GoodsSelectSQL(int id)
         {
             string
@@ -312,7 +330,7 @@ namespace Marketplaes02.ViewModel
 
             }
             await conn.GetCloseBD();
-            // App.Current.Properties["ID_goods"] = id;
+            
             return false;
         }
 
