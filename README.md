@@ -3,6 +3,7 @@
 Логин mil
 Пароль 123
 
+Стек технологии: C#, .NET MAUI, MySQL, API yoomoney, API dadata, паттерн MVVM, ООП
 
 Концептуальная модель база данных
 <img width="600" height="500" alt="image" src="https://github.com/user-attachments/assets/c235b7b0-09dc-49dc-915e-75ec6ca9718c" />
